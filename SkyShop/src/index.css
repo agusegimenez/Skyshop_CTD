@@ -1,10 +1,5 @@
-html,
-body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
+/* HEADER */
+
 header {
   width: 100%;
   position: fixed;
@@ -50,4 +45,30 @@ header {
 .botones-header .button:hover {
   background-color: #323232;
   color: white;
+}
+
+/* BODY */
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  color: #000000; /* cambiar segun paleta de colores */
+
+}
+
+.body-div{
+  padding-top: 87px; /* esto es para que el body no quede atras del nav */
+  height: calc(100vh - 87px); /* esta medida es relativa al padding-top */
+  background-color: aqua; /* cambiar segun paleta de colores */
+}
+
+.total-width-y-center{
+  width: 100%;
+  text-align: center;
 }
