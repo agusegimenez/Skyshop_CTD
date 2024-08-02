@@ -1,6 +1,6 @@
 /* Tipografias */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 /* HEADER */
 
@@ -9,7 +9,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #01AC5C;
+  background-color: #01ac5c;
   padding: 10px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -28,14 +28,82 @@ header {
   cursor: pointer;
   margin-left: 20px;
 }
+.logo img {
+  width: 155px;
+  height: 80px;
+}
 .slogan {
   font-size: 18px;
   margin-left: 10px;
+  color: white;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 10px;
+}
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-family: "Be Vietnam", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  transition: color 0.3s;
+}
+.nav-links a:hover {
+  color: rgb(209, 209, 209);
 }
 .botones-header {
+  display: flex;
+  align-items: center;
   margin-right: 30px;
 }
-.botones-header .button {
+.botones-header .login {
+  color: white;
+  font-family: "Be Vietnam", sans-serif;
+  text-decoration: none;
+  margin-right: 10px;
+  font-size: 20px;
+  transition: color 0.3s;
+}
+.botones-header .login:hover {
+  color: rgb(209, 209, 209);
+}
+.botones-header .separator {
+  border-left: 2px solid white;
+  height: 40px;
+  margin: 0 10px;
+}
+
+.botones-header .create-account a {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: white;
+  font-family: "Be Vietnam", sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+.botones-header .create-account a:hover {
+  color: rgb(209, 209, 209);
+}
+
+.create-account .part {
+  line-height: 1.2;
+}
+/* .botones-header .button {
   background: none;
   border: 1px solid #000000;
   color: #070707;
@@ -44,12 +112,12 @@ header {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
-}
+} */
 
-.botones-header .button:hover {
-  background-color: #323232;
-  color: white;
-}
+/* .botones-header .button:hover {
+  background-color: white;
+  color: #01ac5c;
+} */
 
 /* BODY */
 
@@ -66,30 +134,33 @@ h3 {
   margin: 0;
 }
 
-.body-div{
+.body-div {
   padding-top: 87px; /* esto es para que el body no quede atras del nav */
-  height: calc(100% - 87px); /* esta medida es relativa al padding-top. cambiarla a 100% cuando el contenido del body sea mas que el del largo de la pantalla */
+  height: calc(
+    100% - 87px
+  ); /* esta medida es relativa al padding-top. cambiarla a 100% cuando el contenido del body sea mas que el del largo de la pantalla */
   background-color: white;
 }
 
 /* CATEGORIAS Y BUSCADOR */
 
-.categories-section{
-  background-color: #D0FDD7;
+.categories-section {
+  background-color: #d0fdd7;
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.categories-section h3{
+.categories-section h3 {
   margin-left: 5%;
   font-family: "Be Vietnam Pro";
   font-weight: 500;
-  color: #00843D;
+  color: #00843d;
 }
 
-.categories-section input{ /* esto hace referencia al input del buscador */
+.categories-section input {
+  /* esto hace referencia al input del buscador */
   margin-right: 5%;
   border-radius: 30px;
   border: none;
@@ -99,20 +170,20 @@ h3 {
 
 /* CARDS DE PRODUCTOS */
 
-.card{
+.card {
   height: 400px;
   text-align: center;
   font-family: "Montserrat";
-  background-color: #D0FDD7;
+  background-color: #d0fdd7;
   border-radius: 50px;
   width: 25vw;
 }
 
-.card img{
+.card img {
   height: 250px;
 }
 
-.recomendaciones{
+.recomendaciones {
   margin-top: 30px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
