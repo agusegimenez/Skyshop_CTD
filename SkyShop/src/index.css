@@ -1,3 +1,7 @@
+/* Tipografias */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 /* HEADER */
 
 header {
@@ -5,7 +9,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #36a543;
+  background-color: #01AC5C;
   padding: 10px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -59,16 +63,58 @@ body {
 
 h3 {
   color: #000000; /* cambiar segun paleta de colores */
-
+  margin: 0;
 }
 
 .body-div{
   padding-top: 87px; /* esto es para que el body no quede atras del nav */
-  height: calc(100vh - 87px); /* esta medida es relativa al padding-top */
-  background-color: aqua; /* cambiar segun paleta de colores */
+  height: calc(100% - 87px); /* esta medida es relativa al padding-top. cambiarla a 100% cuando el contenido del body sea mas que el del largo de la pantalla */
+  background-color: white;
 }
 
-.total-width-y-center{
-  width: 100%;
+/* CATEGORIAS Y BUSCADOR */
+
+.categories-section{
+  background-color: #D0FDD7;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.categories-section h3{
+  margin-left: 5%;
+  font-family: "Be Vietnam Pro";
+  font-weight: 500;
+  color: #00843D;
+}
+
+.categories-section input{ /* esto hace referencia al input del buscador */
+  margin-right: 5%;
+  border-radius: 30px;
+  border: none;
+  padding: 13px 13px 13px 33px;
+  width: 20%;
+}
+
+/* CARDS DE PRODUCTOS */
+
+.card{
+  height: 400px;
   text-align: center;
+  font-family: "Montserrat";
+  background-color: #D0FDD7;
+  border-radius: 50px;
+  width: 25vw;
+}
+
+.card img{
+  height: 250px;
+}
+
+.recomendaciones{
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 50px;
 }

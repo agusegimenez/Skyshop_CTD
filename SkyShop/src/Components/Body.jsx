@@ -6,7 +6,6 @@ import Searcher from "./Searcher"
 export default function Body() {
   return (
     <div className="body-div">
-        <Searcher />
         <Categories />
         <Recomendations />
     </div>
