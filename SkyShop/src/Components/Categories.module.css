@@ -1,14 +1,14 @@
 .categoriesSection {
-    background-color: #d0fdd7;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  background-color: #d0fdd7;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-  
+
 .categoriesSection h3 {
-    margin-left: 5%;
-    font-family: "Be Vietnam Pro";
-    font-weight: 500;
-    color: #00843d;
+  margin-left: 5%;
+  font-family: "Be Vietnam Pro";
+  font-weight: 500;
+  color: #00843d;
 }

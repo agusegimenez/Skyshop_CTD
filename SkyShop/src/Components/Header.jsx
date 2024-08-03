@@ -1,29 +1,31 @@
-import "../index.css"
+//import "../index.css"
+import customCss from "./Header.module.css"
+
 import { routes } from "../utils/routes"
 import { Link } from "react-router-dom"
 const Header = () => {
   return (
     <header>
-        <div className='header-divs'>
-            <div className='logo'>
-                <img src="./logoSkyShop.png" alt="" />                        {/*<Link to={routes.home}></Link> */}
-                <h2 className='slogan'>Del cielo a tu heladera</h2>    {/*<Link to={routes.home}></Link>*/}
+        <div className={customCss.headerDivs}>
+          <div className={customCss.logo}>
+            <img src="./logoSkyShop.png" alt="logo" />
+            <div className={customCss.separator}></div>
+            <div className={customCss.sloganContainer}>
+              <span className={customCss.slogan}>Los productos</span>
+              <span className={customCss.sloganSegundo}>vuelan a tu hogar</span>
             </div>
-            <nav className="nav-links">
+            </div>
+            <nav className={customCss.navLinks}>
               <ul>
                 <li><a href="#">Ofertas</a></li>
                 <li><a href="#">Productos</a></li>
                 <li><a href="#">Contacto</a></li>
               </ul>
             </nav>
-            <div className="botones-header">
-              <a href="#" className="login">login</a>
-            <div className="separator"></div>
-              <div className="create-account">
-                <a href="#"><span className="part">create</span></a>
-                <a href="#"><span className="part">account</span></a>
+            <div className={customCss.botonesHeader}>
+              <button className={customCss.btn}>Crear cuenta</button>
+              <button className={customCss.btn}>Iniciar Sesión</button>
           </div>
-        </div>
         </div>
     </header>
   )

@@ -1,10 +1,10 @@
 h3 {
-    color: #000000; /* cambiar segun paleta de colores */
-    margin: 0;
+  color: #000000; /* cambiar segun paleta de colores */
+  margin: 0;
 }
-  
+
 .bodyDiv {
-    padding-top:100px; /* esto es para que el body no quede atras del nav */
-    height: calc(100% - 100px);
-    background-color: white;
+  padding-top: 90px; /* esto es para que el body no quede atras del nav */
+  height: calc(100% - 100px);
+  background-color: white;
 }
