@@ -37,3 +37,12 @@
     border: 2px solid #00843d;
     cursor: pointer;
 }
+
+@media screen and (max-width: 550px) {
+
+    .recomendationsTitle{
+        font-size: 25px;
+        text-align: center;
+        margin: 40px 0;
+    }
+}
