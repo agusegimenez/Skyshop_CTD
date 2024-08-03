@@ -119,73 +119,10 @@ header {
   color: #01ac5c;
 } */
 
-/* BODY */
-
 html,
 body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-}
-
-h3 {
-  color: #000000; /* cambiar segun paleta de colores */
-  margin: 0;
-}
-
-.body-div {
-  padding-top: 87px; /* esto es para que el body no quede atras del nav */
-  height: calc(
-    100% - 87px
-  ); /* esta medida es relativa al padding-top. cambiarla a 100% cuando el contenido del body sea mas que el del largo de la pantalla */
-  background-color: white;
-}
-
-/* CATEGORIAS Y BUSCADOR */
-
-.categories-section {
-  background-color: #d0fdd7;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.categories-section h3 {
-  margin-left: 5%;
-  font-family: "Be Vietnam Pro";
-  font-weight: 500;
-  color: #00843d;
-}
-
-.categories-section input {
-  /* esto hace referencia al input del buscador */
-  margin-right: 5%;
-  border-radius: 30px;
-  border: none;
-  padding: 13px 13px 13px 33px;
-  width: 20%;
-}
-
-/* CARDS DE PRODUCTOS */
-
-.card {
-  height: 400px;
-  text-align: center;
-  font-family: "Montserrat";
-  background-color: #d0fdd7;
-  border-radius: 50px;
-  width: 25vw;
-}
-
-.card img {
-  height: 250px;
-}
-
-.recomendaciones {
-  margin-top: 30px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 50px;
-}
+} /* esto es del html del body del index.html */

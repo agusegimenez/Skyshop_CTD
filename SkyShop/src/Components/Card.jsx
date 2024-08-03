@@ -1,14 +1,16 @@
-import "../index.css"
+// import "../index.css"
+import customCss from "./Card.module.css"
 
 export const Card = ({producto}) => {
     const {imagen, nombre, precio, id} = producto;
 
   return (
-    <article className="card" key={id}>
+    <article className={customCss.card} key={id}>
         <img src={imagen} />
-        <h2>{nombre}</h2>
-        <p>{precio}</p>
-        <button>Ver detalle</button>
+        <div>
+          <h2>{nombre}</h2>
+          <p>{precio}</p>
+        </div>
     </article>
   )
 }

@@ -1,4 +1,5 @@
-import "../index.css"
+// import "../index.css"
+import customCss from "./Recomendations.module.css"
 import { productos } from "../utils/products"
 import { Card } from "./Card"
 
@@ -21,7 +22,7 @@ export default function Recomendations() {
     }
 
   return (
-    <section className="recomendaciones">
+    <section className={customCss.recomendaciones}>
         {traerProductos10Random()}
     </section>
   )

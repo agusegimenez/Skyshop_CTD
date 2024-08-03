@@ -1,0 +1,12 @@
+.card {
+    height: 400px;
+    text-align: center;
+    font-family: "Montserrat";
+    background-color: #d0fdd7;
+    border-radius: 50px;
+    width: 25vw;
+}
+  
+.card img {
+    height: 250px;
+}
