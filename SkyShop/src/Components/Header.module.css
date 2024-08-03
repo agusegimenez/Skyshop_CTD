@@ -96,3 +96,44 @@ header {
   background-color: white;
   color: #01ac5c;
 }
+.userIcon {
+  display: none;
+}
+.cartIcon {
+  display: none;
+}
+@media (max-width: 768px) {
+  .navLinks,
+  .botonesHeader,
+  .sloganContainer,
+  .separator {
+    display: none;
+  }
+
+  .logo {
+    margin-left: 60px;
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  .userIcon {
+    display: block;
+    position: absolute;
+    right: 120px;
+  }
+
+  .userIcon img {
+    width: 35px;
+    height: auto;
+  }
+  .cartIcon {
+    display: block;
+    position: absolute;
+    right: 60px;
+  }
+
+  .cartIcon img {
+    width: 35px;
+    height: auto;
+  }
+}
