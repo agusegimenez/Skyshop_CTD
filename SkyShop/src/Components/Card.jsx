@@ -6,10 +6,12 @@ export const Card = ({producto}) => {
 
   return (
     <article className={customCss.card} key={id}>
-        <img src={imagen} />
-        <div>
-          <h2>{nombre}</h2>
-          <p>{precio}</p>
+        <div className={customCss.divImg}>
+          <img src={imagen} />
+        </div>
+        <div className={customCss.divNombreYPrecio}>
+          <h3>{nombre}</h3>
+          <p id="precio">${precio}</p>
         </div>
     </article>
   )

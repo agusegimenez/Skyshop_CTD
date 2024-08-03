@@ -1,12 +1,44 @@
 .card {
-    height: 400px;
+    display: flex;
+    height: 115px;
     text-align: center;
     font-family: "Montserrat";
     background-color: #d0fdd7;
-    border-radius: 50px;
-    width: 25vw;
+    border-radius: 15px;
+    width: 100%;
 }
-  
-.card img {
-    height: 250px;
+
+.divImg{
+    background-color: white;
+    margin: 10px;
+    border-radius: 15px 0px 0px 15px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divImg img {
+    height: 80px;
+}
+
+.divNombreYPrecio{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    margin: 20px 0 20px 20px;
+}
+
+.divNombreYPrecio h3{
+    margin: 0;
+    font-weight: 400;
+}
+
+.divNombreYPrecio p{
+    margin: 0;
+    padding: 0;
+    font-size: 25px;
+    color: #00843d;
+    font-weight: bold;
 }
