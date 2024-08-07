@@ -3,6 +3,7 @@ import Header from "./Components/Header";
 import Body from './Components/Body';
 import Modal from "./Components/Modal";
 import './index.css';
+import Footer from "./Components/Footer";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +25,7 @@ function App() {
         onClose={handleCloseModal} 
         producto={selectedProduct} 
       />
+      <Footer/>
     </>
   );
 }

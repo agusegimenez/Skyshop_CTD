@@ -1,0 +1,110 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #01ac5c;
+  color: white;
+  font-family: "Be Vietnam Pro", sans-serif;
+  padding-bottom: 10px;
+}
+
+.izquierda,
+.derecha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logoFooter {
+  width: 170px;
+  height: 95px;
+}
+
+.iconsFooter a {
+  margin: 0 5px;
+  display: inline-block;
+}
+
+.iconsFooter img {
+  width: 30px;
+}
+
+.medio {
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+}
+.medio h2 {
+  font-weight: 400;
+}
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dosInput {
+  display: flex;
+  gap: 10px;
+}
+
+.inputF,
+.textArea {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.textArea {
+  height: 80px;
+  padding-right: 90px;
+}
+.coments {
+  position: relative;
+}
+
+.btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 5px 10px;
+  background-color: #01ac5c;
+  color: white;
+  font-family: "Be Vietnam Pro", sans-serif;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover {
+  background-color: #06db78;
+  color: #ffffff;
+}
+
+.derecha {
+  display: flex;
+  flex-direction: column;
+}
+
+.derecha ul {
+  list-style-type: none;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.derecha ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.derecha p {
+  font-size: 13px;
+}

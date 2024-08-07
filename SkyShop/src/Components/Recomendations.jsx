@@ -1,6 +1,7 @@
 import customCss from "./Recomendations.module.css";
 import { productos } from "../utils/products";
 import { Card } from "./Card";
+import Suscribe from "./Suscribe";
 
 export default function Recomendations({ handleOpenModal }) {
   const traerProductos10Random = () => {
@@ -34,6 +35,7 @@ export default function Recomendations({ handleOpenModal }) {
         {traerProductos10Random()}
       </div>
       <button className={customCss.recomendacionesBtn}>Ver más</button>
+      <Suscribe/>
     </section>
   );
 }

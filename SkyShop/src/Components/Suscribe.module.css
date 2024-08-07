@@ -1,0 +1,50 @@
+.ofertasMail {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #d0fdd7;
+  padding: 20px;
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 100px;
+}
+.ofertasMail h2 {
+  color: #01ac5c;
+}
+.btnInput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 400px;
+  max-width: 100%;
+  height: 50px;
+}
+.btnInput input {
+  border: none;
+  padding: 10px 15px;
+  outline: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+.btnInput button {
+  background-color: #01ac5c;
+  color: white;
+  font-family: "Be Vietnam Pro", sans-serif;
+  border: none;
+  padding: 10px 20px;
+  margin-top: -1px;
+  margin-left: 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+.btnInput button:hover {
+  background-color: #06db78;
+  color: #ffffff;
+}
