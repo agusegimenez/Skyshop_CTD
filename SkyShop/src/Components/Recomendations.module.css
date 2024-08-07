@@ -13,7 +13,8 @@
     font-family: "Be Vietnam Pro";
     font-weight: 500;
     font-size: 40px;
-    margin: 40px 0 40px 100px;
+    text-align: center;
+    margin: 40px 0;
     color: #00843d;
 }
 
@@ -42,7 +43,5 @@
 
     .recomendationsTitle{
         font-size: 25px;
-        text-align: center;
-        margin: 40px 0;
     }
 }

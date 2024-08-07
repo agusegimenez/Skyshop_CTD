@@ -1,7 +1,114 @@
+.searcherSect{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: #d0fdd7;
+}
+
+.textDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 50px 0;
+}
+
+.textDiv h1,
+.textDiv h2{
+  margin: 0;
+}
+
+.textDiv h1{
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 55px;
+  color: #00843d;
+}
+
+.textDiv h2{
+  font-family: "Be Vietnam Pro";
+  font-weight: 500;
+  font-size: 27px;
+}
+
 .searcherInput {
-    margin-right: 5%;
-    border-radius: 30px;
-    border: none;
-    padding: 13px 13px 13px 33px;
-    width: 20%;
+  border-radius: 30px;
+  border: none;
+  padding: 13px 13px 13px 33px;
+  width: 400px;
+}
+
+.inputDiv{
+  display: flex;
+  align-items: center;
+}
+
+.inputDiv img{
+  height: auto;
+  max-height: none;
+  width: auto; 
+  position: relative;
+  right: 37px;
+}
+
+.divImg img{
+  height: 100%;
+}
+
+@media screen and (max-width: 1440px) {
+  .searcherSect{
+    height: 300px;
   }
+
+  .textDiv h1{
+    font-size: 35px;
+  }
+
+  .textDiv h2{
+    font-size: 25px;
+  }
+
+  .searcherInput {
+    padding: 9px 9px 9px 23px;
+    width: 200px;
+  }
+  
+  .inputDiv img{
+    right: 37px;
+  }
+
+  .textDiv{
+    padding: 30px 0;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+
+  .searcherSect{
+    height: 250px;
+  }
+
+  .textDiv h1{
+    font-size: 25px;
+  }
+
+  .textDiv h2{
+    font-size: 17px;
+  }
+
+  .searcherInput {
+    padding: 7px 7px 7px 18px;
+    width: 150px;
+  }
+
+  .inputDiv img{
+    height: 18px;
+    right: 27px;
+  }
+
+}
+
+@media screen and (max-width: 769px) {
+  .divImg img{
+    display: none;
+  }
+}

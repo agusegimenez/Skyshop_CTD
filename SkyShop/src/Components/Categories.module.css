@@ -1,14 +1,24 @@
 .categoriesSection {
-  background-color: #d0fdd7;
-  height: 80px;
+  padding-top: 50px;
+  background-color: white;
+  width: 70%;
+  height: 400px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-.categoriesSection h3 {
-  margin-left: 5%;
-  font-family: "Be Vietnam Pro";
-  font-weight: 500;
-  color: #00843d;
+@media screen and (max-width: 1024px) {
+  .categoriesSection {
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .categoriesSection {
+    width: 80%;
+    padding-top: 20px;
+    height: 200px;
+  }
 }
