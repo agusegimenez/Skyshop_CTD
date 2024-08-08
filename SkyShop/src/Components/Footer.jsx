@@ -23,6 +23,7 @@ const Footer = () => {
             <img src="./iconoInstagram.png" alt="instagram" />
           </a>
         </div>
+        <p className={customCss.copyLogo}>Copyright 2024. All Rights Reserved</p>
       </div>
       <div className={customCss.medio}>
         <h2>Contactanos</h2>

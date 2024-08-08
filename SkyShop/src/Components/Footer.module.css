@@ -108,3 +108,23 @@
 .derecha p {
   font-size: 13px;
 }
+.copyLogo {
+  display: none;
+}
+@media screen and (max-width: 1024px) {
+  .derecha {
+    display: none;
+  }
+  .copyLogo {
+    display: block;
+  }
+}
+@media screen and (max-width: 768px) {
+  .footer {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .iconsFooter {
+    display: none;
+  }
+}
