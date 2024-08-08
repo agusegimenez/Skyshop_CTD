@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ICartService {
-    CartResponseDTO save(CartRequestDTO cart);
+    CartResponseDTO save(CartRequestDTO cartRequestDTO);
     Optional<CartResponseDTO> findById(Long id);
     List<CartResponseDTO> list();
-    void update(CartRequestDTO cart);
+    void update(CartRequestDTO cartRequestDTO);
     void delete(Long id);
 }

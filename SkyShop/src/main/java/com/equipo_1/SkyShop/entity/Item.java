@@ -22,7 +22,6 @@ public class Item {
     private Long id;
     private String name;
     private Float price;
-    private Integer number;
     private String description;
     @Enumerated(EnumType.STRING)
     private Categories category;
