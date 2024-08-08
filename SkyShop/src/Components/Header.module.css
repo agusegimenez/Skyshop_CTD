@@ -102,7 +102,46 @@ header {
 .cartIcon {
   display: none;
 }
-@media (max-width: 768px) {
+
+@media screen and (max-width: 1024px) {
+  .navLinks,
+  .botonesHeader {
+    display: none;
+  }
+  .sloganContainer,
+  .separator {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .logo {
+    margin-left: 60px;
+    flex: 1;
+  }
+
+  .userIcon {
+    display: block;
+    position: absolute;
+    right: 120px;
+  }
+
+  .userIcon img {
+    width: 30px;
+    height: auto;
+  }
+  .cartIcon {
+    display: block;
+    position: absolute;
+    right: 60px;
+  }
+
+  .cartIcon img {
+    width: 35px;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
   .navLinks,
   .botonesHeader,
   .sloganContainer,
