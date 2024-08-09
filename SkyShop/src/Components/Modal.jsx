@@ -4,7 +4,14 @@ import customCss from './Modal.module.css';
 const Modal = ({ isOpen, onClose, producto }) => {
   if (!isOpen || !producto) return null; 
 
-  const { imagen, nombre, precio } = producto;
+  const { imagen, nombre, precio, contenido} = producto;
+
+  const renderContenido = () => {
+    return contenido.map((content, index) => (
+      <p key={index}>{content} x1</p>
+    ));
+  };
+  
 
   return (
     <div className={customCss.modalCard}>
@@ -12,11 +19,10 @@ const Modal = ({ isOpen, onClose, producto }) => {
         <button className={customCss.btnCerrar} onClick={onClose}>X</button>
         <h2>{nombre}</h2>
         <img src={imagen} alt={nombre} />
-        <p className={customCss.nombreSt}>{nombre} <span className={customCss.precioSp}>${precio}</span></p>
         <div className={customCss.descripcion}>
-          <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
-          <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
+          {renderContenido()}
         </div>
+        <p className={customCss.nombreSt}>Precio: <span className={customCss.precioSp}>${precio}</span></p>
         <button className={customCss.btnAgregar}>Agregar a mi pedido</button>
       </div>
     </div>

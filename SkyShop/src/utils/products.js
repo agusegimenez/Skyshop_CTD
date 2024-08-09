@@ -2,129 +2,149 @@ export const productos = [
   {
     id: 1,
     imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/desodorante-axe-apollo-x-88-gr.jpg",
-    nombre: "Desodorante AXE APOLLO",
+      "./paquete_medicamentos.png",
+    nombre: "Paquete Medicamentos",
+    contenido: [
+      "Analgésicos (paracetamol, ibuprofeno)",
+      "Antiséptico para heridas",
+      "Bandas adhesivas (curitas)",
+      "Jarabe para la tos"
+    ],
+    categoria: "Salud y Belleza",
     precio: 1990,
     stock: 10,
   },
   {
     id: 2,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/perfume-anotonio-banderas.jpg",
-    nombre: "Perfume Antonio Banderas",
+    imagen: "./paquete_facial.png",
+    nombre: "Paquete Cuidado Facial",
+    contenido: [
+      "Limpiador facial",
+      "Tónico",
+      "Hidratante",
+      "Protector solar"
+    ],
+    categoria: "Salud y Belleza",
     precio: 45099,
     stock: 5,
   },
   {
     id: 3,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/teatrical-crema-facial-antiarrugas-200-g.jpg",
-    nombre: "Crema Corporal Teatrical",
+    imagen: "./paquete_almuerzo.png",
+    categoria: "Alimentos",
+    nombre: "Paquete Almuerzo Rápido",
+    contenido: [
+      "Wraps de pollo y vegetales",
+      "Fruta fresca (manzanas, naranjas)",
+      "Botellas de agua mineral",
+      "Barras de granola"
+    ],
     precio: 9670,
     stock: 20,
   },
   {
     id: 4,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/perfume-verde.jpg",
-    nombre: "Perfume Vertiver Terra",
+    imagen: "./paquete_noche_peliculas.png",
+    nombre: "Paquete Noche de Películas",
+    contenido: [
+      "Palomitas de maíz",
+      "Chocolates y dulces",
+      "Snacks salados (papas fritas, nachos)"
+    ],
+    categoria: "Alimentos",
     precio: 21700,
     stock: 8,
   },
   {
     id: 5,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/aceite-oliva.jpg",
-    nombre: "Aceite de Oliva",
+    imagen: "./paquete_perro.png",
+    nombre: "Paquete Perro Feliz",
+    categoria: "Mascotas",
+    contenido: [
+      "Comida premium para perros",
+      "Juguetes masticables",
+      "Premios para perros",
+      "Shampoo para perros"
+    ],
     precio: 8990,
     stock: 15,
   },
   {
     id: 6,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/gatorade-frutas-tropicales.jpg",
-    nombre: "Gatorade Frutas Tropicales",
+    imagen: "./paquete_gato.png",
+    categoria: "Mascotas",
+    nombre: "Paquete Gato Consentido",
+    contendio: [
+      "Arena para gatos",
+      "Juguetes interactivos",
+      "Snacks para gatos"
+    ],
     precio: 1820,
     stock: 25,
   },
   {
     id: 7,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/harina-pureza.png",
-    nombre: "Harina Pureza",
+    categoria: "Oficina",
+    imagen: "./paquete_oficina_casa.png",
+    nombre: "Paquete Oficina en Casa",
+    contenido: [
+      "Cuadernos y bolígrafos",
+      "Café premium y tazas",
+      "Snacks saludables (frutos secos, barras de proteína)",
+      "Auriculares con micrófono"
+    ],
     precio: 1425,
     stock: 30,
   },
   {
     id: 8,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/cerveza-miller.jpeg",
-    nombre: "Cerveza Pack x6 Miller",
+    imagen: "./paquete_oficina_organizada.png",
+    categoria: "Oficina",
+    nombre: "Paquete Oficina Organizada",
+    contenido: [
+      "Organizadores de escritorio",
+      "Soporte para laptop",
+      "Calendario y planificador semanal",
+      "Grapadora y grapas"
+    ],
     precio: 7600,
     stock: 12,
   },
   {
     id: 9,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/bimbo-hamburgesa.jpg",
-    nombre: "Bimbo Artesano",
+    categoria: "Alimentos",
+    imagen: "./paquete_dulce.png",
+    nombre: "Paquete dulce",
+    contenido: [
+      "Barra de Kitkat",
+      "Ositos Mogul"
+    ],
     precio: 1535,
     stock: 20,
   },
   {
     id: 10,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/branca-fernet.jpg",
-    nombre: "Fernet Branca",
+    imagen:"paquete_previa.png",
+    categoria: "Ocio",
+    nombre: "Paquete Previo",
+    contenido: [
+      "10 Latas Guiness Stout",
+      "Maní"
+    ],
     precio: 9900,
     stock: 10,
   },
   {
     id: 11,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/cocacola.png",
-    nombre: "Coca-cola",
-    precio: 3100,
-    stock: 50,
-  },
-  {
-    id: 12,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/Hinds-Crema-Rosa-Beauty-x-250-ml-7794640173103_img1.png",
-    nombre: "Crema Corporal Hinds",
-    precio: 5200,
-    stock: 20,
-  },
-  {
-    id: 13,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/papas-mccain.png",
-    nombre: "Papas McCain Tradicionales",
-    precio: 4600,
-    stock: 15,
-  },
-  {
-    id: 14,
+    categoria: "Alimentos",
     imagen:
       "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/doritos.png",
-    nombre: "Doritos Sabor Queso",
-    precio: 4069,
-    stock: 25,
-  },
-  {
-    id: 15,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/lays.jpg",
-    nombre: "Papitas Lays Sabor Asado",
+    nombre: "Paquete Salado",
+    contenido: [
+      "Doritos Sabor Queso",
+      "Papitas Lays Sabor Asado"
+    ],
     precio: 3100,
-    stock: 30,
-  },
-  {
-    id: 16,
-    imagen:
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/palitos-pehuamar.png",
-    nombre: "Palitos Pehuamar de Queso",
-    precio: 1700,
-    stock: 40,
-  },
+    stock: 50,
+  }
 ];

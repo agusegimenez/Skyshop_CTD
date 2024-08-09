@@ -4,11 +4,11 @@ export default function Searcher() {
   return (
     <section className={customCss.searcherSect}>
         <div className={customCss.textDiv}>
-          <h1>Lorem Ipsum Lorem Ipsum</h1>
+          <h1>Delivery de Drones</h1>
           <h2>
-            asdasdasdasdasdasdasd<br/>
-            sdasdasdasdasdsad<br/>
-            asdasdasd
+            El delivery del cielo.<br/>
+            ¡Esperalo de tranquis<br/>
+            en tu balcón!
           </h2>
           <div className={customCss.inputDiv}>
             <input className={customCss.searcherInput} type="search" id="buscador"/>
