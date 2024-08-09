@@ -7,7 +7,7 @@ const Header = () => {
         <div className={customCss.headerDivs}>
           <div className={customCss.logo}>
           <MenuHamburguesa/>
-            <img src="./logoSkyShop.png" alt="logo" />
+            <a href="../App.jsx"><img src="./logoSkyShop.png" alt="logo" /></a>
             <div className={customCss.separator}></div>
             <div className={customCss.sloganContainer}>
               <span className={customCss.slogan}>Los productos</span>
