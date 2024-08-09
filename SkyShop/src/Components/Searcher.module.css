@@ -1,11 +1,11 @@
-.searcherSect{
+.searcherSect {
   width: 100%;
   display: flex;
   justify-content: space-around;
   background-color: #d0fdd7;
 }
 
-.textDiv{
+.textDiv {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -13,19 +13,19 @@
 }
 
 .textDiv h1,
-.textDiv h2{
+.textDiv h2 {
   margin: 0;
 }
 
-.textDiv h1{
-  font-family: "Inter";
+.textDiv h1 {
+  font-family: "Roboto";
   font-weight: 400;
   font-size: 55px;
   color: #00843d;
 }
 
-.textDiv h2{
-  font-family: "Be Vietnam Pro";
+.textDiv h2 {
+  font-family: "Roboto";
   font-weight: 500;
   font-size: 27px;
 }
@@ -37,33 +37,33 @@
   width: 400px;
 }
 
-.inputDiv{
+.inputDiv {
   display: flex;
   align-items: center;
 }
 
-.inputDiv img{
+.inputDiv img {
   height: auto;
   max-height: none;
-  width: auto; 
+  width: auto;
   position: relative;
   right: 37px;
 }
 
-.divImg img{
+.divImg img {
   height: 100%;
 }
 
 @media screen and (max-width: 1440px) {
-  .searcherSect{
+  .searcherSect {
     height: 300px;
   }
 
-  .textDiv h1{
+  .textDiv h1 {
     font-size: 35px;
   }
 
-  .textDiv h2{
+  .textDiv h2 {
     font-size: 25px;
   }
 
@@ -71,27 +71,26 @@
     padding: 9px 9px 9px 23px;
     width: 200px;
   }
-  
-  .inputDiv img{
+
+  .inputDiv img {
     right: 37px;
   }
 
-  .textDiv{
+  .textDiv {
     padding: 30px 0;
   }
 }
 
 @media screen and (max-width: 1024px) {
-
-  .searcherSect{
+  .searcherSect {
     height: 250px;
   }
 
-  .textDiv h1{
+  .textDiv h1 {
     font-size: 25px;
   }
 
-  .textDiv h2{
+  .textDiv h2 {
     font-size: 17px;
   }
 
@@ -100,15 +99,14 @@
     width: 150px;
   }
 
-  .inputDiv img{
+  .inputDiv img {
     height: 18px;
     right: 27px;
   }
-
 }
 
 @media screen and (max-width: 769px) {
-  .divImg img{
+  .divImg img {
     display: none;
   }
 }

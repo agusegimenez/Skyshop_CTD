@@ -1,79 +1,78 @@
-.catArticle{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 200px;
-    color: #00843d;
-    font-family: "Be Vietnam Pro";
-    font-weight: 700;
+.catArticle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 200px;
+  color: #00843d;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
 }
 
-.imageDiv{
-    background-color: #d0fdd7;
-    padding: 35px;
-    border-radius: 50%;
-    transition: box-shadow 0.5s ease, transform 0.5s ease, background-color 0.5s ease;
+.imageDiv {
+  background-color: #d0fdd7;
+  padding: 35px;
+  border-radius: 50%;
+  transition: box-shadow 0.5s ease, transform 0.5s ease,
+    background-color 0.5s ease;
 }
 
-.imageDiv img{
-    height: 75px;
-    width: 75px;
+.imageDiv img {
+  height: 75px;
+  width: 75px;
 }
 
 .imageDiv:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    background-color: #82c48b;
-    transform: scale(1.1); 
-    cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  background-color: #82c48b;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1024px) {
+  .catArticle {
+    height: 150px;
+    font-size: 15px;
+  }
 
-    .catArticle{
-        height: 150px;
-        font-size: 15px;
-    }
+  .imageDiv {
+    padding: 25px;
+  }
 
-    .imageDiv{
-        padding: 25px;
-    }
-
-    .imageDiv img{
-        height: 60px;
-        width: 60px;
-    }
+  .imageDiv img {
+    height: 60px;
+    width: 60px;
+  }
 }
 
 @media screen and (max-width: 769px) {
+  .catArticle {
+    height: 120px;
+    font-size: 10px;
+  }
 
-    .catArticle{
-        height: 120px;
-        font-size: 10px;
-    }
+  .imageDiv {
+    padding: 18px;
+  }
 
-    .imageDiv{
-        padding: 18px;
-    }
-
-    .imageDiv img{
-        height: 45px;
-        width: 45px;
-    }
+  .imageDiv img {
+    height: 45px;
+    width: 45px;
+  }
 }
 
 @media screen and (max-width: 575px) {
-    .catArticle{
-        height: 80px;
-        font-size: 10px;
-    }
+  .catArticle {
+    height: 80px;
+    font-size: 10px;
+  }
 
-    .imageDiv{
-        padding: 15px;
-    }
+  .imageDiv {
+    padding: 15px;
+  }
 
-    .imageDiv img{
-        height: 35px;
-        width: 35px;
-    }
+  .imageDiv img {
+    height: 35px;
+    width: 35px;
+  }
 }

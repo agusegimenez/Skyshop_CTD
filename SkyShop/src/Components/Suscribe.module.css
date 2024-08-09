@@ -5,7 +5,7 @@
   background-color: #d0fdd7;
   padding: 15px 0px;
   width: 100%;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   margin-top: 100px;
 }
 .ofertasMail h2 {
@@ -19,7 +19,7 @@
   border-radius: 50px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 400px;
+  width: 350px;
   max-width: 100%;
   height: 50px;
 }
@@ -29,12 +29,12 @@
   outline: none;
   border-radius: 50px;
   font-size: 16px;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
 }
 .btnInput button {
   background-color: #01ac5c;
   color: white;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   border: none;
   padding: 10px 20px;
   margin-top: -1px;
@@ -47,4 +47,9 @@
 .btnInput button:hover {
   background-color: #06db78;
   color: #ffffff;
+}
+@media screen and (max-width: 900px) {
+  .ofertasMail {
+    flex-direction: column;
+  }
 }
