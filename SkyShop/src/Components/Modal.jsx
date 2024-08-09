@@ -16,7 +16,7 @@ const Modal = ({ isOpen, onClose, producto }) => {
   return (
     <div className={customCss.modalCard}>
       <div className={customCss.contenidoMod}>
-        <button className={customCss.btnCerrar} onClick={onClose}>X</button>
+        <button className={customCss.btnCerrar} onClick={onClose}><img src="./icono-flecha.png" alt="flechaAtras" /></button>
         <h2>{nombre}</h2>
         <img src={imagen} alt={nombre} />
         <div className={customCss.descripcion}>

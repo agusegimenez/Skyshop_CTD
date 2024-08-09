@@ -9,6 +9,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .contenidoMod {
@@ -21,6 +23,7 @@
   max-width: 500px;
   width: 100%;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .contenidoMod h2 {
@@ -46,9 +49,11 @@
   right: 10px;
   background: none;
   border: none;
-  font-size: 20px;
   cursor: pointer;
   color: #00843d;
+}
+.btnCerrar {
+  width: 40px;
 }
 .descripcion {
   border-radius: 10px;
@@ -64,4 +69,30 @@
   border-radius: 50px;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .contenidoMod {
+    max-width: 65%;
+    padding: 15px;
+  }
+
+  .btnAgregar {
+    padding: 10px 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenidoMod {
+    max-width: 95%;
+    padding: 10px;
+  }
+
+  .btnAgregar {
+    padding: 10px 50px;
+  }
+
+  .contenidoMod img {
+    max-height: 200px;
+  }
 }
