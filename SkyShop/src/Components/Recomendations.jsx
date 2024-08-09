@@ -8,7 +8,9 @@ export default function Recomendations({ handleOpenModal }) {
     const productosCards = [];
     const usadosIndices = new Set();
 
-    while (usadosIndices.size < 10) {
+    const maxProductos = Math.min(productos.length, 10); // Limita el máximo a 10 o menos si hay menos productos.
+
+    while (usadosIndices.size < maxProductos) {
       const randomIndex = Math.floor(Math.random() * productos.length);
 
       if (!usadosIndices.has(randomIndex)) {
