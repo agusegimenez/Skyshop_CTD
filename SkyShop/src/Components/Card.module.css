@@ -15,7 +15,6 @@
   background-color: #a0d2a0;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
-
 .divImg {
   background-color: white;
   margin: 10px;
@@ -50,6 +49,12 @@
   font-size: 25px;
   color: #00843d;
   font-weight: bold;
+}
+
+.imagenPrueba {
+  margin-top: 200px;
+  width: 200px;
+  height: 100px;
 }
 
 /* RESPONSIVE CARDS */

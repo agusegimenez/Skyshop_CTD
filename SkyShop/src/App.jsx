@@ -1,30 +1,19 @@
-import React, { useState } from 'react';
+import {Routes, Route } from 'react-router-dom';
 import Header from "./Components/Header";
 import Body from './Components/Body';
-import Modal from "./Components/Modal";
-import './index.css';
 import Footer from "./Components/Footer";
+import Detail from './Routes/Detail'; // La vista para los detalles de la card
+import './index.css';
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-
-  const handleOpenModal = (producto) => {
-    setSelectedProduct(producto);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => setIsModalOpen(false);
 
   return (
     <>
       <Header />
-      <Body handleOpenModal={handleOpenModal} />
-      <Modal 
-        isOpen={isModalOpen} 
-        onClose={handleCloseModal} 
-        producto={selectedProduct} 
-      />
+      <Routes>
+        <Route path="/" element={<Body/>} />
+        <Route path="/details/:id" element={<Detail />} /> {/* Ruta para los detalles */}
+      </Routes>
       <Footer/>
     </>
   );

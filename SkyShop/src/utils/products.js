@@ -1,14 +1,13 @@
 export const productos = [
   {
     id: 1,
-    imagen:
-      "./paquete_medicamentos.png",
+    imagen: "./paquete_medicamentos.png",
     nombre: "Paquete Medicamentos",
     contenido: [
       "Analgésicos (paracetamol, ibuprofeno)",
       "Antiséptico para heridas",
       "Bandas adhesivas (curitas)",
-      "Jarabe para la tos"
+      "Jarabe para la tos",
     ],
     categoria: "Salud y Belleza",
     precio: 1990,
@@ -18,12 +17,7 @@ export const productos = [
     id: 2,
     imagen: "./paquete_facial.png",
     nombre: "Paquete Cuidado Facial",
-    contenido: [
-      "Limpiador facial",
-      "Tónico",
-      "Hidratante",
-      "Protector solar"
-    ],
+    contenido: ["Limpiador facial", "Tónico", "Hidratante", "Protector solar"],
     categoria: "Salud y Belleza",
     precio: 45099,
     stock: 5,
@@ -37,7 +31,7 @@ export const productos = [
       "Wraps de pollo y vegetales",
       "Fruta fresca (manzanas, naranjas)",
       "Botellas de agua mineral",
-      "Barras de granola"
+      "Barras de granola",
     ],
     precio: 9670,
     stock: 20,
@@ -49,7 +43,7 @@ export const productos = [
     contenido: [
       "Palomitas de maíz",
       "Chocolates y dulces",
-      "Snacks salados (papas fritas, nachos)"
+      "Snacks salados (papas fritas, nachos)",
     ],
     categoria: "Alimentos",
     precio: 21700,
@@ -64,7 +58,7 @@ export const productos = [
       "Comida premium para perros",
       "Juguetes masticables",
       "Premios para perros",
-      "Shampoo para perros"
+      "Shampoo para perros",
     ],
     precio: 8990,
     stock: 15,
@@ -74,10 +68,10 @@ export const productos = [
     imagen: "./paquete_gato.png",
     categoria: "Mascotas",
     nombre: "Paquete Gato Consentido",
-    contendio: [
+    contenido: [
       "Arena para gatos",
       "Juguetes interactivos",
-      "Snacks para gatos"
+      "Snacks para gatos",
     ],
     precio: 1820,
     stock: 25,
@@ -91,7 +85,7 @@ export const productos = [
       "Cuadernos y bolígrafos",
       "Café premium y tazas",
       "Snacks saludables (frutos secos, barras de proteína)",
-      "Auriculares con micrófono"
+      "Auriculares con micrófono",
     ],
     precio: 1425,
     stock: 30,
@@ -105,7 +99,7 @@ export const productos = [
       "Organizadores de escritorio",
       "Soporte para laptop",
       "Calendario y planificador semanal",
-      "Grapadora y grapas"
+      "Grapadora y grapas",
     ],
     precio: 7600,
     stock: 12,
@@ -115,22 +109,16 @@ export const productos = [
     categoria: "Alimentos",
     imagen: "./paquete_dulce.png",
     nombre: "Paquete dulce",
-    contenido: [
-      "Barra de Kitkat",
-      "Ositos Mogul"
-    ],
+    contenido: ["Barra de Kitkat", "Ositos Mogul"],
     precio: 1535,
     stock: 20,
   },
   {
     id: 10,
-    imagen:"paquete_previa.png",
+    imagen: "paquete_previa.png",
     categoria: "Ocio",
     nombre: "Paquete Previo",
-    contenido: [
-      "10 Latas Guiness Stout",
-      "Maní"
-    ],
+    contenido: ["10 Latas Guiness Stout", "Maní"],
     precio: 9900,
     stock: 10,
   },
@@ -140,11 +128,8 @@ export const productos = [
     imagen:
       "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/doritos.png",
     nombre: "Paquete Salado",
-    contenido: [
-      "Doritos Sabor Queso",
-      "Papitas Lays Sabor Asado"
-    ],
+    contenido: ["Doritos Sabor Queso", "Papitas Lays Sabor Asado"],
     precio: 3100,
     stock: 50,
-  }
+  },
 ];
