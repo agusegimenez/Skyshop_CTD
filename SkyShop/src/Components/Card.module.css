@@ -94,6 +94,18 @@
 }
 
 @media screen and (max-width: 550px) {
+
+  .card {
+    flex-direction: column;
+    align-items: center;
+    height: 180px;
+    border-radius: 10px;
+  }
+
+  .divImg img {
+    height: 50px;
+  }
+
   .divNombreYPrecio h3 {
     font-size: 10px;
   }
