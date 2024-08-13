@@ -5,22 +5,22 @@ const Footer = () => {
   return (
     <footer className={customCss.footer}>
       <div className={customCss.izquierda}>
-        <img className={customCss.logoFooter} src="./logoSkyShop.png" alt="logoSumo" />
+        <img className={customCss.logoFooter} src="/logoSkyShop.png" alt="logoSumo" />
         <div className={customCss.iconsFooter}>
           <a href="https://www.facebook.com">
-            <img src="./iconoFacebook.png" alt="facebook" />
+            <img src="/iconoFacebook.png" alt="facebook" />
           </a>
           <a href="https://www.youtube.com">
-            <img src="./iconoYoutube.png" alt="youtube" />
+            <img src="/iconoYoutube.png" alt="youtube" />
           </a>
           <a href="https://www.x.com">
-            <img src="./iconoTwitter.png" alt="twitter" />
+            <img src="/iconoTwitter.png" alt="twitter" />
           </a>
           <a href="https://www.pinterest.com">
-            <img src="./iconoPinterest.png" alt="pinterest" />
+            <img src="/iconoPinterest.png" alt="pinterest" />
           </a>
           <a href="https://www.instagram.com">
-            <img src="./iconoInstagram.png" alt="instagram" />
+            <img src="/iconoInstagram.png" alt="instagram" />
           </a>
         </div>
         <p className={customCss.copyLogo}>Copyright 2024. All Rights Reserved</p>

@@ -1,7 +1,7 @@
 export const productos = [
   {
     id: 1,
-    imagen: "./paquete_medicamentos.png",
+    imagen: "/paquete_medicamentos.png",
     nombre: "Paquete Medicamentos",
     contenido: [
       "Analgésicos (paracetamol, ibuprofeno)",
@@ -15,7 +15,7 @@ export const productos = [
   },
   {
     id: 2,
-    imagen: "./paquete_facial.png",
+    imagen: "/paquete_facial.png",
     nombre: "Paquete Cuidado Facial",
     contenido: ["Limpiador facial", "Tónico", "Hidratante", "Protector solar"],
     categoria: "Salud y Belleza",
@@ -24,7 +24,7 @@ export const productos = [
   },
   {
     id: 3,
-    imagen: "./paquete_almuerzo.png",
+    imagen: "/paquete_almuerzo.png",
     categoria: "Alimentos",
     nombre: "Paquete Almuerzo Rápido",
     contenido: [
@@ -38,7 +38,7 @@ export const productos = [
   },
   {
     id: 4,
-    imagen: "./paquete_noche_peliculas.png",
+    imagen: "/paquete_noche_peliculas.png",
     nombre: "Paquete Noche de Películas",
     contenido: [
       "Palomitas de maíz",
@@ -51,7 +51,7 @@ export const productos = [
   },
   {
     id: 5,
-    imagen: "./paquete_perro.png",
+    imagen: "/paquete_perro.png",
     nombre: "Paquete Perro Feliz",
     categoria: "Mascotas",
     contenido: [
@@ -65,7 +65,7 @@ export const productos = [
   },
   {
     id: 6,
-    imagen: "./paquete_gato.png",
+    imagen: "/paquete_gato.png",
     categoria: "Mascotas",
     nombre: "Paquete Gato Consentido",
     contenido: [
@@ -79,7 +79,7 @@ export const productos = [
   {
     id: 7,
     categoria: "Oficina",
-    imagen: "./paquete_oficina_casa.png",
+    imagen: "/paquete_oficina_casa.png",
     nombre: "Paquete Oficina en Casa",
     contenido: [
       "Cuadernos y bolígrafos",
@@ -92,7 +92,7 @@ export const productos = [
   },
   {
     id: 8,
-    imagen: "./paquete_oficina_organizada.png",
+    imagen: "/paquete_oficina_organizada.png",
     categoria: "Oficina",
     nombre: "Paquete Oficina Organizada",
     contenido: [
@@ -107,7 +107,7 @@ export const productos = [
   {
     id: 9,
     categoria: "Alimentos",
-    imagen: "./paquete_dulce.png",
+    imagen: "/paquete_dulce.png",
     nombre: "Paquete dulce",
     contenido: ["Barra de Kitkat", "Ositos Mogul"],
     precio: 1535,
@@ -115,9 +115,9 @@ export const productos = [
   },
   {
     id: 10,
-    imagen: "paquete_previa.png",
+    imagen: "/paquete_previa.png",
     categoria: "Ocio",
-    nombre: "Paquete Previo",
+    nombre: "Paquete Previa",
     contenido: ["10 Latas Guiness Stout", "Maní"],
     precio: 9900,
     stock: 10,

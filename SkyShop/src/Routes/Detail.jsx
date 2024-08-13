@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import customCss from "../Components/Card.module.css";
+import customCss from "./Detail.module.css";
 
 const Detail = () => {
   const location = useLocation();
@@ -9,17 +9,18 @@ const Detail = () => {
   if (!producto) {
     return <div>Producto no encontrado</div>;
   }
+  console.log(producto);
 
   const { imagen, nombre, precio, id, contenido } = producto;
 
   return (
-    <>
-      <div className={customCss.imagenPrueba}>
+    <section className={customCss.detailSect}>
+      <div>
         <img src={imagen} alt={nombre} />
       </div>
-      <div className={customCss.divNombreYPrecio}>
+      <div>
         <h3>{nombre}</h3>
-        <p id="precio">${precio}</p>
+        <p>${precio}</p>
       </div>
       <h2>Detalles del Producto</h2>
       <p>ID del Producto: {id}</p>
@@ -28,7 +29,7 @@ const Detail = () => {
           <li key={index}>{item}</li>
         ))}
       </ul>
-    </>
+    </section>
   );
 };
 

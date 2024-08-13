@@ -7,7 +7,7 @@ const Header = () => {
         <div className={customCss.headerDivs}>
           <div className={customCss.logo}>
           <MenuHamburguesa/>
-            <a href="/"><img src="./logoSkyShop.png" alt="logo" /></a>
+            <a href="/"><img src="/logoSkyShop.png" alt="logo" /></a>
             <div className={customCss.separator}></div>
             <div className={customCss.sloganContainer}>
               <span className={customCss.slogan}>Los productos</span>
@@ -26,10 +26,10 @@ const Header = () => {
               <button className={customCss.btn}>Iniciar Sesión</button>
           </div>
           <div className={customCss.userIcon}>
-          <a href="#"><img src="./user.png" alt="icon-usuario" /></a>
+          <a href="#"><img src="/user.png" alt="icon-usuario" /></a>
         </div>
         <div className={customCss.cartIcon}>
-          <a href="#"><img src="./cart.png" alt="carrito" /></a>
+          <a href="#"><img src="/cart.png" alt="carrito" /></a>
         </div>
         </div>
     </header>

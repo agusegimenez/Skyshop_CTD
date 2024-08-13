@@ -51,12 +51,6 @@
   font-weight: bold;
 }
 
-.imagenPrueba {
-  margin-top: 200px;
-  width: 200px;
-  height: 100px;
-}
-
 /* RESPONSIVE CARDS */
 
 @media screen and (max-width: 1024px) {

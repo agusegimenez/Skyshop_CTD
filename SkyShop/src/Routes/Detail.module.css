@@ -1,0 +1,6 @@
+.detailSect{
+    padding-top: 90px; /* esto es para que el detalle no quede atras del nav */
+    height: calc(100vh - 298px); /* esto es para que el footer quede pegado abajo, cambiar 100vh por 100% y 298px por 90px cuando el detalle ocupe mas del 100% de la pantalla */
+    background-color: white;
+    width: 100%;
+}
