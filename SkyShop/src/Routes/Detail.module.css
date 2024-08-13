@@ -3,4 +3,80 @@
     height: calc(100vh - 298px); /* esto es para que el footer quede pegado abajo, cambiar 100vh por 100% y 298px por 90px cuando el detalle ocupe mas del 100% de la pantalla */
     background-color: white;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto Condensed";
 }
+
+.btnCerrar{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btnCerrar img{
+    height: 40px;
+}
+
+.primerDiv{
+    display: flex;
+    width: 500px;
+    flex-direction: column;
+}
+
+.divNombreYBoton{
+    display: flex;
+    justify-content: space-between;
+}
+
+.contenidoMod {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    border: 3px solid #01ac5c;
+    font-family: "Roboto Condensed";
+    max-width: 500px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.contenidoMod li{
+    margin-left: 20px;
+}
+
+.precioP {
+    color: #00843d;
+    font-weight: 600;
+}
+
+.precioP span{
+    color: black;
+}
+
+.nombreSt {
+    font-weight: 700;
+}
+
+.imgDiv img{
+    height: 100px;
+    margin: 20px;
+    filter: drop-shadow(5px 5px 5px #222);
+}
+
+.imgDiv{
+    border-radius: 50px;
+    text-align: center;
+}
+
+.btnAgregar {
+    background: #01ac5c;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    padding: 10px 150px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
