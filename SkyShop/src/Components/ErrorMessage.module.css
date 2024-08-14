@@ -1,0 +1,12 @@
+.errorText {
+  color: red;
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0;
+  align-self: flex-start;
+  margin: 5px;
+}
+
+.errorInput {
+  border-color: red;
+}

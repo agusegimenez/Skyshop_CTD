@@ -1,0 +1,77 @@
+.padreForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  background-color: #f7f7f7;
+}
+.formCreate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  padding: 20px;
+  background-color: white;
+  font-family: "Roboto Condensed", sans-serif;
+  border: 2px solid green;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.email {
+  display: flex;
+  flex-direction: column;
+}
+.password {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.inpForm {
+  width: 250px;
+  padding: 10px;
+  border-radius: 20px;
+  border: 2px solid green;
+  outline: none;
+  font-family: "Roboto Condensed", sans-serif;
+  color: #666;
+}
+.errorInput {
+  border-color: red;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.env {
+  flex: 1;
+  margin-top: 20px;
+  padding: 7px;
+  border-radius: 20px;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: bold;
+  border: 2px solid green;
+  cursor: pointer;
+  background-color: white;
+  color: green;
+}
+
+.login {
+  flex: 1;
+  margin-top: 20px;
+  padding: 7px;
+  border-radius: 20px;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: bold;
+  border: 2px solid green;
+  cursor: pointer;
+  background-color: green;
+  color: white;
+}
