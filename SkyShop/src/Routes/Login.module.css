@@ -61,3 +61,11 @@ label {
   background-color: green;
   color: white;
 }
+@media screen and (max-width: 550px) {
+  .formCreate {
+    width: 200px;
+  }
+  .inpForm {
+    width: 180px;
+  }
+}
