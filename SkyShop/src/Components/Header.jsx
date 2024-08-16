@@ -8,9 +8,13 @@ const Header = () => {
   const navigate = useNavigate();
   const { showButtons, setShowButtons } = useContext(BotonContext);
 
-  const handleCrearCuentaClick = () => {
+  const handleLoginCuentaClick = () => {
     setShowButtons(false);
     navigate("/login");
+  };
+  const handleCrearCuentaClick = () => {
+    setShowButtons(false);
+    navigate("/register");
   };
 
   return (
@@ -33,8 +37,8 @@ const Header = () => {
           </ul>
         </nav>
           <div className={customCss.botonesHeader} style={{ visibility: showButtons ? 'visible' : 'hidden' }}>
-            <button className={customCss.btn}>Crear cuenta</button>
-            <button className={customCss.btn} onClick={handleCrearCuentaClick}>Iniciar Sesión</button>
+            <button className={customCss.btn} onClick={handleCrearCuentaClick}>Crear cuenta</button>
+            <button className={customCss.btn} onClick={handleLoginCuentaClick}>Iniciar Sesión</button>
           </div>
         <div className={customCss.userIcon}>
           <a href="#"><img src="/user.png" alt="icon-usuario" /></a>

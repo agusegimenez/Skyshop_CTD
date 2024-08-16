@@ -5,6 +5,7 @@ import Footer from "./Components/Footer";
 import Detail from './Routes/Detail'; // La vista para los detalles de la card
 import './index.css';
 import Login from './Routes/Login';
+import Create from './Routes/Create';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Body/>} />
         <Route path="/details/:id" element={<Detail />} /> {/* Ruta para los detalles */}
+        <Route path="/register" element={<Create/>}/>
         <Route path="/login" element={<Login/>} />
       </Routes>
       <Footer/>

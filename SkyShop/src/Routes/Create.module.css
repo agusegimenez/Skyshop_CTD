@@ -2,35 +2,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 100vh;
   background-color: #f7f7f7;
 }
+
 .formCreate {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 300px;
-  padding: 20px;
+  padding: 40px;
+  gap: 15px;
   background-color: white;
   font-family: "Roboto Condensed", sans-serif;
   border: 2px solid green;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.email {
-  display: flex;
-  flex-direction: column;
-}
-.password {
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-}
+
 label {
   font-weight: 500;
   margin-bottom: 5px;
 }
+
 .inpForm {
   width: 250px;
   padding: 10px;
@@ -40,19 +33,20 @@ label {
   font-family: "Roboto Condensed", sans-serif;
   color: #666;
 }
+
 .errorInput {
   border-color: red;
 }
 
 .btns {
   display: flex;
-  width: 100%;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .login {
-  flex: 1;
-  margin-top: 20px;
-  padding: 7px;
+  width: 50%;
+  padding: 10px;
   border-radius: 20px;
   font-family: "Roboto Condensed", sans-serif;
   font-weight: bold;
