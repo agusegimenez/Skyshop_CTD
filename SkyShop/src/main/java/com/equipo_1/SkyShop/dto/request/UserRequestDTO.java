@@ -1,24 +1,18 @@
-package com.equipo_1.SkyShop.dto.response;
+package com.equipo_1.SkyShop.dto.request;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientResponseDTO {
-    private Long id;
+public class UserRequestDTO {
     private String username;
     private String email;
+    private String password;
     private String address;
     private Integer phoneNumber;
-    private Long cartId;
-    private String createdAt;
-    private String updatedAt;
 }

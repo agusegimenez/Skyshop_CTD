@@ -5,17 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartResponseDTO {
+public class UserResponseDTO {
     private Long id;
-    private Long userId;
-    private Set<CartItemResponseDTO> cartItems = new HashSet<>();
+    private String username;
+    private String email;
+    private String address;
+    private Integer phoneNumber;
+    private Long cartId;
     private String createdAt;
+    private String updatedAt;
 }

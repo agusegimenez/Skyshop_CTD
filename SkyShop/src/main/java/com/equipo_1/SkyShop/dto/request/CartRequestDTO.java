@@ -14,6 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartRequestDTO {
-    private Long clientId;
+    private Long id;
+    private Long userId;
     private Set<CartItemRequestDTO> cartItems = new HashSet<>();
+    private String createdAt;
 }
