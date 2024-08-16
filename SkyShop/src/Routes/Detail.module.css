@@ -4,10 +4,15 @@
     background-color: white;
     width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     font-family: "Roboto Condensed";
+}
+
+.divGral{
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .btnCerrar{
@@ -17,13 +22,15 @@
 }
 
 .btnCerrar img{
-    height: 40px;
+    height: 20px;
 }
 
 .primerDiv{
     display: flex;
     width: 500px;
     flex-direction: column;
+    justify-content: space-between;
+    height: 286px;
 }
 
 .divNombreYBoton{
@@ -37,18 +44,35 @@
     border-radius: 20px;
     border: 3px solid #01ac5c;
     font-family: "Roboto Condensed";
-    max-width: 500px;
-    width: 100%;
+    width: 450px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+}
+
+.contenidoMod ul{
+    padding: 0;
+    margin: 0;
 }
 
 .contenidoMod li{
-    margin-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 25px;
+}
+
+.contenidoMod li p{
+    margin: 0;
 }
 
 .precioP {
     color: #00843d;
     font-weight: 600;
+    margin: 0;
+    text-align: center;
 }
 
 .precioP span{
@@ -60,7 +84,7 @@
 }
 
 .imgDiv img{
-    height: 100px;
+    height: 160px;
     margin: 20px;
     filter: drop-shadow(5px 5px 5px #222);
 }
@@ -74,9 +98,14 @@
     background: #01ac5c;
     color: white;
     font-family: "Roboto", sans-serif;
-    padding: 10px 150px;
+    padding: 10px 90px;
     border: none;
     border-radius: 50px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  }
+    margin: 25px 0;
+}
+
+.divBtn{
+    text-align: center;
+}
