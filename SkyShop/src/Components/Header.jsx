@@ -1,12 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import customCss from "./Header.module.css";
 import MenuHamburguesa from "./MenuHamburguesa";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { BotonContext } from "../Context/Context";
 
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { showButtons, setShowButtons } = useContext(BotonContext);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   const handleLoginCuentaClick = () => {
     setShowButtons(false);
@@ -40,9 +45,15 @@ const Header = () => {
             <button className={customCss.btn} onClick={handleCrearCuentaClick}>Crear cuenta</button>
             <button className={customCss.btn} onClick={handleLoginCuentaClick}>Iniciar Sesión</button>
           </div>
-        <div className={customCss.userIcon}>
+        <div className={customCss.userIcon} onClick={toggleMenu}>
           <a href="#"><img src="/user.png" alt="icon-usuario" /></a>
         </div>
+        {menuOpen && (
+        <div className={customCss.dropdownMenu}>
+           <button className={customCss.menuButton} onClick={handleLoginCuentaClick}>Iniciar sesión</button>
+          <button className={customCss.menuButton} onClick={handleCrearCuentaClick}>Crear cuenta</button>
+        </div>
+      )}
         <div className={customCss.cartIcon}>
           <a href="#"><img src="/cart.png" alt="carrito" /></a>
         </div>
