@@ -3,6 +3,7 @@
     height: calc(100vh - 298px); /* esto es para que el footer quede pegado abajo, cambiar 100vh por 100% y 298px por 90px cuando el detalle ocupe mas del 100% de la pantalla */
     background-color: white;
     width: 100%;
+    flex-direction: column;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,7 +86,7 @@
 
 .imgDiv img{
     height: 160px;
-    margin: 20px;
+    margin: 20px 20px 50px 20px;
     filter: drop-shadow(5px 5px 5px #222);
 }
 
@@ -108,4 +109,46 @@
 
 .divBtn{
     text-align: center;
+}
+
+.divCaracteristicas{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 20px;
+    border: 3px solid #01ac5c;
+    font-family: "Roboto Condensed";
+    box-sizing: border-box;
+    width: 80%;
+    height: 200px;
+}
+
+.divCaracteristicas h3{
+    color: #00843d;
+    font-size: 25px;
+    padding: 5px 20px;
+}
+
+.listaCaracteristicas{
+    margin-top: 30px;
+    display: flex;
+    margin-left: 0;
+    justify-content: space-between;
+    margin-right: 30%;
+}
+
+.listaCaracteristicas li{
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+
+.listaCaracteristicas li img{
+    height: 30px;
+}
+
+.listaCaracteristicas li p{
+    margin: 0;
+    padding-left: 20px;
+    font-weight: 500;
 }

@@ -9,6 +9,13 @@ export const productos = [
       "Bandas adhesivas (curitas)",
       "Jarabe para la tos",
     ],
+    caracteristicas: [
+      "Alimentos",
+      "Higiene",
+      "Diversion",
+      "Mascotas",
+      "Perros"
+    ],
     categoria: "Salud y Belleza",
     precio: 1990,
     stock: 10,
@@ -18,6 +25,13 @@ export const productos = [
     imagen: "/paquete_facial.png",
     nombre: "Paquete Cuidado Facial",
     contenido: ["Limpiador facial", "Tónico", "Hidratante", "Protector solar"],
+    caracteristicas: [
+      "Alimentos",
+      "Higiene",
+      "Diversion",
+      "Mascotas",
+      "Perros"
+    ],
     categoria: "Salud y Belleza",
     precio: 45099,
     stock: 5,
@@ -33,6 +47,13 @@ export const productos = [
       "Botellas de agua mineral",
       "Barras de granola",
     ],
+    caracteristicas: [
+      "Alimentos",
+      "Higiene",
+      "Diversion",
+      "Mascotas",
+      "Perros"
+    ],
     precio: 9670,
     stock: 20,
   },
@@ -44,6 +65,13 @@ export const productos = [
       "Palomitas de maíz",
       "Chocolates y dulces",
       "Snacks salados (papas fritas, nachos)",
+    ],
+    caracteristicas: [
+      "Alimentos",
+      "Higiene",
+      "Diversion",
+      "Mascotas",
+      "Perros"
     ],
     categoria: "Alimentos",
     precio: 21700,
@@ -60,6 +88,13 @@ export const productos = [
       "Premios para perros",
       "Shampoo para perros",
     ],
+    caracteristicas: [
+      "Alimentos",
+      "Higiene",
+      "Diversion",
+      "Mascotas",
+      "Perros"
+    ],
     precio: 8990,
     stock: 15,
   },
@@ -72,6 +107,13 @@ export const productos = [
       "Arena para gatos",
       "Juguetes interactivos",
       "Snacks para gatos",
+    ],
+    caracteristicas: [
+      "Alimentos",
+      "Higiene",
+      "Diversion",
+      "Mascotas",
+      "Perros"
     ],
     precio: 1820,
     stock: 25,
@@ -87,6 +129,13 @@ export const productos = [
       "Snacks saludables (frutos secos, barras de proteína)",
       "Auriculares con micrófono",
     ],
+    caracteristicas: [
+      "Alimentos",
+      "Higiene",
+      "Diversion",
+      "Mascotas",
+      "Perros"
+    ],
     precio: 1425,
     stock: 30,
   },
@@ -101,6 +150,13 @@ export const productos = [
       "Calendario y planificador semanal",
       "Grapadora y grapas",
     ],
+    caracteristicas: [
+      "Alimentos",
+      "Higiene",
+      "Diversion",
+      "Mascotas",
+      "Perros"
+    ],
     precio: 7600,
     stock: 12,
   },
@@ -110,6 +166,13 @@ export const productos = [
     imagen: "/paquete_dulce.png",
     nombre: "Paquete dulce",
     contenido: ["Barra de Kitkat", "Ositos Mogul"],
+    caracteristicas: [
+      "Alimentos",
+      "Higiene",
+      "Diversion",
+      "Mascotas",
+      "Perros"
+    ],
     precio: 1535,
     stock: 20,
   },
@@ -119,6 +182,13 @@ export const productos = [
     categoria: "Ocio",
     nombre: "Paquete Previa",
     contenido: ["10 Latas Guiness Stout", "Maní"],
+    caracteristicas: [
+      "Alimentos",
+      "Higiene",
+      "Diversion",
+      "Mascotas",
+      "Perros"
+    ],
     precio: 9900,
     stock: 10,
   },
@@ -129,7 +199,18 @@ export const productos = [
       "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/doritos.png",
     nombre: "Paquete Salado",
     contenido: ["Doritos Sabor Queso", "Papitas Lays Sabor Asado"],
+    caracteristicas: [
+      "Alimentos",
+      "Higiene",
+      "Diversion",
+      "Mascotas",
+      "Perros"
+    ],
     precio: 3100,
     stock: 50,
   },
 ];
+
+export const arrayToLowerCase = (arr) => {
+  return arr.map(str => str.toLowerCase());
+}
