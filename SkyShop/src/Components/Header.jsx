@@ -6,8 +6,13 @@ import { BotonContext } from "../Context/Context";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuLog, setMenuLog] = useState(false);
   const navigate = useNavigate();
   const { showButtons, setShowButtons } = useContext(BotonContext);
+
+  const toggleLog = () => {
+    setMenuLog(!menuLog);
+  }
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -41,6 +46,17 @@ const Header = () => {
             <li><a href="#">Carrito</a></li>
           </ul>
         </nav>
+
+        <div className={customCss.loguedIcon} onClick={toggleLog}>
+       <a href="#"><img src="/loguedIcon.png" alt="" /></a>
+      </div>
+      {menuLog && (
+        <div className={customCss.dropdownMenu}>
+           <a href="#" className={customCss.logMenu}>Usuario</a>
+           <a href="#" className={customCss.logMenu}>Carrito</a>
+           <button className={customCss.logBtn}>Cerrar Sesión</button>
+        </div>
+       )}
           <div className={customCss.botonesHeader} style={{ visibility: showButtons ? 'visible' : 'hidden' }}>
             <button className={customCss.btn} onClick={handleCrearCuentaClick}>Crear cuenta</button>
             <button className={customCss.btn} onClick={handleLoginCuentaClick}>Iniciar Sesión</button>
@@ -53,7 +69,7 @@ const Header = () => {
            <button className={customCss.menuButton} onClick={handleLoginCuentaClick}>Iniciar sesión</button>
           <button className={customCss.menuButton} onClick={handleCrearCuentaClick}>Crear cuenta</button>
         </div>
-      )}
+       )}
         <div className={customCss.cartIcon}>
           <a href="#"><img src="/cart.png" alt="carrito" /></a>
         </div>
