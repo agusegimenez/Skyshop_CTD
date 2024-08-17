@@ -1,0 +1,49 @@
+.divPadre{
+    padding-top: 90px; /* esto es para que el detalle no quede atras del nav */
+    height: 100%;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    font-family: "Roboto Condensed";
+}
+
+.panelAdmin{
+    margin: 80px 40px;
+    height: 850px;
+    background-color: #01ac5c;
+    width: 17%;
+    border-radius: 15px;
+}
+
+.panelAdmin h3{
+    margin-top: 20px;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+}
+
+.divAdminBtns{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+.adminBtn{
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: #01ac5c;
+    cursor: pointer;
+    color: white;
+    font-family: "Roboto Condensed";
+    font-weight: 600;
+    font-size: 20px;
+    height:  80px;
+}
+
+.adminBtn img{
+    margin: 0 15px 0 25px;
+    height: 30px;
+}

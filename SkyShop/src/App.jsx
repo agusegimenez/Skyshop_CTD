@@ -6,6 +6,7 @@ import Detail from './Routes/Detail'; // La vista para los detalles de la card
 import './index.css';
 import Login from './Routes/Login';
 import Create from './Routes/Create';
+import { PanelAdmin } from './Routes/PanelAdmin';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/details/:id" element={<Detail />} /> {/* Ruta para los detalles */}
         <Route path="/register" element={<Create/>}/>
         <Route path="/login" element={<Login/>} />
+        <Route path="/admin" element={<PanelAdmin/>} />
       </Routes>
       <Footer/>
     </>
