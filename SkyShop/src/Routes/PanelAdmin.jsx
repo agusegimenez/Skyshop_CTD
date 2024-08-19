@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import customCss from "./PanelAdmin.module.css";
+import Paquetes from '../Components/Paquetes';
 
 const adminPanelStateOptions = ["Usuarios", "Productos", "Categorías"];
 
@@ -50,6 +51,7 @@ export const PanelAdmin = () => {
                 </div>
         </div>
         <div>
+            {selectedOption === "Productos" && <Paquetes />}
             {/*
                 aca tendria q aparecer un componente
                 según el valor del estado selectedOption

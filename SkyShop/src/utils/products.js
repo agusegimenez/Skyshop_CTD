@@ -14,11 +14,12 @@ export const productos = [
       "Higiene",
       "Diversion",
       "Mascotas",
-      "Perros"
+      "Perros",
     ],
     categoria: "Salud y Belleza",
     precio: 1990,
     stock: 10,
+    fecha: "23/01/2024",
   },
   {
     id: 2,
@@ -30,11 +31,12 @@ export const productos = [
       "Higiene",
       "Diversion",
       "Mascotas",
-      "Perros"
+      "Perros",
     ],
     categoria: "Salud y Belleza",
     precio: 45099,
     stock: 5,
+    fecha: "7/04/2024",
   },
   {
     id: 3,
@@ -52,10 +54,11 @@ export const productos = [
       "Higiene",
       "Diversion",
       "Mascotas",
-      "Perros"
+      "Perros",
     ],
     precio: 9670,
     stock: 20,
+    fecha: "15/09/2024",
   },
   {
     id: 4,
@@ -71,11 +74,12 @@ export const productos = [
       "Higiene",
       "Diversion",
       "Mascotas",
-      "Perros"
+      "Perros",
     ],
     categoria: "Alimentos",
     precio: 21700,
     stock: 8,
+    fecha: "12/04/2024",
   },
   {
     id: 5,
@@ -93,10 +97,11 @@ export const productos = [
       "Higiene",
       "Diversion",
       "Mascotas",
-      "Perros"
+      "Perros",
     ],
     precio: 8990,
     stock: 15,
+    fecha: "5/04/2024",
   },
   {
     id: 6,
@@ -113,10 +118,11 @@ export const productos = [
       "Higiene",
       "Diversion",
       "Mascotas",
-      "Perros"
+      "Perros",
     ],
     precio: 1820,
     stock: 25,
+    fecha: "1/06/2024",
   },
   {
     id: 7,
@@ -134,10 +140,11 @@ export const productos = [
       "Higiene",
       "Diversion",
       "Mascotas",
-      "Perros"
+      "Perros",
     ],
     precio: 1425,
     stock: 30,
+    fecha: "13/02/2024",
   },
   {
     id: 8,
@@ -155,10 +162,11 @@ export const productos = [
       "Higiene",
       "Diversion",
       "Mascotas",
-      "Perros"
+      "Perros",
     ],
     precio: 7600,
     stock: 12,
+    fecha: "31/01/2024",
   },
   {
     id: 9,
@@ -171,10 +179,11 @@ export const productos = [
       "Higiene",
       "Diversion",
       "Mascotas",
-      "Perros"
+      "Perros",
     ],
     precio: 1535,
     stock: 20,
+    fecha: "30/08/2024",
   },
   {
     id: 10,
@@ -187,10 +196,11 @@ export const productos = [
       "Higiene",
       "Diversion",
       "Mascotas",
-      "Perros"
+      "Perros",
     ],
     precio: 9900,
     stock: 10,
+    fecha: "15/03/2024",
   },
   {
     id: 11,
@@ -204,13 +214,14 @@ export const productos = [
       "Higiene",
       "Diversion",
       "Mascotas",
-      "Perros"
+      "Perros",
     ],
     precio: 3100,
     stock: 50,
+    fecha: "26/11/2024",
   },
 ];
 
 export const arrayToLowerCase = (arr) => {
-  return arr.map(str => str.toLowerCase());
-}
+  return arr.map((str) => str.toLowerCase());
+};

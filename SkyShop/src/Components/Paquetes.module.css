@@ -1,0 +1,96 @@
+.padreProds {
+  width: 100%;
+  padding: 20px;
+}
+.headerProds {
+  display: flex;
+  justify-content: space-between;
+}
+.headerProds h2 {
+  color: #00843d;
+}
+.añadirProd {
+  background-color: #01ac5c;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 20px;
+}
+.añadirProd:hover {
+  background-color: #028d49;
+}
+.tableHeader {
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+.headerTitles {
+  display: grid;
+  padding: 10px;
+  grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1.5fr;
+  background-color: #01ac5c;
+  border-radius: 10px;
+  color: white;
+}
+.trListado {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr 1fr 1fr 0.5fr 1fr 0.2fr;
+  padding: 10px;
+  align-items: center;
+  border-bottom: 1px solid #01ac5c;
+}
+.trListado img {
+  width: 50px;
+  height: auto;
+  justify-self: center;
+}
+.trListado div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.letraVer {
+  color: #01ac5c;
+}
+.actionMenu {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.actionDropdown {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.actionDropdown a {
+  padding: 10px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.actionDropdown img {
+  width: 20px;
+  margin-right: 5px;
+}
+.actionDropdown a:hover {
+  background-color: #f1f1f1;
+}
+
+.actionDropdown a.editar {
+  color: green;
+}
+
+.actionDropdown a.eliminar {
+  color: red;
+}
