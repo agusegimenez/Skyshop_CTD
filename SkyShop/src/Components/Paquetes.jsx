@@ -17,11 +17,13 @@ const Paquetes = () => {
       <table className={customCss.tableHeader}>
         <thead>
           <tr className={customCss.headerTitles}>
+          <th></th>
             <th>PRODUCTO</th>
             <th>PRECIO</th>
             <th>CATEGORÍA</th>
             <th>VENTAS</th>
             <th>FECHA LISTADO</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

@@ -32,7 +32,7 @@
 .headerTitles {
   display: grid;
   padding: 10px;
-  grid-template-columns: 1.8fr 1.2fr 1.7fr 0.5fr 1.5fr;
+  grid-template-columns: 0fr 1.2fr 0.5fr 1fr 0.5fr 0.5fr 0.2fr;
   background-color: #01ac5c;
   border-radius: 10px;
   color: white;
