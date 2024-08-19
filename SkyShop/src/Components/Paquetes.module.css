@@ -17,7 +17,7 @@
   border-radius: 50px;
   cursor: pointer;
   float: right;
-  margin-bottom: 20px;
+  margin: 15px 0;
 }
 .añadirProd:hover {
   background-color: #028d49;
@@ -32,14 +32,14 @@
 .headerTitles {
   display: grid;
   padding: 10px;
-  grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1.5fr;
+  grid-template-columns: 1.8fr 1.2fr 1.7fr 0.5fr 1.5fr;
   background-color: #01ac5c;
   border-radius: 10px;
   color: white;
 }
 .trListado {
   display: grid;
-  grid-template-columns: 0.5fr 1.5fr 1fr 1fr 0.5fr 1fr 0.2fr;
+  grid-template-columns: 0fr 1fr 0.5fr 1fr 0.5fr 0.5fr 0.2fr;
   padding: 10px;
   align-items: center;
   border-bottom: 1px solid #01ac5c;
@@ -94,4 +94,16 @@
 
 .actionDropdown a.eliminar {
   color: red;
+}
+.btnVer {
+  margin-top: 60px;
+  border: none;
+  background-color: #01ac5c;
+  color: white;
+  cursor: pointer;
+  border-radius: 40px;
+  padding: 10px 20px;
+}
+.btnVer:hover {
+  background-color: #028d49;
 }
