@@ -69,7 +69,7 @@ const Create = () => {
         } 
   
       if (!validatePassword(password)){
-        setPasswordError('Contraseña inválida');
+        setPasswordError('La contraseña debe iniciar con Mayuscula y debe contener almenos 5 caracteres');
       }
         else{
           setPasswordError('');
