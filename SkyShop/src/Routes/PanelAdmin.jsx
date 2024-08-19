@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import customCss from "./PanelAdmin.module.css";
 import Paquetes from '../Components/Paquetes';
-
-const adminPanelStateOptions = ["Usuarios", "Productos", "Categorías"];
+import { UsersList } from '../Components/UsersList';
 
 export const PanelAdmin = () => {
 
@@ -52,6 +51,10 @@ export const PanelAdmin = () => {
         </div>
         <div className={customCss.divAdminRoutes}>
             {selectedOption === "Productos" && <Paquetes />}
+            {selectedOption === "Usuarios" && <UsersList />}
+            {selectedOption === "Categorías" && <p style={{
+                textAlign: "center", marginTop: "400px",
+            }}> Esta funcionalidad aún no se ha desarrollado</p>}
             {/*
                 aca tendria q aparecer un componente
                 según el valor del estado selectedOption

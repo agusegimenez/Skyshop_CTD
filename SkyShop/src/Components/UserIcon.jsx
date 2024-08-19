@@ -1,17 +1,18 @@
 import React from 'react'
-import { obtenerIniciales, obtenerNombreAvatar, usuarios } from '../utils/usuarios'
+import { obtenerIniciales, obtenerNombreAvatar} from '../utils/usuarios'
 import customCss from "./UserIcon.module.css"
 
-export const UserIcon = () => {
+// recibe por props el username del cual muestra las iniciales y nombre
+export const UserIcon = ({username}) => {
+  console.log(username);
 
-    // cambiar "usuarios[0]" por el usuario logeado (cuando contemos con esa funcionalidad del back)
-    const iniciales = obtenerIniciales(usuarios[0].username);
-    const nombre = obtenerNombreAvatar(usuarios[0].username);
+  const iniciales = obtenerIniciales(username);
+  const nombre = obtenerNombreAvatar(username);
 
   return (
-    <div className={customCss.dvIconGral}>
+    <div className={customCss.divIconGral}>
         <div className={customCss.divIniciales}>
-            <text>{iniciales}</text>
+            <span>{iniciales}</span>
         </div>
         <p className={customCss.pIcon}>{nombre}</p>
     </div>

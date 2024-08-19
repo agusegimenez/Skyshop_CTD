@@ -4,12 +4,15 @@ import MenuHamburguesa from "./MenuHamburguesa";
 import { useContext, useState } from "react";
 import { BotonContext } from "../Context/Context";
 import { UserIcon } from "./UserIcon";
+import { usuarios } from "../utils/usuarios";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuLog, setMenuLog] = useState(false);
   const navigate = useNavigate();
   const { showButtons, setShowButtons } = useContext(BotonContext);
+
+  const nombreUsuarioLogueado = usuarios[0].username; // cambiar por el nombre del usuario logueado cuando contemos con la logica de login con el back
 
   const toggleLog = () => {
     setMenuLog(!menuLog);
@@ -49,7 +52,7 @@ const Header = () => {
         </nav>
 
         <div className={customCss.loguedIcon} onClick={toggleLog}>
-       <a href="#"><UserIcon /></a>
+       <a href="#"><UserIcon username={nombreUsuarioLogueado}/></a>{/* cambiar el valor de username por el nombre del usuario logueado cuando contemos con esa funcionalidad */}
       </div>
       {menuLog && (
         <div className={customCss.dropdownMenu}>

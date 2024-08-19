@@ -1,27 +1,31 @@
 export const usuarios = [
     {
-        username: "Jon Doe",
-        role: false,
+        username: "John Doe",
+        role: "ADMIN",
         email: "jondoe@gmail.com",
         createdAt: "01/01/1997",
+        updatedAt: "01/01/1997",
     },
     {
-        username: "Jon Doe2",
-        role: false,
+        username: "John Toe",
+        role: "CLIENT",
         email: "jondoe2@gmail.com",
         createdAt: "02/02/1997",
+        updatedAt: "02/02/1997",
     },
     {
-        username: "Jon Doe3",
-        role: false,
+        username: "John Foe",
+        role: "CLIENT",
         email: "jondoe3@gmail.com",
         createdAt: "03/03/1997",
+        updatedAt: "03/03/1997",
     },
     {
-        username: "Jon Doe4",
-        role: false,
+        username: "John Fitzgerald Kennedy",
+        role: "CLIENT",
         email: "jondoe4@gmail.com",
         createdAt: "04/04/1997",
+        updatedAt: "04/04/1997",
     }
 ];
 
