@@ -23,6 +23,7 @@
   background-color: #028d49;
 }
 .tableHeader {
+  width: 100%;
   border-radius: 5px;
   margin-bottom: 10px;
   font-weight: bold;

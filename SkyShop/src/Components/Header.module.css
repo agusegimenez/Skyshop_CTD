@@ -110,6 +110,11 @@ header {
   width: 60px;
   height: 60px;
 }
+
+.loguedIcon a {
+  text-decoration: none;
+}
+
 .dropdownMenu {
   position: absolute;
   top: 80px;

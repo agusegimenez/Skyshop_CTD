@@ -3,6 +3,7 @@ import customCss from "./Header.module.css";
 import MenuHamburguesa from "./MenuHamburguesa";
 import { useContext, useState } from "react";
 import { BotonContext } from "../Context/Context";
+import { UserIcon } from "./UserIcon";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -48,7 +49,7 @@ const Header = () => {
         </nav>
 
         <div className={customCss.loguedIcon} onClick={toggleLog}>
-       <a href="#"><img src="/loguedIcon.png" alt="" /></a>
+       <a href="#"><UserIcon /></a>
       </div>
       {menuLog && (
         <div className={customCss.dropdownMenu}>

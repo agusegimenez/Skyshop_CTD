@@ -50,7 +50,7 @@ export const PanelAdmin = () => {
                     </button>
                 </div>
         </div>
-        <div>
+        <div className={customCss.divAdminRoutes}>
             {selectedOption === "Productos" && <Paquetes />}
             {/*
                 aca tendria q aparecer un componente
