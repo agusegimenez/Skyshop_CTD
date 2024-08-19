@@ -37,7 +37,6 @@ export default function Recomendations({ handleOpenModal }) {
         {traerProductos10Random()}
       </div>
       <button className={customCss.recomendacionesBtn}>Ver más</button>
-      <Suscribe/>
     </section>
   );
 }

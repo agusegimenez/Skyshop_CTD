@@ -3,6 +3,7 @@ import customCss from "./Footer.module.css";
 
 const Footer = () => {
   return (
+    
     <footer className={customCss.footer}>
       <div className={customCss.izquierda}>
         <img className={customCss.logoFooter} src="/logoSkyShop.png" alt="logoSumo" />

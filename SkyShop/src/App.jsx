@@ -7,6 +7,7 @@ import './index.css';
 import Login from './Routes/Login';
 import Create from './Routes/Create';
 import { PanelAdmin } from './Routes/PanelAdmin';
+import Suscribe from './Components/Suscribe';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/admin" element={<PanelAdmin/>} />
       </Routes>
+      <Suscribe/>
       <Footer/>
     </>
   );

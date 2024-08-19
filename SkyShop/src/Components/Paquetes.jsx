@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { productos } from '../utils/products'; 
 import customCss from "./Paquetes.module.css";
-
 const Paquetes = () => {
   const [visibleMenu, setVisibleMenu] = useState(null);
 
