@@ -4,9 +4,9 @@
 @media screen and (max-width: 1024px) {
   .hamburgerMenu {
     display: block;
-    position: absolute;
-    top: 15px;
-    left: 15px;
+    position: relative;
+    top: -5px;
+    left: -25px;
     z-index: 1000;
   }
 
@@ -19,11 +19,13 @@
   .menu {
     display: none;
     position: absolute;
-    top: 100%;
+    top: 60px;
     left: 0;
-    background-color: #333;
-    width: 100%;
-    text-align: center;
+    background-color: white;
+    border: 2px solid #00a651;
+    border-radius: 8px;
+    width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .menu.open {
@@ -34,20 +36,25 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    flex-direction: column;
   }
 
   .menu li {
-    padding: 10px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
   }
 
-  .menu a {
-    color: white;
+  .menu li a {
+    font-family: "Roboto", sans-serif;
     text-decoration: none;
+    color: #00843d;
+    font-size: 15px;
+    font-weight: 500;
+    display: block;
   }
 
-  .menu a:hover {
-    background-color: #575757;
+  .menu li:hover {
+    background-color: #00843e55;
   }
 }
 @media screen and (max-width: 768px) {
@@ -68,11 +75,13 @@
   .menu {
     display: none;
     position: absolute;
-    top: 100%;
+    top: 60px;
     left: 0;
-    background-color: #333;
-    width: 100%;
-    text-align: center;
+    background-color: white;
+    border: 2px solid #00a651;
+    border-radius: 8px;
+    width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .menu.open {
@@ -83,19 +92,24 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    flex-direction: column;
   }
 
   .menu li {
-    padding: 10px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
   }
 
-  .menu a {
-    color: white;
+  .menu li a {
+    font-family: "Roboto", sans-serif;
     text-decoration: none;
+    color: #00843d;
+    font-size: 15px;
+    font-weight: 500;
+    display: block;
   }
 
-  .menu a:hover {
-    background-color: #575757;
+  .menu li:hover {
+    background-color: #00843e55;
   }
 }

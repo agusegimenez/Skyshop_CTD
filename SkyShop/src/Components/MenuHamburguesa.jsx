@@ -13,12 +13,11 @@ const MenuHamburguesa = () => {
       <div className={customCss.hamburgerIcon} onClick={toggleMenu}>
         &#9776;
       </div>
-      <nav className={`${customCss.menu} ${isOpen ? 'open' : ''}`}>
+      <nav className={`${customCss.menu} ${isOpen ? customCss.open : ''}`}>
         <ul>
-          <li><a href="#">Home</a></li>
           <li><a href="#">Ofertas</a></li>
           <li><a href="#">Productos</a></li>
-          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Carrito</a></li>
         </ul>
       </nav>
     </div>
