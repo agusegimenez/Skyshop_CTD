@@ -13,9 +13,6 @@ public class UserResponseDTO {
     private Long id;
     private String username;
     private String email;
-    private String address;
-    private Integer phoneNumber;
-    private Long cartId;
     private String createdAt;
     private String updatedAt;
 }

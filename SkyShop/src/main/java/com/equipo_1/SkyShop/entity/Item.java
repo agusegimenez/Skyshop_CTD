@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="items")
+@Table(name = "items")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,9 +23,12 @@ public class Item {
     private String name;
     private Float price;
     private String description;
+
     @Enumerated(EnumType.STRING)
     private Categories category;
+
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CartItem> cartItems = new HashSet<>();
+
     private String image;
 }

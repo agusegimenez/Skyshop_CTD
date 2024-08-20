@@ -13,6 +13,4 @@ public class UserRequestDTO {
     private String username;
     private String email;
     private String password;
-    private String address;
-    private Integer phoneNumber;
 }

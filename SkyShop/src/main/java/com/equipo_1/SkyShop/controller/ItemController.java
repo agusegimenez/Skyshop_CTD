@@ -11,27 +11,28 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RestController
+@RequestMapping("/api/items")
 public class ItemController {
-    @RestController
-    @RequestMapping("/api/items")
-    public class ItemController {
 
-        private final ItemService itemService;
+    private final ItemService itemService;
 
-        public ItemController(ItemService itemService) {
-            this.itemService = itemService;
-        }
-
-        @GetMapping
-        public ResponseEntity<List<ItemResponseDTO>> getItems() {
-            List<Item> items = itemService.listItems();
-            List<ItemResponseDTO> itemDTOs = items.stream()
-                    .map(item -> new ItemResponseDTO(item.getId(), item.getName(),
-                            item.getPrice(), item.getDescription(),
-                            item.getCategory().name(), item.getImage()))
-                    .collect(Collectors.toList());
-            return ResponseEntity.ok(itemDTOs);
-        }
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<ItemResponseDTO>> getItems() {
+        List<Item> items = itemService.listItems();
+        List<ItemResponseDTO> itemDTOs = items.stream()
+                .map(item -> new ItemResponseDTO(
+                        item.getId(),
+                        item.getName(),
+                        item.getPrice(),
+                        item.getDescription(),
+                        item.getCategory().name(),
+                        item.getImage()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(itemDTOs);
+    }
 }
