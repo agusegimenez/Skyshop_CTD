@@ -23,7 +23,7 @@ public class Order {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private Client client;
+    private User user;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private Set<Item> items = new HashSet<>();
