@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,4 +44,20 @@ public class UserService implements IUserService {
     public Optional<User> findUserById(Long id) {
         return userRepository.findById(id);
     }
+
+    public User updateUserRole(Long id, UserRole role) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setRole(role);
+            return userRepository.save(user);
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
+    }
+
+    public List<User> listAllUsers() {
+        return userRepository.findAll();
+    }
 }
+
