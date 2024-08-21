@@ -31,6 +31,24 @@ const Header = () => {
     navigate("/register");
   };
 
+  function logout() {
+    fetch('http://localhost:8080/api/logout', {
+        method: 'POST',
+        credentials: 'include' // Esto incluye las cookies en la solicitud
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Logout successful');
+            // Aquí puedes redirigir al usuario a la página de inicio de sesión o a la página principal
+            window.location.href = '/'; // Cambia esto según tu ruta de inicio de sesión
+        } else {
+            console.error('Logout failed');
+        }
+    })
+    .catch(error => {
+        console.error('Error during logout:', error);
+    });
+}
   return (
     <header>
       <div className={customCss.headerDivs}>
@@ -58,7 +76,7 @@ const Header = () => {
         <div className={customCss.dropdownMenu}>
            <a href="#" className={customCss.logMenu}>Usuario</a>
            <a href="#" className={customCss.logMenu}>Carrito</a>
-           <button className={customCss.logBtn}>Cerrar Sesión</button>
+           <button onClick={logout()} className={customCss.logBtn}>Cerrar Sesión</button>
         </div>
        )}
           <div className={customCss.botonesHeader} style={{ visibility: showButtons ? 'visible' : 'hidden' }}>
