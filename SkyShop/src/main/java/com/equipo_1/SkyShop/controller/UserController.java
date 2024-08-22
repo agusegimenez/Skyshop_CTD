@@ -64,7 +64,7 @@ public class UserController {
         User updatedUser = userService.updateUserRole(id, roleUpdateDTO.getRole());
         return ResponseEntity.ok(new UserResponseDTO(
                 updatedUser.getId(),
-                updatedUser.getRole(), // Incluye el rol en la respuesta
+                updatedUser.getRole(),
                 updatedUser.getUsername(),
                 updatedUser.getEmail(),
                 updatedUser.getCreatedAt().toString(),
