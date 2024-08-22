@@ -1,34 +1,3 @@
-export const usuarios = [
-  {
-    username: "John Doe",
-    role: "ADMIN",
-    email: "jondoe@gmail.com",
-    createdAt: "01/01/1997",
-    updatedAt: "01/01/1997",
-  },
-  {
-    username: "John Toe",
-    role: "CLIENT",
-    email: "jondoe2@gmail.com",
-    createdAt: "02/02/1997",
-    updatedAt: "02/02/1997",
-  },
-  {
-    username: "John Foe",
-    role: "CLIENT",
-    email: "jondoe3@gmail.com",
-    createdAt: "03/03/1997",
-    updatedAt: "03/03/1997",
-  },
-  {
-    username: "John Fitzgerald Kennedy",
-    role: "CLIENT",
-    email: "jondoe4@gmail.com",
-    createdAt: "04/04/1997",
-    updatedAt: "04/04/1997",
-  },
-];
-
 /*
     esta funcion devuelve las primeras dos iniciales del nombre del usuario
     y si el usuario en su nombre cuenta con mas de dos palabras,
@@ -37,7 +6,7 @@ export const usuarios = [
     y la inicial de la ultima palabra (asegurando q las inciales contengan el primer nombre y el primer apellido)
 */
 export const obtenerIniciales = (nombre) => {
-  if (!nombre) {
+  if (nombre === null) {
     return ""; // Retorna un valor vacío o un valor por defecto si no hay nombre
   }
 
@@ -73,6 +42,7 @@ export const obtenerIniciales = (nombre) => {
     Si el username es solo 1 palabra tipo nickaname, lo devuelve completo.
 */
 export const obtenerNombreAvatar = (username) => {
+  if(username === null) return "";
   const palabras = username.trim().split(" ");
   if (palabras.length === 2) {
     return palabras[0] + " " + palabras[1];

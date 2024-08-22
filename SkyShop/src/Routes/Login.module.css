@@ -1,9 +1,11 @@
 .padreForm {
+  margin-top: 90px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: calc(100vh - 90px);
   background-color: #f7f7f7;
+  margin-bottom: -100px;
 }
 .formCreate {
   display: flex;

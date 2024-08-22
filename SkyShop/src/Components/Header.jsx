@@ -4,7 +4,6 @@ import MenuHamburguesa from "./MenuHamburguesa";
 import { useContext, useEffect, useState } from "react";
 import { BotonContext } from "../Context/Context";
 import { UserIcon } from "./UserIcon";
-import { usuarios } from "../utils/usuarios";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
