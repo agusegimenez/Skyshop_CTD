@@ -1,60 +1,67 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const BotonContext = createContext();
+
+const ifUserInStorage = JSON.parse(localStorage.getItem("loggedUser"));
+const loggingInitialState = ifUserInStorage === null ? null : ifUserInStorage;
 
 export const BotonProvider = ({ children }) => {
     const [showButtons, setShowButtons] = useState(true);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [loggedUser, setLoggedUser] = useState(loggingInitialState); //estado de usuario logueado
+    const url = "http://localhost:8080/api"; // endpoint general de api back end
+    const token = "694244ac-63ff-434d-a33a-c37a459677f3"; // token que hay que actualizar cada vez que se levanta el back end
+    const navigate = useNavigate();
+/*
+    const fetchUsers = async () => {
 
-    // Función para registrar un usuario
-    const registerUser = async (userData) => {
+        const username = 'admin1'; // Reemplaza con el nombre de usuario real
+        const email = "admin1@example.com";
+        const password = 'adminpassword'; // Reemplaza con la contraseña real
+        const credentials = btoa(`${username}:${email}:${password}`); // Codifica las credenciales en Base64
+
+
         try {
-            const response = await fetch('http://localhost:8080/api/users/register', {
-                method: 'POST',
+            const response = await fetch('http://localhost:8080/api/users', {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
+                  'Content-Type': 'application/json',
+                  'Authorization': `Basic ${credentials}`, // Añade el encabezado Authorization
                 },
-                body: JSON.stringify(userData), // Convierte el objeto a JSON
+                credentials: 'include',
             });
-
-            if (!response.ok) {
-                throw new Error('Error al registrar el usuario');
+  
+          if (!response.ok) {
+            if (response.status === 403) {
+              throw new Error('No tienes permiso para acceder a esta información.');
             }
-
-            const data = await response.json();
-            console.log('Usuario registrado:', data);
-
-            return data;
+            throw new Error('Error al obtener la lista de usuarios.');
+          }
+  
+          const data = await response.json();
+          console.log(data);
         } catch (error) {
-            console.error('Error en la petición de registro:', error);
-            return null;
+          console.error('Error en la petición:', error);
         }
-    };
+      };
+      */
 
-    // Ejemplo de datos de usuario que puedes enviar
-    const user = {
-        username: "testuser777",
-        email: "testuser777@example.com",
-        password: "testpassword777"
-    };
+      useEffect(() => {
+        if(loggedUser !== null){
+            setShowButtons(false);
+        }
+        //fetchUsers();
+      }, [showButtons])
 
-    useEffect(() => {
-        // Llamada para registrar un usuario cuando el componente se monte
-        registerUser(user);
-
-        // Fetch de productos desde el backend
-        fetch('http://localhost:8080/api/products')
-            .then(response => response.json())
-            .then(data => {
-                setProducts(data); 
-                setLoading(false);
-            })
-            .catch(error => console.error('Error al obtener productos:', error));
-    }, []);
+    const cerrarSesion = () => {
+        setLoggedUser(null);
+        localStorage.removeItem("loggedUser");
+    }
 
     return (
-        <BotonContext.Provider value={{ showButtons, setShowButtons, products, loading }}>
+        <BotonContext.Provider value={{ showButtons, setShowButtons, products, loading, loggedUser, setLoggedUser, cerrarSesion}}>
             {children}
         </BotonContext.Provider>
     );

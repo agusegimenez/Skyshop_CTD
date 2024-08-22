@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import customCss from "./Login.module.css";
 import ErrorMessage from '../Components/ErrorMessage';
 import { BotonContext } from '../Context/Context';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -9,8 +10,10 @@ const Login = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [serverError, setServerError] = useState(''); // Para manejar errores desde el servidor
+  const navigate = useNavigate();
+  const token = "694244ac-63ff-434d-a33a-c37a459677f3"; // token que hay que actualizar cada vez que se levanta el back end
 
-  const { setShowButtons } = useContext(BotonContext);
+  const { setShowButtons, setLoggedUser } = useContext(BotonContext);
 
   useEffect(() => {
     setShowButtons(false);
@@ -63,6 +66,7 @@ const Login = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
           },
           body: JSON.stringify({
             email,
@@ -76,6 +80,10 @@ const Login = () => {
 
         const data = await response.json();
         console.log('Usuario autenticado:', data);
+        setLoggedUser(data);
+        localStorage.setItem("loggedUser", JSON.stringify(data));
+        setShowButtons(false);
+        navigate("/");
 
         // Redirigir al usuario a otra página o guardar el token, etc.
         alert('Inicio de sesión exitoso');

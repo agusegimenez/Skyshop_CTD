@@ -53,7 +53,8 @@ export const obtenerIniciales = (nombre) => {
     del usuario y su apellido para que aparezca en el icono de usuario,
     para que si su username es de 5 palabras,
     los estilos CSS del icono de usuario del navbar
-    no se vean afectados (por el ancho del texto)
+    no se vean afectados (por el ancho del texto).
+    Si el username es solo 1 palabra tipo nickaname, lo devuelve completo.
 */
 export const obtenerNombreAvatar = (username) => {
     const palabras = username.trim().split(' ');
@@ -61,5 +62,7 @@ export const obtenerNombreAvatar = (username) => {
         return palabras[0] + " " + palabras[1];
     }else if(palabras.length > 2){
         return palabras[0] + " " + palabras[2];
+    }else{
+        return username;
     }
 }

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import customCss from "./Header.module.css";
 import MenuHamburguesa from "./MenuHamburguesa";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BotonContext } from "../Context/Context";
 import { UserIcon } from "./UserIcon";
 import { usuarios } from "../utils/usuarios";
@@ -10,9 +10,12 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuLog, setMenuLog] = useState(false);
   const navigate = useNavigate();
-  const { showButtons, setShowButtons } = useContext(BotonContext);
+  const { showButtons, setShowButtons, loggedUser, setLoggedUser, cerrarSesion} = useContext(BotonContext);
 
-  const nombreUsuarioLogueado = usuarios[0].username; // cambiar por el nombre del usuario logueado cuando contemos con la logica de login con el back
+  useEffect(() => {
+    setShowButtons(loggedUser === null);
+}, [loggedUser]);
+  
 
   const toggleLog = () => {
     setMenuLog(!menuLog);
@@ -50,15 +53,14 @@ const Header = () => {
             <li><a href="#">Carrito</a></li>
           </ul>
         </nav>
-
-        <div className={customCss.loguedIcon} onClick={toggleLog}>
-       <a href="#"><UserIcon username={nombreUsuarioLogueado}/></a>{/* cambiar el valor de username por el nombre del usuario logueado cuando contemos con esa funcionalidad */}
-      </div>
-      {menuLog && (
+        {loggedUser !== null && <div className={customCss.loguedIcon} onClick={toggleLog}>
+       <a href="#"><UserIcon username={loggedUser.username}/></a>
+      </div>}
+      {loggedUser && menuLog && (
         <div className={customCss.dropdownMenu}>
            <a href="#" className={customCss.logMenu}>Usuario</a>
            <a href="#" className={customCss.logMenu}>Carrito</a>
-           <button className={customCss.logBtn}>Cerrar Sesión</button>
+           <button className={customCss.logBtn} onClick={cerrarSesion}>Cerrar Sesión</button>
         </div>
        )}
           <div className={customCss.botonesHeader} style={{ visibility: showButtons ? 'visible' : 'hidden' }}>
@@ -68,7 +70,7 @@ const Header = () => {
         <div className={customCss.userIcon} onClick={toggleMenu}>
           <a href="#"><img src="/user.png" alt="icon-usuario" /></a>
         </div>
-        {menuOpen && (
+        {loggedUser === null && menuOpen && (
         <div className={customCss.dropdownMenu}>
            <button className={customCss.menuButton} onClick={handleLoginCuentaClick}>Iniciar sesión</button>
           <button className={customCss.menuButton} onClick={handleCrearCuentaClick}>Crear cuenta</button>

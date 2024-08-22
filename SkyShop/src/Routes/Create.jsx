@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import ErrorMessage from '../Components/ErrorMessage';
 import customCss from './Create.module.css';
 import { BotonContext } from '../Context/Context';
+import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
+    const navigate = useNavigate();
+
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [email, setEmail] = useState('');
@@ -89,14 +92,14 @@ const Create = () => {
 
         // Si no hay errores, se hace la petición al backend
         try {
+            const username = nombre + " " + apellido;
             const response = await fetch('http://localhost:8080/api/users/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    nombre,
-                    apellido,
+                    username,
                     email,
                     direccion,
                     password,
@@ -109,6 +112,7 @@ const Create = () => {
 
             const data = await response.json();
             console.log('Usuario registrado:', data);
+            navigate("/login");
 
             // Puedes limpiar el formulario si el registro fue exitoso
             setNombre('');
