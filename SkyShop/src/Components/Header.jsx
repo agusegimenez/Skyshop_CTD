@@ -62,7 +62,7 @@ const Header = () => {
            <button className={customCss.logBtn} onClick={cerrarSesion}>Cerrar Sesión</button>
         </div>
        )}
-          <div className={customCss.botonesHeader} style={{ display: showButtons ? 'flex' : 'none' }}>
+          <div className={customCss.botonesHeader} style={{ display: loggedUser ? 'none' : 'flex', visibility: showButtons ? 'visible' : 'hidden' }}>
             <button className={customCss.btn} onClick={handleCrearCuentaClick}>Crear cuenta</button>
             <button className={customCss.btn} onClick={handleLoginCuentaClick}>Iniciar Sesión</button>
           </div>
