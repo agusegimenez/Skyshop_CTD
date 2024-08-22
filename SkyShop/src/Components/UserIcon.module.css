@@ -1,29 +1,29 @@
-.divIconGral{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.divIconGral {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .divIniciales {
-    height: 40px;
-    width: 40px;
-    font-family: "Roboto Condensed";
-    color: white;
-    font-size: 20px;
-    border: 2px solid white;
-    box-sizing: border-box;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 40px;
+  width: 40px;
+  font-family: "Roboto Condensed";
+  color: white;
+  font-size: 20px;
+  border: 2px solid white;
+  box-sizing: border-box;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.pIcon{
-    font-family: "Roboto Condensed";
-    text-align: center;
-    margin: 0;
-    color: white;
-    margin-top: 5px;
-    font-size: 13px;
+.pIcon {
+  font-family: "Roboto Condensed";
+  text-align: center;
+  margin: 0;
+  color: white;
+  margin-top: 5px;
+  font-size: 13px;
 }

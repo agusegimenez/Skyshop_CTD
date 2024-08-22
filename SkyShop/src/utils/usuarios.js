@@ -1,32 +1,32 @@
 export const usuarios = [
-    {
-        username: "John Doe",
-        role: "ADMIN",
-        email: "jondoe@gmail.com",
-        createdAt: "01/01/1997",
-        updatedAt: "01/01/1997",
-    },
-    {
-        username: "John Toe",
-        role: "CLIENT",
-        email: "jondoe2@gmail.com",
-        createdAt: "02/02/1997",
-        updatedAt: "02/02/1997",
-    },
-    {
-        username: "John Foe",
-        role: "CLIENT",
-        email: "jondoe3@gmail.com",
-        createdAt: "03/03/1997",
-        updatedAt: "03/03/1997",
-    },
-    {
-        username: "John Fitzgerald Kennedy",
-        role: "CLIENT",
-        email: "jondoe4@gmail.com",
-        createdAt: "04/04/1997",
-        updatedAt: "04/04/1997",
-    }
+  {
+    username: "John Doe",
+    role: "ADMIN",
+    email: "jondoe@gmail.com",
+    createdAt: "01/01/1997",
+    updatedAt: "01/01/1997",
+  },
+  {
+    username: "John Toe",
+    role: "CLIENT",
+    email: "jondoe2@gmail.com",
+    createdAt: "02/02/1997",
+    updatedAt: "02/02/1997",
+  },
+  {
+    username: "John Foe",
+    role: "CLIENT",
+    email: "jondoe3@gmail.com",
+    createdAt: "03/03/1997",
+    updatedAt: "03/03/1997",
+  },
+  {
+    username: "John Fitzgerald Kennedy",
+    role: "CLIENT",
+    email: "jondoe4@gmail.com",
+    createdAt: "04/04/1997",
+    updatedAt: "04/04/1997",
+  },
 ];
 
 /*
@@ -37,16 +37,32 @@ export const usuarios = [
     y la inicial de la ultima palabra (asegurando q las inciales contengan el primer nombre y el primer apellido)
 */
 export const obtenerIniciales = (nombre) => {
-    const palabras = nombre.trim().split(' ');
+  if (!nombre) {
+    return ""; // Retorna un valor vacío o un valor por defecto si no hay nombre
+  }
 
-    if (palabras.length === 2) {
-        return palabras.map(palabra => palabra[0].toUpperCase()).join('');
-    } else if (palabras.length >= 3) {
-        return palabras[0][0].toUpperCase() + palabras[2][0].toUpperCase();
-    } else {
-        return palabras[0][0].toUpperCase();
-    }
-}
+  const palabras = nombre.trim().split(" ");
+
+  if (palabras.length === 1) {
+    return palabras.map((palabra) => palabra[0].toUpperCase()).join("");
+  } else if (palabras.length >= 3) {
+    return palabras[0][0].toUpperCase() + palabras[2][0].toUpperCase();
+  } else {
+    return palabras[0][0].toUpperCase();
+  }
+};
+
+// export const obtenerIniciales = (nombre) => {
+//     const palabras = nombre.trim().split(' ');
+
+//     if (palabras.length === 2) {
+//         return palabras.map(palabra => palabra[0].toUpperCase()).join('');
+//     } else if (palabras.length >= 3) {
+//         return palabras[0][0].toUpperCase() + palabras[2][0].toUpperCase();
+//     } else {
+//         return palabras[0][0].toUpperCase();
+//     }
+// }
 
 /*
     esta funcion retorna el primer y/o unico nombre
@@ -57,12 +73,12 @@ export const obtenerIniciales = (nombre) => {
     Si el username es solo 1 palabra tipo nickaname, lo devuelve completo.
 */
 export const obtenerNombreAvatar = (username) => {
-    const palabras = username.trim().split(' ');
-    if(palabras.length === 2){
-        return palabras[0] + " " + palabras[1];
-    }else if(palabras.length > 2){
-        return palabras[0] + " " + palabras[2];
-    }else{
-        return username;
-    }
-}
+  const palabras = username.trim().split(" ");
+  if (palabras.length === 2) {
+    return palabras[0] + " " + palabras[1];
+  } else if (palabras.length > 2) {
+    return palabras[0] + " " + palabras[2];
+  } else {
+    return username;
+  }
+};

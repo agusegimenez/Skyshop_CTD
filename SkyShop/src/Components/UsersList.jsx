@@ -1,87 +1,93 @@
-import React, { useState } from 'react'
-import customCss from "./UsersList.module.css"
-import { usuarios } from '../utils/usuarios.js'; 
+import React, { useContext, useState } from 'react';
+import { BotonContext } from '../Context/Context.jsx'; // Importamos el contexto
+import customCss from "./UsersList.module.css";
 import { UserIcon } from './UserIcon.jsx';
 
-
 export const UsersList = () => {
+    const { users, loading } = useContext(BotonContext); // Obtenemos los usuarios del contexto
 
     const [selectedUserId, setSelectedUserId] = useState(null);
-    const [updatedUsers, setUpdatedUsers] = useState(usuarios);
 
     const toggleDropdown = (index) => {
         setSelectedUserId(selectedUserId === index ? null : index);
     };
 
     const changeUserRole = (index, newRole) => {
-        const updated = updatedUsers.map((user, i) =>
+        const updated = users.map((user, i) =>
             i === index ? { ...user, role: newRole } : user
         );
-        setUpdatedUsers(updated);
+        setUsers(updated);
         setSelectedUserId(null);
     };
 
-  return (
-    <div className={customCss.padreProds}>
-      <div className={customCss.headerProds}>
-        <h2>Usuarios</h2>
-      </div>
-      <table className={customCss.tableHeader}>
-        <thead>
-          <tr className={customCss.headerTitles}>
-            <th></th>
-            <th className={customCss.thName}>NOMBRE</th>
-            <th>ROL</th>
-            <th>CREADO</th>
-            <th>ÚLTIMA SESIÓN</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {updatedUsers.map((user, index) => (
-            <>
-            <tr key={index} className={customCss.trListado}>
-              <td className={customCss.iconUser}>
-                <UserIcon username={user.username} />
-              </td>
-              <td className={customCss.tdName}>{user.username}</td>
-              <td className={customCss.letraVer}>
-                {user.role === "ADMIN" ? "Admin" : "Usuario"}
-                <img
-                    src='/desplegable_abajo.png'
-                    alt="Desplegable"
-                    onClick={() => toggleDropdown(index)}
-                    ClassName={customCss.iconDropdown}
-                />
-              </td>
-              <td>{user.createdAt}</td>
-              <td>{user.updatedAt}</td>
-            </tr>
-            {selectedUserId === index && (
-                <tr className={customCss.dropdownRow}>
-                  <td colSpan="6">
-                    <div className={customCss.dropdownContent}>
-                      <button
-                        onClick={() => changeUserRole(index, "ADMIN")}
-                        className={customCss.dropdownButton}
-                      >
-                        Admin
-                      </button>
-                      <button
-                        onClick={() => changeUserRole(index, "CLIENT")}
-                        className={customCss.dropdownButton}
-                      >
-                        Usuario
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              )}
-            </>
-          ))}
-          <button className={customCss.btnVer}>Ver más</button>
-        </tbody>
-      </table>
-    </div>
-  )
-}
+    if (loading) {
+        return <p>Cargando usuarios...</p>; // Mostramos un mensaje mientras carga
+    }
+console.log(loading);
+
+    return (
+        <div className={customCss.padreProds}>
+            <div className={customCss.headerProds}>
+                <h2>Usuarios</h2>
+            </div>
+            <table className={customCss.tableHeader}>
+                <thead>
+                    <tr className={customCss.headerTitles}>
+                        <th></th>
+                        <th className={customCss.thName}>NOMBRE</th>
+                        <th>ROL</th>
+                        <th>CREADO</th>
+                        <th>ÚLTIMA SESIÓN</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {users.map((user, index) => (
+                        <>
+                            <tr key={user.id} className={customCss.trListado}>
+                                <td className={customCss.iconUser}>
+                                    <UserIcon username={user.username} />
+                                </td>
+                                <td className={customCss.tdName}>{user.username}</td>
+                                <td className={customCss.letraVer}>
+                                    {user.role === "ADMIN" ? "Admin" : "Usuario"}
+                                    <img
+                                        src='/desplegable_abajo.png'
+                                        alt="Desplegable"
+                                        onClick={() => toggleDropdown(index)}
+                                        ClassName={customCss.iconDropdown}
+                                    />
+                                </td>
+                                <td>{user.createdAt}</td>
+                                <td>{user.updatedAt || 'N/A'}</td>
+                            </tr>
+                            {selectedUserId === index && (
+                                <tr className={customCss.dropdownRow}>
+                                    <td colSpan="6">
+                                        <div className={customCss.dropdownContent}>
+                                            <td><button
+                                                onClick={() => changeUserRole(index, "ADMIN")}
+                                                className={customCss.dropdownButton}
+                                            >
+                                                Admin
+                                            </button>
+                                            </td>
+                                            <td><button
+                                                onClick={() => changeUserRole(index, "CLIENT")}
+                                                className={customCss.dropdownButton}
+                                            >
+                                                Usuario
+                                            </button>
+                                            </td>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )}
+                        </>
+                    ))}
+                </tbody>
+            </table>
+            <button className={customCss.btnVer}>Ver más</button>
+        </div>
+    );
+};

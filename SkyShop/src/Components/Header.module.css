@@ -102,9 +102,10 @@ header {
 .cartIcon {
   display: none;
 }
-/* .loguedIcon {
-  display: none;      aca sacamos el logo USER LOGUEADO 
-} */
+.loguedIcon {
+  display: block;
+  margin-right: 80px;
+}
 
 .loguedIcon img {
   width: 60px;
@@ -118,7 +119,7 @@ header {
 .dropdownMenu {
   position: absolute;
   top: 80px;
-  right: 630px;
+  right: 20px;
   background-color: white;
   border: 2px solid #00843d;
   border-radius: 10px;
@@ -155,7 +156,7 @@ header {
 @media screen and (max-width: 1024px) {
   .navLinks,
   .botonesHeader {
-    display: none;
+    visibility: hidden;
   }
   .sloganContainer,
   .separator {
@@ -212,6 +213,14 @@ header {
     text-align: center;
     cursor: pointer;
     width: 100px;
+  }
+  .loguedIcon {
+    margin-right: 100px;
+  }
+
+  .loguedIcon img {
+    width: 60px;
+    height: 60px;
   }
 }
 

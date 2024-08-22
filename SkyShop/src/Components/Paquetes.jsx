@@ -50,9 +50,10 @@ const Paquetes = () => {
               </td>
             </tr>
           ))}
-          <button className={customCss.btnVer}>Ver más</button>
+          
         </tbody>
       </table>
+      <button className={customCss.btnVer}>Ver más</button>
     </div>
   );
 };

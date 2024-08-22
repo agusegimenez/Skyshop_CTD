@@ -63,13 +63,15 @@ const Header = () => {
            <button className={customCss.logBtn} onClick={cerrarSesion}>Cerrar Sesión</button>
         </div>
        )}
-          <div className={customCss.botonesHeader} style={{ visibility: showButtons ? 'visible' : 'hidden' }}>
+          <div className={customCss.botonesHeader} style={{ display: showButtons ? 'flex' : 'none' }}>
             <button className={customCss.btn} onClick={handleCrearCuentaClick}>Crear cuenta</button>
             <button className={customCss.btn} onClick={handleLoginCuentaClick}>Iniciar Sesión</button>
           </div>
-        <div className={customCss.userIcon} onClick={toggleMenu}>
-          <a href="#"><img src="/user.png" alt="icon-usuario" /></a>
-        </div>
+          {loggedUser === null && (
+          <div className={customCss.userIcon} onClick={toggleMenu}>
+            <a href="#"><img src="/user.png" alt="icon-usuario" /></a>
+          </div>
+          )}
         {loggedUser === null && menuOpen && (
         <div className={customCss.dropdownMenu}>
            <button className={customCss.menuButton} onClick={handleLoginCuentaClick}>Iniciar sesión</button>

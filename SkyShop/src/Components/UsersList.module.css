@@ -1,95 +1,96 @@
 .padreProds {
-    width: 100%;
-    padding: 20px;
-  }
-  .headerProds {
-    display: flex;
-    justify-content: space-between;
-  }
-  .headerProds h2 {
-    color: #00843d;
-  }
-  .añadirProd {
-    background-color: #01ac5c;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    float: right;
-    margin: 15px 0;
-  }
-  .añadirProd:hover {
-    background-color: #028d49;
-  }
-  .tableHeader {
-    width: 100%;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    text-align: center;
-  }
-  .headerTitles {
-    display: grid;
-    padding: 10px;
-    grid-template-columns: 0.4fr 1fr 1fr 1fr 1fr 0.8fr;
-    background-color: #01ac5c;
-    border-radius: 10px;
-    color: white;
-  }
-  .trListado {
-    display: grid;
-    grid-template-columns: 0fr 1fr 0.5fr 1fr 0.5fr 0.5fr 0.2fr;
-    padding: 10px;
-    align-items: center;
-    border-bottom: 1px solid #01ac5c;
-  }
-  .trListado div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .letraVer {
-    color: #01ac5c;
-  }
-  .letraVer img{
-    margin-left: 10px;
-    cursor: pointer;
-  }
-  .btnVer {
-    margin-top: 60px;
-    border: none;
-    background-color: #01ac5c;
-    color: white;
-    cursor: pointer;
-    border-radius: 40px;
-    padding: 10px 20px;
-  }
-  .btnVer:hover {
-    background-color: #028d49;
-  }
-.iconUser div div{
-    color: #00843d;
-    border: 2px solid #00843d;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+}
+.headerProds {
+  display: flex;
+  justify-content: space-between;
+}
+.headerProds h2 {
+  color: #00843d;
+}
+.añadirProd {
+  background-color: #01ac5c;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  float: right;
+  margin: 15px 0;
+}
+.añadirProd:hover {
+  background-color: #028d49;
+}
+.tableHeader {
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+.headerTitles {
+  display: grid;
+  padding: 10px;
+  grid-template-columns: 0.4fr 1fr 1fr 1fr 1fr 0.8fr;
+  background-color: #01ac5c;
+  border-radius: 10px;
+  color: white;
+}
+.trListado {
+  display: grid;
+  grid-template-columns: 0fr 1fr 0.5fr 1fr 0.5fr 0.5fr 0.2fr;
+  padding: 10px;
+  align-items: center;
+  border-bottom: 1px solid #01ac5c;
+}
+.trListado div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.letraVer {
+  color: #01ac5c;
+}
+.letraVer img {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.btnVer {
+  margin-top: 60px;
+  border: none;
+  background-color: #01ac5c;
+  color: white;
+  cursor: pointer;
+  border-radius: 40px;
+  padding: 10px 20px;
+}
+.btnVer:hover {
+  background-color: #028d49;
+}
+.iconUser div div {
+  color: #00843d;
+  border: 2px solid #00843d;
 }
 
-.iconUser span{
-    color: transparent;
-    -webkit-text-stroke: 1px green;
-    font-family: "Roboto";
+.iconUser span {
+  color: transparent;
+  -webkit-text-stroke: 1px green;
+  font-family: "Roboto";
 }
 
-.iconUser div p{
-    display: none;
+.iconUser div p {
+  display: none;
 }
 
-.tdName{
-    text-align: left;
-    padding-left: 55px;
+.tdName {
+  text-align: left;
+  padding-left: 55px;
 }
 
-.thName{
-    text-align: left;
+.thName {
+  text-align: left;
 }
 
 .iconDropdown {
@@ -104,26 +105,26 @@
 }
 
 .dropdownContent {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 5px 15px;
-    background-color: #fff;
-    border: 1px solid black;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 5px 15px;
+  background-color: #fff;
+  border: 1px solid black;
 }
 
 .dropdownButton {
-    font-family: "Roboto Condensed", sans-serif;
-    font-size: 15px;
-    background-color: #fff;
-    font-weight: 600;
-    padding: 5px 5px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 15px;
+  background-color: #fff;
+  font-weight: 600;
+  padding: 5px 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .dropdownButton:hover {
-    color: #00843d;
+  color: #00843d;
 }
