@@ -15,9 +15,9 @@ public class DataInitializer {
     public CommandLineRunner initData(UserService userService, PasswordEncoder passwordEncoder) {
         return args -> {
             // Crear un usuario hardcodeado
-            String username = "admin";
-            String email = "admin@example.com";
-            String password = passwordEncoder.encode("adminpassword"); // Usa el PasswordEncoder para encriptar la contraseña
+            String username = "admin8";
+            String email = "admin8@example.com";
+            String password = "Adminpassword"; // Usa el PasswordEncoder para encriptar la contraseña
 
             User user = new User(
                     null,

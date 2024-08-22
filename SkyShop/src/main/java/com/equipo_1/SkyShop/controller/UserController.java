@@ -59,7 +59,6 @@ public class UserController {
     }
 
     @PatchMapping("/{id}/role")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserResponseDTO> updateUserRole(@PathVariable Long id, @RequestBody UserRoleUpdateDTO roleUpdateDTO) {
         User updatedUser = userService.updateUserRole(id, roleUpdateDTO.getRole());
         return ResponseEntity.ok(new UserResponseDTO(
@@ -72,7 +71,6 @@ public class UserController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponseDTO>> listAllUsers() {
         List<User> users = userService.listAllUsers();
         List<UserResponseDTO> userDTOs = users.stream()

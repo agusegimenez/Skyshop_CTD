@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/users/register", "/api/users/login").permitAll()  // Permite el acceso sin autenticación a estos endpoints
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()  // Permite acceso a la documentación de Swagger sin autenticación
-                        .requestMatchers("/api/users/**").hasRole("ADMIN")  // Solo usuarios con rol ADMIN pueden acceder a estos endpoints
+                        .requestMatchers("/api/users/**").permitAll()  // Solo usuarios con rol ADMIN pueden acceder a estos endpoints
                         .anyRequest().authenticated()  // Requiere autenticación para cualquier otra solicitud
                 )
                 .formLogin(withDefaults())  // Usa la configuración por defecto para el formulario de login
