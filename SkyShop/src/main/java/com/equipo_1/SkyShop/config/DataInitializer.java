@@ -17,7 +17,7 @@ public class DataInitializer {
             // Crear un usuario hardcodeado
             String username = "admin";
             String email = "admin@example.com";
-            String password = passwordEncoder.encode("adminpassword"); // Usa el PasswordEncoder para encriptar la contraseña
+            String password = "Adminpassword"; // Usa el PasswordEncoder para encriptar la contraseña
 
             User user = new User(
                     null,
@@ -25,8 +25,8 @@ public class DataInitializer {
                     username,
                     email,
                     password,
-                    null, // Esto será seatido por la base de datos
-                    null  // Esto será setiado por la base de datos
+                    null,
+                    null
             );
 
             // Registrar el usuario en la base de datos

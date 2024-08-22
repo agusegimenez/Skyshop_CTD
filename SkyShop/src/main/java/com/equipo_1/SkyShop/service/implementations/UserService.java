@@ -26,7 +26,9 @@ public class UserService implements IUserService {
     public User registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
-        user.setRole(UserRole.CLIENT);
+        if (user.getRole() == null) {
+            user.setRole(UserRole.CLIENT);
+        }
         return userRepository.save(user);
     }
 
@@ -58,6 +60,10 @@ public class UserService implements IUserService {
 
     public List<User> listAllUsers() {
         return userRepository.findAll();
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 }
 

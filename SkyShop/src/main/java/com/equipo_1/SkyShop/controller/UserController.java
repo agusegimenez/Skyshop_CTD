@@ -8,7 +8,6 @@ import com.equipo_1.SkyShop.entity.User;
 import com.equipo_1.SkyShop.entity.enums.UserRole;
 import com.equipo_1.SkyShop.service.implementations.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -39,6 +38,7 @@ public class UserController {
         user = userService.registerUser(user);
         return ResponseEntity.ok(new UserResponseDTO(
                 user.getId(),
+                user.getRole(),
                 user.getUsername(),
                 user.getEmail(),
                 user.getCreatedAt().toString(),
@@ -51,6 +51,7 @@ public class UserController {
         User user = userService.loginUser(userLoginDTO.getEmail(), userLoginDTO.getPassword());
         return ResponseEntity.ok(new UserResponseDTO(
                 user.getId(),
+                user.getRole(),
                 user.getUsername(),
                 user.getEmail(),
                 user.getCreatedAt().toString(),
@@ -59,11 +60,11 @@ public class UserController {
     }
 
     @PatchMapping("/{id}/role")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserResponseDTO> updateUserRole(@PathVariable Long id, @RequestBody UserRoleUpdateDTO roleUpdateDTO) {
         User updatedUser = userService.updateUserRole(id, roleUpdateDTO.getRole());
         return ResponseEntity.ok(new UserResponseDTO(
                 updatedUser.getId(),
+                updatedUser.getRole(), // Incluye el rol en la respuesta
                 updatedUser.getUsername(),
                 updatedUser.getEmail(),
                 updatedUser.getCreatedAt().toString(),
@@ -72,12 +73,12 @@ public class UserController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponseDTO>> listAllUsers() {
         List<User> users = userService.listAllUsers();
         List<UserResponseDTO> userDTOs = users.stream()
                 .map(user -> new UserResponseDTO(
                         user.getId(),
+                        user.getRole(),
                         user.getUsername(),
                         user.getEmail(),
                         user.getCreatedAt().toString(),
@@ -85,5 +86,11 @@ public class UserController {
                 ))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(userDTOs);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }
