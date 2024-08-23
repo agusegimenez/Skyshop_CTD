@@ -14,7 +14,9 @@ export const obtenerIniciales = (nombre) => {
 
   if (palabras.length === 1) {
     return palabras.map((palabra) => palabra[0].toUpperCase()).join("");
-  } else if (palabras.length >= 3) {
+  }else if(palabras.length === 2){
+    return palabras[0][0].toUpperCase() + palabras[1][0].toUpperCase();
+  }else if (palabras.length >= 3) {
     return palabras[0][0].toUpperCase() + palabras[2][0].toUpperCase();
   } else {
     return palabras[0][0].toUpperCase();

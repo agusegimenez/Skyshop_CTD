@@ -92,3 +92,15 @@
 .acceptButton:hover {
   background-color: #008c42;
 }
+
+.ifNotAdminDiv{
+  padding-top: 110px; /* esto es para que el detalle no quede atras del nav */
+  height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+}
+
+.ifNotAdminDiv h3{
+  width: 100%;
+  text-align: center;
+}

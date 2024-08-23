@@ -11,7 +11,7 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState('');
   const [serverError, setServerError] = useState(''); // Para manejar errores desde el servidor
   const navigate = useNavigate();
-  const token = "626ba833-1ce3-4356-a214-ce7edda2195b"; // token que hay que actualizar cada vez que se levanta el back end
+  const token = "8b996ff6-94da-428a-93ca-a92504eac237"; // token que hay que actualizar cada vez que se levanta el back end
 
   const { setShowButtons, setLoggedUser } = useContext(BotonContext);
 
