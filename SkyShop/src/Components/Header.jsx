@@ -9,7 +9,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuLog, setMenuLog] = useState(false);
   const navigate = useNavigate();
-  const { showButtons, setShowButtons, loggedUser, setLoggedUser, cerrarSesion} = useContext(BotonContext);
+  const { showButtons, setShowButtons, loggedUser, cerrarSesion} = useContext(BotonContext);
 
   useEffect(() => {
     setShowButtons(loggedUser === null);
@@ -66,7 +66,7 @@ const Header = () => {
       </div>
     ) : (
       <div className={customCss.dropdownMenu}>
-        <a href="#" className={customCss.logMenu}>Usuario</a>
+        <a href="/user" className={customCss.logMenu}>Usuario</a>
         <a href="#" className={customCss.logMenu}>Carrito</a>
         <button className={customCss.logBtn} onClick={cerrarSesion}>Cerrar Sesión</button>
       </div>

@@ -8,6 +8,7 @@ import Login from './Routes/Login';
 import Create from './Routes/Create';
 import { PanelAdmin } from './Routes/PanelAdmin';
 import Suscribe from './Components/Suscribe';
+import { UserDetail } from './Routes/UserDetail';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/register" element={<Create/>}/>
         <Route path="/login" element={<Login/>} />
         <Route path="/admin" element={<PanelAdmin/>} />
+        <Route path="/user" element={<UserDetail/>} />
       </Routes>
       <Suscribe/>
       <Footer/>
