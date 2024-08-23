@@ -11,6 +11,14 @@ const Detail = () => {
   const { producto } = location.state || {};
   const { loggedUser } = useContext(BotonContext);
 
+   // esta funcion recorre el array de strings y devuelve un array de strings en minusculas
+  // es para que por cada carcateristica, suponiendo q las imagenes de iconos de las caracteristicas
+  // son por ej: si la caracteristica es "Alimentos", la imagen/icono tendria q llamarse "caracteristica_alimentos.png"
+  // esto sirve para implementar la busqueda dinamica de los iconos de las caracteristicas ya que
+  // tampoco va a pasar que se puedan crear nuevas caracteristicas con nuevos iconos
+  // sino que en el agregado de productos (si es q lo implementamos) seria ideal que
+  // las caracteristicas se pudieran solo elegir tipo checkbox con un maximo de tildar de 5 opciones o algo asi
+  // y en la carpeta "public" habria un icono por cada caracteristica
   const caracteristicasLowerCase = arrayToLowerCase(producto.caracteristicas);
 
   const mostrarCaracteristicas = () => {
