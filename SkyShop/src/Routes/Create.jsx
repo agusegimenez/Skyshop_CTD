@@ -39,7 +39,12 @@ const Create = () => {
     const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
 
     const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    const validatePassword = (password) => /^[A-Z][A-Za-z]{5,}$/.test(password);
+    const validatePassword = (password) => {
+        if (password.length < 5 || /^[a-z]/.test(password)) {
+            return false;
+        }
+        return true;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();

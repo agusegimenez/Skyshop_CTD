@@ -37,9 +37,11 @@ const Login = () => {
   };
 
   const validatePassword = (password) => {
-    const passwordRegex = /^[A-Z][A-Za-z]{5,}$/;
-    return passwordRegex.test(password);
-  };
+    if (password.length < 5 || /^[a-z]/.test(password)) {
+        return false;
+    }
+    return true;
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
