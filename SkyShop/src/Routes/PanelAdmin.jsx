@@ -51,7 +51,7 @@ export const PanelAdmin = () => {
         handleResize();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [loggedUser]);
 
     const handleButtonClick = (option) => {
         if (isMobile) {

@@ -129,7 +129,8 @@ const Create = () => {
             alert('Usuario registrado con éxito');
         } catch (error) {
             console.error('Error en la petición:', error);
-            alert('Hubo un error al registrar el usuario.');
+            console.error('Hubo un error al registrar el usuario.')
+            alert('Ya hay un usuario registrado con el mismo email. Cambialo por otro email.');
         }
     };
 
