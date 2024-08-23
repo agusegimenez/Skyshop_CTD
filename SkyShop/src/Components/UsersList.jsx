@@ -4,7 +4,7 @@ import customCss from "./UsersList.module.css";
 import { UserIcon } from './UserIcon.jsx';
 
 export const UsersList = () => {
-    const { users, loading } = useContext(BotonContext); // Obtenemos los usuarios del contexto
+    const { users, loading, fetchChangeUserRole, setUsers} = useContext(BotonContext); // Obtenemos los usuarios del contexto
 
     const [selectedUserId, setSelectedUserId] = useState(null);
 
@@ -12,11 +12,14 @@ export const UsersList = () => {
         setSelectedUserId(selectedUserId === index ? null : index);
     };
 
-    const changeUserRole = (index, newRole) => {
-        const updated = users.map((user, i) =>
-            i === index ? { ...user, role: newRole } : user
+    const changeUserRole = (newRole, id) => {
+
+        fetchChangeUserRole(newRole, id);
+
+        const updatedUsers = users.map(user => 
+            user.id === id ? { ...user, role: newRole } : user
         );
-        setUsers(updated);
+        setUsers(updatedUsers);
         setSelectedUserId(null);
     };
 
@@ -66,14 +69,14 @@ console.log(loading);
                                     <td colSpan="6">
                                         <div className={customCss.dropdownContent}>
                                             <td><button
-                                                onClick={() => changeUserRole(index, "ADMIN")}
+                                                onClick={() => changeUserRole("ADMIN", user.id)}
                                                 className={customCss.dropdownButton}
                                             >
                                                 Admin
                                             </button>
                                             </td>
                                             <td><button
-                                                onClick={() => changeUserRole(index, "CLIENT")}
+                                                onClick={() => changeUserRole("CLIENT", user.id)}
                                                 className={customCss.dropdownButton}
                                             >
                                                 Usuario

@@ -22,7 +22,6 @@ export const PanelAdmin = () => {
 
     //Usado para saber si es mobil o desktop 
     useEffect(() => {
-        console.log("rol de usuario logueado: " + loggedUser.role)
         const handleResize = () => {
             if (window.innerWidth < 1024) {
                 setIsMobile(true);
@@ -37,7 +36,7 @@ export const PanelAdmin = () => {
         handleResize();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [loggedUser.role]);
 
     const handleButtonClick = (option) => {
         if (isMobile) {

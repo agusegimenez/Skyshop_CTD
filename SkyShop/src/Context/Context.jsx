@@ -16,6 +16,35 @@ export const BotonProvider = ({ children }) => {
     const token = "8b996ff6-94da-428a-93ca-a92504eac237"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
 
+    const fetchChangeUserRole = async (rol, id) => {
+
+      const settings = {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        credentials: 'include',
+        body: JSON.stringify({ role: rol }),
+      }
+
+      try{
+        const response = await fetch(`${url}/users/${id}/role`, settings);
+
+        if(!response.ok){
+          throw new Error('Error al hacer peticion de update/patch de role de user');
+        }
+
+        if(id === loggedUser.id){
+          setLoggedUser({...loggedUser, role: rol});
+          localStorage.setItem("loggedUser", JSON.stringify(updatedUser));
+        }
+
+      }catch(err){
+        console.error('Error en la petición:', err);
+      }
+    }
+
     const fetchUsers = async () => {
 
         const username = 'admin8'; // Reemplaza con el nombre de usuario real
@@ -65,7 +94,7 @@ export const BotonProvider = ({ children }) => {
     }
 
     return (
-        <BotonContext.Provider value={{ showButtons, setShowButtons, products, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers}}>
+        <BotonContext.Provider value={{ showButtons, setShowButtons, products, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers, fetchChangeUserRole, setUsers}}>
             {children}
         </BotonContext.Provider>
     );
