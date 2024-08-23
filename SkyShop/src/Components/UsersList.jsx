@@ -40,7 +40,7 @@ console.log(loading);
                         <th className={customCss.thName}>NOMBRE</th>
                         <th>ROL</th>
                         <th>CREADO</th>
-                        <th>ÚLTIMA SESIÓN</th>
+                        <th>FECHA MODIFICACIÓN</th>
                         <th></th>
                     </tr>
                 </thead>
