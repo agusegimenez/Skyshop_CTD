@@ -13,7 +13,7 @@ export const BotonProvider = ({ children }) => {
     const [loggedUser, setLoggedUser] = useState(loggingInitialState); //estado de usuario logueado
     const [users, setUsers] = useState([]);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
-    const token = "37a54c28-2ef9-462a-8a4d-d8def67cdcaf"; // token que hay que actualizar cada vez que se levanta el back end
+    const token = "c57d185d-c9e0-4cb9-9a4c-ccab64427667"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
 
     const fetchChangeUserRole = async (rol, id) => {
@@ -47,8 +47,8 @@ export const BotonProvider = ({ children }) => {
 
     const fetchUsers = async () => {
 
-        const username = 'admin11'; // Reemplaza con el nombre de usuario real
-        const email = "admin11@example.com";
+        const username = 'admin12'; // Reemplaza con el nombre de usuario real
+        const email = "admin12@example.com";
         const password = 'Adminpassword'; // Reemplaza con la contraseña real
         const credentials = btoa(`${username}:${email}:${password}`); // Codifica las credenciales en Base64
 
