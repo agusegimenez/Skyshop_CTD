@@ -13,7 +13,7 @@ export const BotonProvider = ({ children }) => {
     const [loggedUser, setLoggedUser] = useState(loggingInitialState); //estado de usuario logueado
     const [users, setUsers] = useState([]);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
-    const token = "8b996ff6-94da-428a-93ca-a92504eac237"; // token que hay que actualizar cada vez que se levanta el back end
+    const token = "e6ea8d4f-7676-4971-ad61-024ba812ce73"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
 
     const fetchChangeUserRole = async (rol, id) => {
@@ -29,7 +29,7 @@ export const BotonProvider = ({ children }) => {
       }
 
       try{
-        const response = await fetch(`${url}/users/${id}/role`, settings);
+        const response = await fetch(`${url}/users/${id}/role, settings`);
 
         if(!response.ok){
           throw new Error('Error al hacer peticion de update/patch de role de user');
@@ -47,8 +47,8 @@ export const BotonProvider = ({ children }) => {
 
     const fetchUsers = async () => {
 
-        const username = 'admin8'; // Reemplaza con el nombre de usuario real
-        const email = "admin8@example.com";
+        const username = 'admin11'; // Reemplaza con el nombre de usuario real
+        const email = "admin11@example.com";
         const password = 'Adminpassword'; // Reemplaza con la contraseña real
         const credentials = btoa(`${username}:${email}:${password}`); // Codifica las credenciales en Base64
 
@@ -71,15 +71,27 @@ export const BotonProvider = ({ children }) => {
           }
   
           const data = await response.json();
+          const loggedUserFromBackend = data.find(user => user.id === loggedUser.id);
           console.log(data);
           setUsers(data);
+          setLoading(false);
+          if (loggedUserFromBackend) {
+            setLoggedUser({
+              ...loggedUserFromBackend,
+              isAdmin: loggedUserFromBackend.role === "ADMIN" // Chequea si es admin
+            });
+            setLoggedUser(updatedUser);
+            localStorage.setItem("loggedUser", JSON.stringify({
+              ...loggedUserFromBackend,
+              isAdmin: loggedUserFromBackend.role === "ADMIN"
+            }));
+          }
           setLoading(false);
         } catch (error) {
           console.error('Error en la petición:', error);
           setLoading(false);
         }
       };
-      
 
       useEffect(() => {
         if(loggedUser !== null){

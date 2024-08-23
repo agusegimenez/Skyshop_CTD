@@ -56,12 +56,21 @@ const Header = () => {
        <a href="#"><UserIcon username={loggedUser.username}/></a>
       </div>}
       {loggedUser && menuLog && (
-        <div className={customCss.dropdownMenu}>
-           <a href="#" className={customCss.logMenu}>Usuario</a>
-           <a href="#" className={customCss.logMenu}>Carrito</a>
-           <button className={customCss.logBtn} onClick={cerrarSesion}>Cerrar Sesión</button>
-        </div>
-       )}
+  <>
+    {loggedUser.isAdmin ? (
+      <div className={customCss.dropdownMenu}>
+        <a href="/admin" className={customCss.logMenu}>Admin</a>
+        <button className={customCss.logBtn} onClick={cerrarSesion}>Cerrar Sesión</button>
+      </div>
+    ) : (
+      <div className={customCss.dropdownMenu}>
+        <a href="#" className={customCss.logMenu}>Usuario</a>
+        <a href="#" className={customCss.logMenu}>Carrito</a>
+        <button className={customCss.logBtn} onClick={cerrarSesion}>Cerrar Sesión</button>
+      </div>
+    )}
+  </>
+)}
           <div className={customCss.botonesHeader} style={{ display: loggedUser ? 'none' : 'flex', visibility: showButtons ? 'visible' : 'hidden' }}>
             <button className={customCss.btn} onClick={handleCrearCuentaClick}>Crear cuenta</button>
             <button className={customCss.btn} onClick={handleLoginCuentaClick}>Iniciar Sesión</button>
