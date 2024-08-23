@@ -1,14 +1,18 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate,useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import customCss from "./Detail.module.css";
 import { BotonContext } from '../Context/Context';
-import { arrayToLowerCase } from '../utils/products';
+import { arrayToLowerCase, productos } from '../utils/products';
+
 const Detail = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { producto } = location.state || {};
+  const { id } = useParams(); // id de producto
+  const producto = productos.find((prod) => prod.id == id); // producto encontrado en array por id
   const { loggedUser } = useContext(BotonContext);
+
+  console.log("valor de producto: " + producto);
 
    // esta funcion recorre el array de strings y devuelve un array de strings en minusculas
   // es para que por cada carcateristica, suponiendo q las imagenes de iconos de las caracteristicas
@@ -34,7 +38,7 @@ const Detail = () => {
   if (!producto) {
     return <div>Producto no encontrado</div>;
   }
-  const { imagen, nombre, precio, id, contenido } = producto;
+  const { nombre, imagen, contenido, precio } = producto;
   return (
     <section className={customCss.detailSect}>
       <div className={customCss.divGral}>

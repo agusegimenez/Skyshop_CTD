@@ -13,7 +13,7 @@ export const BotonProvider = ({ children }) => {
     const [loggedUser, setLoggedUser] = useState(loggingInitialState); //estado de usuario logueado
     const [users, setUsers] = useState([]);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
-    const token = "e6ea8d4f-7676-4971-ad61-024ba812ce73"; // token que hay que actualizar cada vez que se levanta el back end
+    const token = "37a54c28-2ef9-462a-8a4d-d8def67cdcaf"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
 
     const fetchChangeUserRole = async (rol, id) => {
@@ -29,7 +29,7 @@ export const BotonProvider = ({ children }) => {
       }
 
       try{
-        const response = await fetch(`${url}/users/${id}/role, settings`);
+        const response = await fetch(`${url}/users/${id}/role`, settings);
 
         if(!response.ok){
           throw new Error('Error al hacer peticion de update/patch de role de user');

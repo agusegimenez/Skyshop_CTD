@@ -4,8 +4,6 @@ import customCss from "./UserIcon.module.css"
 
 // recibe por props el username del cual muestra las iniciales y nombre
 export const UserIcon = ({username}) => {
-  console.log(username);
-
   const iniciales = obtenerIniciales(username);
   const nombre = obtenerNombreAvatar(username);
 

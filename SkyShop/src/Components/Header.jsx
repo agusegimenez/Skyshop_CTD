@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import customCss from "./Header.module.css";
 import MenuHamburguesa from "./MenuHamburguesa";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BotonContext } from "../Context/Context";
 import { UserIcon } from "./UserIcon";
 
@@ -14,14 +14,16 @@ const Header = () => {
   useEffect(() => {
     setShowButtons(loggedUser === null);
 }, [loggedUser]);
-  
+
 
   const toggleLog = () => {
-    setMenuLog(!menuLog);
+    setMenuLog(prev => !prev);
+    setMenuOpen(false);
   }
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
+    setMenuOpen(prev => !prev);
+    setMenuLog(false);
   };
 
   const handleLoginCuentaClick = () => {
@@ -57,7 +59,7 @@ const Header = () => {
       </div>}
       {loggedUser && menuLog && (
   <>
-    {loggedUser.isAdmin ? (
+    {loggedUser.role === "ADMIN" ? (
       <div className={customCss.dropdownMenu}>
         <a href="/admin" className={customCss.logMenu}>Admin</a>
         <button className={customCss.logBtn} onClick={cerrarSesion}>Cerrar Sesión</button>

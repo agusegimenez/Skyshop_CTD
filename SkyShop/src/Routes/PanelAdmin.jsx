@@ -20,6 +20,21 @@ export const PanelAdmin = () => {
         return response;
     }
 
+    if(loggedUser === null){
+        return <div className={customCss.ifNotAdminDiv}>
+        <h3>Usted ni siquiera está logueado como usuario. ¡Fuera!</h3>
+        {isMobile && showPopup && (
+            <div className={customCss.popupOverlay}>
+                <div className={customCss.popup}>
+                    <p className={customCss.warning}>No puede acceder a esta función desde este dispositivo</p>
+                    <p>Ingrese desde un ordenador para acceder al Panel de Admin.</p>
+                    <button className={customCss.acceptButton} onClick={closePopup}>Aceptar</button>
+                </div>
+            </div>
+        )}
+    </div>
+    }
+
     //Usado para saber si es mobil o desktop 
     useEffect(() => {
         const handleResize = () => {
@@ -36,7 +51,7 @@ export const PanelAdmin = () => {
         handleResize();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [loggedUser.role]);
+    }, []);
 
     const handleButtonClick = (option) => {
         if (isMobile) {
