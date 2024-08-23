@@ -1,21 +1,16 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 import customCss from "./Detail.module.css";
+import { BotonContext } from '../Context/Context';
 import { arrayToLowerCase } from '../utils/products';
 
 const Detail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { producto } = location.state || {};
+  const { loggedUser } = useContext(BotonContext);
 
-  // esta funcion recorre el array de strings y devuelve un array de strings en minusculas
-  // es para que por cada carcateristica, suponiendo q las imagenes de iconos de las caracteristicas
-  // son por ej: si la caracteristica es "Alimentos", la imagen/icono tendria q llamarse "caracteristica_alimentos.png"
-  // esto sirve para implementar la busqueda dinamica de los iconos de las caracteristicas ya que
-  // tampoco va a pasar que se puedan crear nuevas caracteristicas con nuevos iconos
-  // sino que en el agregado de productos (si es q lo implementamos) seria ideal que
-  // las caracteristicas se pudieran solo elegir tipo checkbox con un maximo de tildar de 5 opciones o algo asi
-  // y en la carpeta "public" habria un icono por cada caracteristica
   const caracteristicasLowerCase = arrayToLowerCase(producto.caracteristicas);
 
   const mostrarCaracteristicas = () => {
@@ -65,7 +60,13 @@ const Detail = () => {
             <p className={customCss.precioP}><span>Precio </span>${precio}</p>
           </div>
           <div className={customCss.divBtn}>
-            <button className={customCss.btnAgregar}>Agregar a mi pedido</button>
+            {loggedUser ? (
+              <button className={customCss.btnAgregar}>Agregar a mi pedido</button>
+            ) : (
+              <button className={customCss.btnAgregarDisabled} disabled>
+                Debes iniciar sesión para agregar al carrito
+              </button>
+            )}
           </div>
         </div>
       </div>
