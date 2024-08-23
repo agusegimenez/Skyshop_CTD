@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import customCss from "./Detail.module.css";
 import { BotonContext } from '../Context/Context';
 import { arrayToLowerCase } from '../utils/products';
-
 const Detail = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,13 +31,10 @@ const Detail = () => {
       );
     });
   };
-
   if (!producto) {
     return <div>Producto no encontrado</div>;
   }
-
   const { imagen, nombre, precio, id, contenido } = producto;
-
   return (
     <section className={customCss.detailSect}>
       <div className={customCss.divGral}>
@@ -87,5 +83,4 @@ const Detail = () => {
     </section>
   );
 };
-
 export default Detail;

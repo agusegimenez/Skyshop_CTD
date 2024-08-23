@@ -87,7 +87,7 @@ const Header = () => {
         </div>
        )}
         <div className={customCss.cartIcon}>
-          <a href="#"><img src="/cart.png" alt="carrito" /></a>
+          {loggedUser && <a href="#"><img src="/cart.png" alt="carrito" /></a>}
         </div>
       </div>
     </header>
