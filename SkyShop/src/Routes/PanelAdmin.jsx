@@ -67,7 +67,7 @@ export const PanelAdmin = () => {
     if(isAdmin()){
         return (
             <div className={customCss.divPadre}>
-                <div className={customCss.panelAdmin}>
+                <div className={`${customCss.panelAdmin} ${showPopup ? customCss.blur : ''}`}>
                     <h3>Panel Administrador</h3>
                     <div className={customCss.divAdminBtns}>
                         <button
@@ -105,7 +105,7 @@ export const PanelAdmin = () => {
                         </button>
                     </div>
                 </div>
-                <div className={customCss.divAdminRoutes}>
+                <div className={`${customCss.divAdminRoutes} ${showPopup ? customCss.blur : ''}`}>
                     {selectedOption === "Productos" && <Paquetes />}
                     {selectedOption === "Usuarios" && <UsersList />}
                     {selectedOption === "Categorías" && <p style={{
