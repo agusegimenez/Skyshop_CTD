@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import customCss from './MenuHamburguesa.module.css';
+import { BotonContext } from '../Context/Context';
 
 const MenuHamburguesa = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { loggedUser } = useContext(BotonContext);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -17,7 +20,7 @@ const MenuHamburguesa = () => {
         <ul>
           <li><a href="#">Ofertas</a></li>
           <li><a href="#">Productos</a></li>
-          <li><a href="#">Carrito</a></li>
+          {loggedUser && <li><a href="#">Carrito</a></li>}
         </ul>
       </nav>
     </div>
