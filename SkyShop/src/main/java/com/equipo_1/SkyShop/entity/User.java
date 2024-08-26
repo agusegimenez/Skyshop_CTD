@@ -2,20 +2,18 @@ package com.equipo_1.SkyShop.entity;
 
 import com.equipo_1.SkyShop.entity.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Data
+@Builder
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="users")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +27,7 @@ public class User {
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

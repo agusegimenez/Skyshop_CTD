@@ -47,6 +47,8 @@ public class UserService implements IUserService {
         return userRepository.findById(id);
     }
 
+    public Optional<User> findByEmail(String email) {return userRepository.findByEmail(email);}
+
     public User updateUserRole(Long id, UserRole role) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {

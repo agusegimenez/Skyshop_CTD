@@ -8,29 +8,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
+
 @Configuration
 public class DataInitializer {
 
     @Bean
     public CommandLineRunner initData(UserService userService, PasswordEncoder passwordEncoder) {
         return args -> {
-            // Crear un usuario hardcodeado
-            String username = "admin";
-            String email = "admin@example.com";
-            String password = "Adminpassword"; // Usa el PasswordEncoder para encriptar la contraseña
-
-            User user = new User(
-                    null,
-                    UserRole.ADMIN,
-                    username,
-                    email,
-                    password,
-                    null,
-                    null
-            );
-
-            // Registrar el usuario en la base de datos
-            userService.registerUser(user);
+            if(userService.findByEmail("sysadmin@example.com").isEmpty()) {
+                userService.registerUser(User.builder()
+                        .role(UserRole.ADMIN)
+                        .username("sa")
+                        .email("sysadmin@example.com")
+                        .password("Admin")
+                        .createdAt(LocalDateTime.now())
+                        .build());
+            }
         };
     }
 }
