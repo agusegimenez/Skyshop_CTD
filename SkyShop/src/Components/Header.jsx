@@ -62,7 +62,7 @@ const Header = () => {
     {loggedUser.role === "ADMIN" ? (
       <div className={customCss.dropdownMenu}>
         <a href="/admin" className={customCss.logMenu}>Admin</a>
-        <button className={customCss.logBtn} onClick={cerrarSesion}>Cerrar Sesión</button>
+        <button className={customCss.logBtn} onClick={cerrarSesion}><a href="/">Cerrar Sesión</a></button>
       </div>
     ) : (
       <div className={customCss.dropdownMenu}>

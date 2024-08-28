@@ -49,12 +49,28 @@ label {
 .btns {
   display: flex;
   width: 100%;
+  justify-content: space-around;
 }
-
-.login {
-  flex: 1;
+.create {
   margin-top: 20px;
   padding: 7px;
+  width: 120px;
+  border-radius: 20px;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 500;
+  border: 2px solid #00843d;
+  cursor: pointer;
+  background-color: rgb(255, 255, 255);
+  color: white;
+}
+.create a {
+  text-decoration: none;
+  color: #00843d;
+}
+.login {
+  margin-top: 20px;
+  padding: 7px;
+  width: 120px;
   border-radius: 20px;
   font-family: "Roboto Condensed", sans-serif;
   font-weight: bold;

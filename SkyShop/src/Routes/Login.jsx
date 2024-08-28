@@ -125,6 +125,7 @@ const Login = () => {
         </div>
         {serverError && <ErrorMessage message={serverError} />} {/* Error desde el servidor */}
         <div className={customCss.btns}>
+        <button className={customCss.create}><a href="/register">Crear Cuenta</a></button>
           <button className={customCss.login} type="submit">Iniciar sesión</button>
         </div>
       </form>
