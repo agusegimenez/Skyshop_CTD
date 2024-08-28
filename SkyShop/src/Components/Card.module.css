@@ -3,21 +3,20 @@
   height: 115px;
   text-align: center;
   font-family: "Roboto SemiBold", sans-serif;
-  background-color: #d0fdd7;
-  border-radius: 15px;
+  border-radius: 60px;
   width: 100%;
   cursor: pointer;
+  border: 2px solid #d0fdd7;
   transition: transform 0.3s ease, background-color 0.3s ease,
     box-shadow 0.3s ease;
 }
 .card:hover {
   transform: scale(1.05);
-  background-color: #a0d2a0;
+  background-color: #e9ffec;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 .divImg {
-  background-color: white;
-  margin: 10px;
+  margin: 10px 10px 10px 35px;
   border-radius: 15px 0px 0px 15px;
   width: 150px;
   display: flex;
@@ -58,10 +57,11 @@
     flex-direction: column;
     align-items: center;
     height: 250px;
-    border-radius: 10px;
+    border-radius: 30px;
   }
 
   .divImg {
+    margin: 10px;
     border-radius: 10px;
     width: 90%;
   }
@@ -96,8 +96,12 @@
     border-radius: 10px;
   }
 
+  .divImg{
+    margin: 10px 10px 0 10px;
+  }
+
   .divImg img {
-    height: 50px;
+    height: 70px;
   }
 
   .divNombreYPrecio h3 {
