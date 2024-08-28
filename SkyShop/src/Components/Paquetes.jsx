@@ -43,6 +43,7 @@ const Paquetes = () => {
                   {visibleMenu === producto.id && (
                     <div className={customCss.actionDropdown}>
                       <a href="#" className={customCss.editar}><img src="./iEdit.png" alt="icon-edit" />Editar</a>
+                      <a href="#" className={customCss.editar}><img src="./iCategories.png" alt="icon-categories" />Categorias</a>
                       <a href="#" className={customCss.eliminar}><img src="./iDelete.png" alt="icon-Delete" />Eliminar</a>
                     </div>
                   )}

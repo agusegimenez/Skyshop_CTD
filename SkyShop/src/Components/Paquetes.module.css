@@ -65,13 +65,15 @@
 }
 
 .actionDropdown {
-  display: none;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 20px;
   right: 0;
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 5px;
+  border-color: black;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
@@ -86,15 +88,20 @@
   margin-right: 5px;
 }
 .actionDropdown a:hover {
-  background-color: #f1f1f1;
+  background-color: #00843e13;
 }
 
 .actionDropdown a.editar {
+  width: 85%;
   color: green;
 }
 
 .actionDropdown a.eliminar {
+  width: 85%;
   color: red;
+}
+.actionDropdown .eliminar:hover {
+  background-color: rgba(255, 0, 0, 0.079);
 }
 .btnVer {
   margin-top: 60px;
