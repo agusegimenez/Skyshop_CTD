@@ -20,6 +20,10 @@
   float: right;
   margin: 15px 0;
 }
+.añadirProd a {
+  text-decoration: none;
+  color: white;
+}
 .añadirProd:hover {
   background-color: #028d49;
 }
@@ -65,6 +69,7 @@
 }
 
 .actionDropdown {
+  display: none;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -88,6 +93,7 @@
   margin-right: 5px;
 }
 .actionDropdown a:hover {
+  background-color: #f1f1f1;
   background-color: #00843e13;
 }
 

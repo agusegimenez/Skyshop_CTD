@@ -9,6 +9,7 @@ import Create from './Routes/Create';
 import { PanelAdmin } from './Routes/PanelAdmin';
 import Suscribe from './Components/Suscribe';
 import { UserDetail } from './Routes/UserDetail';
+import AñadirProd from './Routes/AñadirProd';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/admin" element={<PanelAdmin/>} />
         <Route path="/user" element={<UserDetail/>} />
+        <Route path="/addProd" element={<AñadirProd/>}/>
       </Routes>
       <Suscribe/>
       <Footer/>

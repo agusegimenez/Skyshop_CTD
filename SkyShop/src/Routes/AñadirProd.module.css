@@ -1,0 +1,109 @@
+.productForm {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 15vh;
+  font-family: "Roboto", sans-serif;
+}
+
+.productForm h2 {
+  color: #00843d;
+  font-size: 35px;
+  font-weight: 500;
+  margin-bottom: 50px;
+}
+
+.selecArch {
+  padding: 15px;
+  border: 2px solid green;
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.imgPreview {
+  border: 2px solid #00843d;
+  border-radius: 20px;
+}
+
+.imgPreview img {
+  margin-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.nombre {
+  padding: 15px;
+  border: 2px solid green;
+  border-radius: 20px;
+}
+
+.errorInput {
+  border-color: red;
+}
+
+.errorMensaje {
+  font-size: 14px;
+  color: red;
+  font-weight: 500;
+}
+
+.textArea {
+  margin-bottom: 30px;
+  padding: 40px;
+  border: 2px solid green;
+  border-radius: 20px;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  border-radius: 20px;
+  border: 2px solid #00843d;
+  font-family: "Roboto Condensed";
+  box-sizing: border-box;
+  margin-bottom: 30px;
+}
+
+.caracteristicas {
+  display: flex;
+  margin-left: 0;
+  justify-content: space-between;
+}
+
+.caracteristicas img {
+  margin-right: 15px;
+}
+
+.caracteristicas label {
+  display: flex;
+  align-items: center;
+}
+
+.descripcion {
+  margin-top: 30px;
+}
+
+.precio {
+  padding: 15px;
+  border: 2px solid green;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  margin-bottom: 60px;
+}
+
+.productForm button {
+  margin-left: 40%;
+  padding: 15px;
+  width: 17%;
+  background-color: #00843d;
+  font-weight: 600;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}

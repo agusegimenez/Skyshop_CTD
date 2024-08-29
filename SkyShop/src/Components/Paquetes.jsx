@@ -12,7 +12,7 @@ const Paquetes = () => {
     <div className={customCss.padreProds}>
       <div className={customCss.headerProds}>
         <h2>Productos</h2>
-        <button className={customCss.añadirProd}>Agregar Producto</button>
+        <button className={customCss.añadirProd}><a href="/addProd">Agregar Producto</a></button>
       </div>
       <table className={customCss.tableHeader}>
         <thead>
