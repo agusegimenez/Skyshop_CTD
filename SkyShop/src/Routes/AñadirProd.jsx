@@ -6,11 +6,13 @@ const AñadirProd = () => {
     const [productDescription, setProductDescription] = useState("");
     const [productPrice, setProductPrice] = useState("");
     const [categorias, setCategorias] = useState([]);
-    const [imagen, setImagen] = useState(null);
+    const [imagenes, setImagenes] = useState([]);
     const [error, setError] = useState(false);
 
     const handleImagenSubida =  (e) => {
-        setImagen(URL.createObjectURL(e.target.files[0]));
+      const files = Array.from(e.target.files); // Convertimos los archivos en un array
+      const nuevasImagenes = files.map(file => URL.createObjectURL(file));
+      setImagenes([...imagenes, ...nuevasImagenes]);
     };
 
     const handleCategory = (e) => {
@@ -28,14 +30,26 @@ const AñadirProd = () => {
         }
     }
   return (
-    <form onSubmit={handleSubmit} className={customCss.productForm}>
-        <h2>Datos del Producto</h2>
-        <label>Imagen:</label>
-        <div className={customCss.imgPreview}>
-        {imagen && <img src={imagen} alt="Producto" />}
-        </div>
-        <input className={customCss.selecArch} type="file" accept='image/*' onChange={handleImagenSubida} />
-
+     <form onSubmit={handleSubmit} className={customCss.productForm}>
+            <h2>Datos del Producto</h2>
+            <label>Imagen:</label>
+            <div className={customCss.imgPreview}>
+                {/* Vista previa de imágenes */}
+                {imagenes.map((img, index) => (
+                    <img key={index} src={img} alt={`Producto ${index + 1}`} className={customCss.imgThumbnail} />
+                ))}
+                {/* Botón para agregar más imágenes */}
+                <label className={customCss.addImage}>
+                    <input 
+                        type="file" 
+                        accept='image/*' 
+                        multiple 
+                        onChange={handleImagenSubida} 
+                        style={{ display: 'none' }} 
+                    />
+                    <div className={customCss.plusIcon}>+</div>
+                </label>
+            </div>
         {/* Campo de nombre con validación */}
         <label>Nombre:</label>
         <input
