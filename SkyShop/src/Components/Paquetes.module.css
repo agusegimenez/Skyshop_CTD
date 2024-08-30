@@ -121,3 +121,75 @@
 .btnVer:hover {
   background-color: #028d49;
 }
+
+.divCaracteristicas {
+  background-color: white;
+  position: absolute;
+  margin-left: 41%;
+  margin-top: 12%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 20px;
+  border: 2px solid #00843d;
+  font-family: "Roboto Condensed";
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  width: 400px;
+}
+
+.divCaracteristicas p{
+  width: 90%;
+  text-align: left;
+}
+
+.caracteristicas {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 0;
+  justify-content: space-between;
+}
+
+.caracteristicas img {
+  height: 20px;
+  width: 20px;
+  margin-right: 7px;
+  margin-left: 7px;
+}
+
+.caracteristicas label {
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.customRadio {
+  display: inline-block;
+  width: 15px; 
+  height: 15px; 
+  border: 2px solid green;
+  border-radius: 3px; 
+  background-color: transparent;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked + .customRadio::after {
+  content: '✔'; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 14px;
+  color: green; 
+  transform: translate(-50%, -50%); 
+}
+
+.customRadio::after {
+  content: ''; 
+}

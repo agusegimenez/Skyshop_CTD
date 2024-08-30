@@ -3,9 +3,44 @@ import { productos } from '../utils/products';
 import customCss from "./Paquetes.module.css";
 const Paquetes = () => {
   const [visibleMenu, setVisibleMenu] = useState(null);
+  const [visibleMenuCaract, setVisibleMenuCaract] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState({});
 
   const toggleMenu = (productId) => {
-    setVisibleMenu(visibleMenu === productId ? null : productId);
+    if (visibleMenu === productId) {
+      setVisibleMenu(null);
+      setVisibleMenuCaract(null);
+    } else {
+      setVisibleMenu(productId);
+    }
+  };
+
+  const toggleMenuCaract = (productId) => {
+    if (visibleMenuCaract === productId) {
+      setVisibleMenuCaract(null);
+    } else {
+      setVisibleMenu(productId);
+      setVisibleMenuCaract(productId);
+    }
+  };
+
+  const handleCategoryChange = (productId, category) => {
+    // funcion para cambiar categorias (?)
+    // cambiar: actualizar con fetch
+    setSelectedCategories((prevSelected) => {
+      const categories = prevSelected[productId] || [];
+      if (categories.includes(category)) {
+        return {
+          ...prevSelected,
+          [productId]: categories.filter((cat) => cat !== category),
+        };
+      } else {
+        return {
+          ...prevSelected,
+          [productId]: [...categories, category],
+        };
+      }
+    });
   };
 
   return (
@@ -43,12 +78,36 @@ const Paquetes = () => {
                   {visibleMenu === producto.id && (
                     <div className={customCss.actionDropdown}>
                       <a href="#" className={customCss.editar}><img src="./iEdit.png" alt="icon-edit" />Editar</a>
-                      <a href="#" className={customCss.editar}><img src="./iCategories.png" alt="icon-categories" />Categorias</a>
+                      <a href="#" className={customCss.editar} onClick={(e) => {
+                          e.stopPropagation();
+                          toggleMenuCaract(producto.id);
+                        }}><img src="./iCategories.png" alt="icon-categories" />Categorias</a>
                       <a href="#" className={customCss.eliminar}><img src="./iDelete.png" alt="icon-Delete" />Eliminar</a>
                     </div>
                   )}
                 </div>
               </td>
+              {visibleMenuCaract === producto.id && (
+                        <div className={customCss.divCaracteristicas}>
+                          <p>Categoría:</p>
+                          <div className={customCss.caracteristicas}>
+                            {['Alimentos', 'Higiene', 'Diversion', 'Mascotas', 'Perros'].map((category) => (
+                              <label key={category}>
+                                <input
+                                  type="radio"
+                                  name={`categoria-${producto.id}`}
+                                  value={category}
+                                  checked={selectedCategories[producto.id]?.includes(category) || producto.categoria.includes(category)}
+                                  onChange={() => handleCategoryChange(producto.id, category)}
+                                />
+                                <div className={customCss.customRadio}></div>
+                                <img src={`./caracteristica_${category.toLowerCase()}.png`} alt={`${category}-logo`} />
+                                {category}
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+                      )}
             </tr>
           ))}
           

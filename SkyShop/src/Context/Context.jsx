@@ -13,7 +13,7 @@ export const BotonProvider = ({ children }) => {
     const [loggedUser, setLoggedUser] = useState(loggingInitialState); //estado de usuario logueado
     const [users, setUsers] = useState([]);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
-    const token = "768d30b0-4070-4545-bdfe-3ed92b589a08"; // token que hay que actualizar cada vez que se levanta el back end
+    const token = "b8d4bc7f-83dd-462a-8668-dec499783df7"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
 
     const fetchChangeUserRole = async (rol, id) => {
