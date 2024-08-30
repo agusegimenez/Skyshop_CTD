@@ -1,6 +1,7 @@
 package com.equipo_1.SkyShop.service.implementations;
 
 import com.equipo_1.SkyShop.entity.Item;
+import com.equipo_1.SkyShop.entity.enums.Categories;
 import com.equipo_1.SkyShop.repository.ItemRepository;
 import com.equipo_1.SkyShop.service.IItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class ItemService implements IItemService {
     private ItemRepository itemRepository;
 
     @Override
-    public void addItem(Item item) {
-        itemRepository.save(item);
+    public Item createItem(Item item) {
+        return itemRepository.save(item);
     }
 
     @Override
@@ -32,7 +33,30 @@ public class ItemService implements IItemService {
 
     @Override
     public void deleteItem(Long id) {
-        itemRepository.deleteById(id);
+        if (itemRepository.existsById(id)) {
+            itemRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Item not found");
+        }
+    }
+
+    @Override
+    public Item updateItem(Long id, String name, Float price, String description, Categories category, String image) {
+        Item item = itemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+
+        item.setName(name);
+        item.setPrice(price);
+        item.setDescription(description);
+        item.setCategory(category);
+        item.setImage(image);
+
+        return itemRepository.save(item);
+    }
+
+    @Override
+    public Item getItemById(Long id) {
+        return itemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item not found"));
     }
 }
-

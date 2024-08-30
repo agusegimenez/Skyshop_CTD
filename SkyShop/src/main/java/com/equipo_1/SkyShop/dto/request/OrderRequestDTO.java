@@ -13,6 +13,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderRequestDTO {
-    private Long clientId;
+    private Long userId;
     private Set<ItemRequestDTO> items = new HashSet<>();
 }
