@@ -88,6 +88,7 @@ const Paquetes = () => {
                 </div>
               </td>
               {visibleMenuCaract === producto.id && (
+                      <td className={customCss.dropdownRow}>
                         <div className={customCss.divCaracteristicas}>
                           <p>Categoría:</p>
                           <div className={customCss.caracteristicas}>
@@ -100,17 +101,19 @@ const Paquetes = () => {
                                   checked={selectedCategories[producto.id]?.includes(category) || producto.categoria.includes(category)}
                                   onChange={() => handleCategoryChange(producto.id, category)}
                                 />
-                                <div className={customCss.customRadio}></div>
-                                <img src={`./caracteristica_${category.toLowerCase()}.png`} alt={`${category}-logo`} />
+                                <div>
+                                  <div className={customCss.customRadio}></div>
+                                  <img src={`./caracteristica_${category.toLowerCase()}.png`} alt={`${category}-logo`} />
+                                </div>
                                 {category}
                               </label>
                             ))}
                           </div>
                         </div>
-                      )}
+                      </td>
+                    )}
             </tr>
           ))}
-          
         </tbody>
       </table>
       <button className={customCss.btnVer}>Ver más</button>
