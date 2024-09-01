@@ -45,7 +45,7 @@
   background: white;
   padding: 20px;
   border-radius: 20px;
-  border: 3px solid #01ac5c;
+  border: 4px solid #d0fdd7;
   font-family: "Roboto Condensed";
   width: 450px;
   box-sizing: border-box;
@@ -89,7 +89,6 @@
 .imgDiv img {
   height: 160px;
   margin: 20px 20px 50px 20px;
-  filter: drop-shadow(5px 5px 5px #222);
 }
 
 .imgDiv {
@@ -118,7 +117,7 @@
   flex-direction: column;
   padding: 20px;
   border-radius: 20px;
-  border: 3px solid #01ac5c;
+  border: 4px solid #d0fdd7;
   font-family: "Roboto Condensed";
   box-sizing: border-box;
   width: 80%;

@@ -187,20 +187,6 @@ input[type="radio"] {
   cursor: pointer;
 }
 
-input[type="radio"]:checked + .customRadio::after {
-  content: '✔'; 
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 14px;
-  color: green; 
-  transform: translate(-50%, -50%); 
-}
-
-.customRadio::after {
-  content: ''; 
-}
-
 @media screen and (max-width: 1400px) {
   .dropdownRow {
     margin-left: 3%;

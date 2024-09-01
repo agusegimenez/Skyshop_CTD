@@ -25,22 +25,10 @@ const Paquetes = () => {
   };
 
   const handleCategoryChange = (productId, category) => {
-    // funcion para cambiar categorias (?)
-    // cambiar: actualizar con fetch
-    setSelectedCategories((prevSelected) => {
-      const categories = prevSelected[productId] || [];
-      if (categories.includes(category)) {
-        return {
-          ...prevSelected,
-          [productId]: categories.filter((cat) => cat !== category),
-        };
-      } else {
-        return {
-          ...prevSelected,
-          [productId]: [...categories, category],
-        };
-      }
-    });
+    setSelectedCategories(prev => ({
+      ...prev,
+      [productId]: category,
+    }));
   };
 
   return (
@@ -98,11 +86,11 @@ const Paquetes = () => {
                                   type="radio"
                                   name={`categoria-${producto.id}`}
                                   value={category}
-                                  checked={selectedCategories[producto.id]?.includes(category) || producto.categoria.includes(category)}
+                                  checked={selectedCategories[producto.id] == category}
                                   onChange={() => handleCategoryChange(producto.id, category)}
                                 />
                                 <div>
-                                  <div className={customCss.customRadio}></div>
+                                  { selectedCategories[producto.id] == category ? <div className={customCss.radioChecked}>✅</div> : <div className={customCss.customRadio}></div>}
                                   <img src={`./caracteristica_${category.toLowerCase()}.png`} alt={`${category}-logo`} />
                                 </div>
                                 {category}
