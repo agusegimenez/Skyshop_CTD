@@ -33,6 +33,7 @@ public class UserController {
                 userRequestDTO.getEmail(),
                 userRequestDTO.getPassword(),
                 LocalDateTime.now(),
+                null,
                 null
         );
         user = userService.registerUser(user);

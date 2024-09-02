@@ -1,8 +1,10 @@
 package com.equipo_1.SkyShop.repository;
 
 import com.equipo_1.SkyShop.entity.Order;
+import com.equipo_1.SkyShop.entity.enums.OrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
-public interface OrderRepository extends JpaRepository<Order, Long> {}
+public interface OrderRepository extends JpaRepository<Order, Long> {
+    long countByUserIdAndStatus(Long userId, OrderStatus status);
+}
