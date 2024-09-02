@@ -32,26 +32,69 @@
 
 .searcherInput {
   border-radius: 30px;
-  border: none;
+  border: 2px solid #00843D;
   padding: 13px 13px 13px 33px;
   width: 400px;
+  font-family: "Roboto", sans-serif;
+  color: #00843D;
+  font-weight: 700;
+  font-size: 18px;
+  /* deshabilitar la cruz de borrado en los navegadores */
+  -webkit-appearance: none; /* safari */
+  -moz-appearance: none; /* firefox */
+  appearance: none; /* otros navegadores */
 }
 
 .inputDiv {
   display: flex;
   align-items: center;
+  z-index: 999;
 }
 
-.inputDiv img {
+.inputDiv a{
   height: auto;
   max-height: none;
   width: auto;
   position: relative;
   right: 37px;
+  background-color: white;
+  border-radius: 17px;
+  cursor: pointer;
 }
 
-.divImg img {
+.divImg a img {
   height: 100%;
+  width: 100%;
+}
+
+.divSearchRecs {
+  position: absolute;
+  padding-top: 35px;
+  top: 412px; /* adpaptar en responsive */
+  width: 398px;
+  background-color: white;
+  border: 1px solid #00843D;
+  border-radius: 17px;
+  font-family: "Roboto";
+  transform: translateY(-30px);
+}
+
+.searchRecs {
+  display: flex;
+  flex-direction: column;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.searchRecs a{
+  padding: 15px 0px 15px 22px;
+  cursor: pointer;
+  color: #00843D;
+  border-radius: 17px;
+}
+
+.searchRecs a:hover{
+  background-color: #E9FFEC;
 }
 
 @media screen and (max-width: 1440px) {
@@ -70,14 +113,21 @@
   .searcherInput {
     padding: 9px 9px 9px 23px;
     width: 200px;
+    font-size: 13px;
   }
 
-  .inputDiv img {
+  .inputDiv a img {
     right: 37px;
   }
 
   .textDiv {
     padding: 30px 0;
+  }
+
+  .divSearchRecs {
+    font-size: 13px;
+    top: 342px; 
+    width: 198px;
   }
 }
 
@@ -96,12 +146,15 @@
 
   .searcherInput {
     padding: 7px 7px 7px 18px;
-    width: 150px;
   }
 
-  .inputDiv img {
+  .inputDiv a img {
     height: 18px;
-    right: 27px;
+    margin-right: 10px;
+  }
+
+  .divSearchRecs {
+    top: 300px; 
   }
 }
 
