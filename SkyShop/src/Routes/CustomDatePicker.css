@@ -1,0 +1,59 @@
+/* Personalización del calendario */
+.react-datepicker {
+  border: none;
+  font-family: "Roboto", sans-serif;
+  background-color: #e5f5e1; /* Color de fondo */
+  font-size: 1.3em; /* Aumenta el tamaño general */
+}
+
+.react-datepicker__header {
+  background-color: #e5f5e1; /* Color del header */
+  border-bottom: none;
+  padding-top: 20px; /* Ajusta el padding del header */
+}
+
+.react-datepicker__current-month {
+  font-size: 1.5em; /* Aumenta el tamaño del mes */
+  color: #20702b; /* Color del mes */
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  color: #20702b; /* Color de los días */
+  font-size: 1.2em; /* Aumenta el tamaño de los días */
+  padding: 12px; /* Añade padding a cada día para hacerlo más grande */
+}
+
+.react-datepicker__month {
+  grid-template-columns: repeat(7, 1fr); /* Mantiene las 7 columnas */
+  gap: 10px; /* Aumenta el espacio entre columnas (días) */
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: #20702b; /* Color del día seleccionado */
+  color: white;
+  border-radius: 10px; /* Hace el día seleccionado circular */
+}
+
+.react-datepicker__day:hover {
+  background-color: #c5e4c1; /* Color cuando pasas el cursor sobre un día */
+  border-radius: 10px; /* Asegura que los días también sean circulares en hover */
+}
+
+.react-datepicker__navigation {
+  top: 25px; /* Ajusta la posición vertical de las flechas */
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: #20702b; /* Cambia las flechitas a verde */
+}
+
+.react-datepicker__navigation--previous {
+  left: 30px; /* Ajusta la posición de la flecha izquierda */
+}
+
+.react-datepicker__navigation--next {
+  right: 30px; /* Ajusta la posición de la flecha derecha */
+}

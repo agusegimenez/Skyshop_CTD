@@ -10,6 +10,7 @@ import { PanelAdmin } from './Routes/PanelAdmin';
 import Suscribe from './Components/Suscribe';
 import { UserDetail } from './Routes/UserDetail';
 import AñadirProd from './Routes/AñadirProd';
+import Carrito from './Routes/Carrito';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/admin" element={<PanelAdmin/>} />
         <Route path="/user" element={<UserDetail/>} />
         <Route path="/addProd" element={<AñadirProd/>}/>
+        <Route path="/carrito" element={<Carrito/>} />
       </Routes>
       <Suscribe/>
       <Footer/>

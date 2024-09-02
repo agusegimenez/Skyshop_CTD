@@ -11,6 +11,7 @@ const Detail = () => {
   const { id } = useParams(); // id de producto
   const producto = productos.find((prod) => prod.id == id); // producto encontrado en array por id
   const { loggedUser } = useContext(BotonContext);
+  const { agregarProductoAlCarrito } = useContext(BotonContext);
 
   console.log("valor de producto: " + producto);
 
@@ -69,7 +70,7 @@ const Detail = () => {
           </div>
           <div className={customCss.divBtn}>
             {loggedUser ? (
-              <button className={customCss.btnAgregar}>Agregar a mi pedido</button>
+              <button className={customCss.btnAgregar} onClick={() => agregarProductoAlCarrito(producto)}>Agregar a mi pedido</button>
             ) : (
               <button className={customCss.btnAgregarDisabled} disabled>
                 Debes iniciar sesión para agregar al carrito

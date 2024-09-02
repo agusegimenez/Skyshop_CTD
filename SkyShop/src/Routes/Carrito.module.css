@@ -1,0 +1,295 @@
+.carritoContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin-top: 10vh;
+  font-family: "Roboto", sans-serif;
+}
+
+.fechaHoraSelector {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.fechaHoraSelector h3 {
+  font-size: 20px;
+  color: #228b22;
+}
+
+.calendarioPadre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.calendario {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.horarioSelector select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #228b22;
+  border-radius: 5px;
+}
+
+.carritoPadre {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carritoProductos {
+  border: 2px solid #00843d;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.productoItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  gap: 40px;
+}
+
+.productoItem img {
+  width: 50px;
+  height: 50px;
+}
+
+.productoItem span {
+  font-size: 18px;
+}
+.productoItem .precioVerd {
+  color: #00843d;
+  font-weight: 700;
+}
+.productoItem input {
+  width: 50px;
+  padding: 5px;
+  text-align: center;
+}
+
+.productoItem button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.productoItem .deleteImg {
+  width: 20px;
+  height: 20px;
+}
+
+.modalConfirmacion {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border: 1px solid #228b22;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modalConfirmacion p {
+  font-size: 16px;
+}
+
+.modalConfirmacion button {
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modalConfirmacion button:first-child {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.modalConfirmacion button:last-child {
+  background-color: #228b22;
+  color: white;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 15px;
+  font-size: 30px;
+  border-top: 2px solid #00843d;
+  color: #00843d;
+  font-weight: 700;
+}
+
+.total h3 {
+  color: #00843d;
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.finalizarPedido {
+  margin-top: 30px;
+  width: 200px;
+  padding: 10px;
+  background-color: #01ac5c;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+.finalizarPedido:hover {
+  background-color: #01ac5cc6;
+}
+.carritoTittle {
+  margin-top: 15vh;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  font-size: 35px;
+  color: #00843d;
+  font-weight: 400;
+}
+
+.horarioContainer {
+  border-radius: 30px;
+  border: 1px solid #00843d;
+  padding: 9px;
+  width: 200px;
+  height: 20px;
+  background-color: #f9f9f9;
+}
+
+.horarioContainer span {
+  color: white;
+  text-align: center;
+  background-color: #00843d;
+  padding: 10px;
+  height: 10px;
+  width: 20px;
+  border-radius: 30px 0 0 30px;
+  margin-left: -11px;
+}
+.dropdownButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #00843d;
+}
+.horarioDropdown {
+  background-color: #f9f9f9;
+}
+
+.horarioSelector select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #00843d;
+}
+
+/* Estilo general del calendario */
+.react-datepicker {
+  border: 2px solid #4caf50; /* Borde verde */
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado del calendario (mes y año) */
+.react-datepicker__header {
+  background-color: #ffffff; /* Fondo blanco */
+  border-bottom: 2px solid #4caf50; /* Línea verde debajo del header */
+  padding: 10px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.react-datepicker__current-month {
+  font-size: 1.2em;
+  color: #4caf50; /* Texto verde */
+  font-weight: bold;
+}
+
+/* Botones de navegación del mes */
+.react-datepicker__navigation {
+  top: 12px;
+  line-height: 0.8;
+  border: none;
+  background-color: transparent;
+  color: #4caf50; /* Color de las flechas */
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: #4caf50; /* Color de las flechas de navegación */
+}
+
+/* Estilos para los días */
+.react-datepicker__day {
+  color: #333333; /* Color del texto */
+  padding: 8px 0;
+  font-size: 1em;
+  margin: 0.2rem;
+  border-radius: 50%;
+  display: inline-block;
+  width: 40px; /* Tamaño de los días */
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.react-datepicker__day:hover {
+  background-color: #e6f4ea; /* Fondo verde claro al pasar el ratón */
+}
+
+/* Día seleccionado */
+.react-datepicker__day--selected {
+  background-color: #4caf50; /* Fondo verde para el día seleccionado */
+  color: white; /* Texto blanco */
+}
+
+/* Día de hoy */
+.react-datepicker__day--today {
+  border: 2px solid #4caf50; /* Borde verde para el día actual */
+  background-color: white;
+}
+
+/* Días deshabilitados (fuera de mes actual) */
+.react-datepicker__day--disabled {
+  color: #c0c0c0;
+  cursor: not-allowed;
+}
+
+/* Selector de semanas (si lo usas) */
+.react-datepicker__week {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Selector de meses */
+.react-datepicker__month {
+  margin: 10px 0;
+}
+
+/* Contenedor de la semana */
+.react-datepicker__day-names {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 5px;
+}
+
+.react-datepicker__day-name {
+  font-weight: bold;
+  color: #4caf50;
+}

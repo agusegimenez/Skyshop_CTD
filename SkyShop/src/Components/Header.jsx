@@ -51,7 +51,7 @@ const Header = () => {
           <ul>
             <li><a href="#">Ofertas</a></li>
             <li><a href="#">Productos</a></li>
-            {loggedUser && <li><a href="#">Carrito</a></li>}
+            {loggedUser && <li><a href="/carrito">Carrito</a></li>}
           </ul>
         </nav>
         {loggedUser !== null && <div className={customCss.loguedIcon} onClick={toggleLog}>
