@@ -34,14 +34,20 @@ public class CalendarService {
 
         LocalDateTime adjustedStartTime = blockDateRequestDTO.getStartDate().minusHours(1);
         LocalDateTime adjustedEndTime = blockDateRequestDTO.getEndDate().plusHours(1);
-
         blockedDate.setStartTime(adjustedStartTime);
         blockedDate.setEndTime(adjustedEndTime);
-
         blockedDateRepository.save(blockedDate);
     }
 
     public void unblockDate(Long id) {
         blockedDateRepository.deleteById(id);
+    }
+
+    public boolean isDateBlocked(LocalDateTime startTime, LocalDateTime endTime) {
+        List<BlockedDate> blockedDates = blockedDateRepository.findAll();
+
+        return blockedDates.stream().anyMatch(blockedDate ->
+                (startTime.isBefore(blockedDate.getEndTime()) || startTime.isEqual(blockedDate.getEndTime())) &&
+                        (endTime.isAfter(blockedDate.getStartTime()) || endTime.isEqual(blockedDate.getStartTime())));
     }
 }

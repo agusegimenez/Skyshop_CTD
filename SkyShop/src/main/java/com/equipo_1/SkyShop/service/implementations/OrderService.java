@@ -1,5 +1,6 @@
 package com.equipo_1.SkyShop.service.implementations;
 
+import com.equipo_1.SkyShop.dto.request.BlockDateRequestDTO;
 import com.equipo_1.SkyShop.dto.request.ItemRequestDTO;
 import com.equipo_1.SkyShop.dto.request.OrderRequestDTO;
 import com.equipo_1.SkyShop.dto.response.ItemResponseDTO;
@@ -11,8 +12,8 @@ import com.equipo_1.SkyShop.entity.enums.Categories;
 import com.equipo_1.SkyShop.entity.enums.OrderStatus;
 import com.equipo_1.SkyShop.repository.OrderRepository;
 import com.equipo_1.SkyShop.repository.UserRepository;
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -27,6 +28,9 @@ public class OrderService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CalendarService calendarService; // Agregar el CalendarService
+
     public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO) {
         // Obtener el usuario desde el repositorio
         User user = userRepository.findById(orderRequestDTO.getUserId())
@@ -34,23 +38,39 @@ public class OrderService {
 
         // Verificar cuántos pedidos en estado PENDING tiene el usuario
         long pendingOrdersCount = orderRepository.countByUserIdAndStatus(user.getId(), OrderStatus.PENDING);
-
         if (pendingOrdersCount >= 2) {
             throw new RuntimeException("You cannot create more than 2 pending orders.");
         }
 
-        // Aquí iría la lógica para crear el pedido y guardarlo en la base de datos
+        // Determinar el rango de fechas del pedido
+        LocalDateTime orderStartTime = LocalDateTime.now();
+        LocalDateTime orderEndTime = orderStartTime.plusHours(1); // Ajusta la duración según sea necesario
+
+        // Verificar si la fecha solicitada ya está bloqueada
+        boolean isBlocked = calendarService.isDateBlocked(orderStartTime, orderEndTime);
+        if (isBlocked) {
+            throw new RuntimeException("The selected date and time are not available.");
+        }
 
         // Asignar el estado inicial como PENDING
         Order order = new Order();
         order.setUser(user);
         order.setStatus(OrderStatus.PENDING);
+
         // Lógica para agregar los items al pedido y calcular el total
         order.setItems(mapItemsFromDTO(orderRequestDTO.getItems()));
         order.setTotal(calculateTotal(order.getItems()));
-        order.setOrderedAt(LocalDateTime.now());
+        order.setOrderedAt(orderStartTime);
 
+        // Guardar la orden en la base de datos
         Order savedOrder = orderRepository.save(order);
+
+        // Bloquear la fecha correspondiente en el calendario
+        BlockDateRequestDTO blockDateRequestDTO = new BlockDateRequestDTO(
+                orderStartTime.minusHours(1), // Ajusta según el rango de bloqueo necesario
+                orderEndTime.plusHours(1)     // Ajusta según el rango de bloqueo necesario
+        );
+        calendarService.blockDate(blockDateRequestDTO);
 
         return mapToOrderResponseDTO(savedOrder);
     }
@@ -72,6 +92,7 @@ public class OrderService {
     private double calculateTotal(Set<Item> items) {
         return items.stream().mapToDouble(Item::getPrice).sum();
     }
+
     private OrderResponseDTO mapToOrderResponseDTO(Order savedOrder) {
         OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
         orderResponseDTO.setId(savedOrder.getId());

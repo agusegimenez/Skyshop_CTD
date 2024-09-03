@@ -22,7 +22,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "user_id")
     private User user;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
