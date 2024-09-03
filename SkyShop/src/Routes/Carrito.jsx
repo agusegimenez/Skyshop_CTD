@@ -28,6 +28,7 @@ const Carrito = () => {
   const handleEliminar = (id) => {
     const nuevosProductos = products.filter(producto => producto.id !== id);
     setProducts(nuevosProductos);
+    setShowConfirmModal(null);
     localStorage.setItem("carrito", JSON.stringify(nuevosProductos));
   };
 
@@ -54,34 +55,29 @@ const Carrito = () => {
             className={customCss.customCalendar}
           />
         </div>
+        </div>
         <div className={customCss.horarioContainer}>
-        <span>Horario:</span>
-        <button onClick={toggleHorario} className={customCss.dropdownButton}>
-          &#9660; 
-        </button>
-      </div>
-      {isHorarioVisible && (
-            <div className={customCss.horarioDropdown}>
-              <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
-                <option>07:00 - 08:00</option>
-                <option>08:00 - 09:00</option>
-                <option>09:00 - 10:00</option>
-                <option>10:00 - 11:00</option>
-                <option>11:00 - 12:00</option>
-                <option>12:00 - 13:00</option>
-                <option>13:00 - 14:00</option>
-                <option>14:00 - 15:00</option>
-                <option>15:00 - 16:00</option>
-                <option>16:00 - 17:00</option>
-                <option>17:00 - 18:00</option>
-                <option>18:00 - 19:00</option>
-                <option>19:00 - 20:00</option>
-                <option>20:00 - 21:00</option>
-                <option>21:00 - 22:00</option>
-              </select>
-            </div>
+          <div className={customCss.horarioWrapper}>
+            <span className={customCss.horarioLabel}>Horario:</span>
+            <div className={customCss.horarioSelect}>
+            <span>{selectedTime || "Selecciona una hora"}</span>
+            <button onClick={toggleHorario} className={customCss.dropdownButton}>
+              &#9660; 
+            </button>
+          </div>
+          </div>
+          {isHorarioVisible && (
+        <div className={customCss.horarioDropdown}>
+           <ul className={customCss.horarioLista}>
+              {["07:00 - 08:00", "08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00","19:00 - 20:00", "20:00 - 21:00", "21:00 - 22:00"].map((time) => (
+             <li key={time} className={customCss.horarioItem} onClick={() => setSelectedTime(time)}>
+              {time}
+            </li>
+            ))}
+            </ul>
+          </div>
           )}
-      </div>
+        </div>
       </div>
       <div className={customCss.carritoPadre}>
         <div className={customCss.carritoProductos}>
@@ -104,9 +100,15 @@ const Carrito = () => {
 
         {showConfirmModal !== null && (
           <div className={customCss.modalConfirmacion}>
-            <p>¿Seguro que desea eliminar este producto de su carrito?</p>
-            <button onClick={() => handleEliminar(showConfirmModal)}>Eliminar</button>
-            <button onClick={() => setShowConfirmModal(null)}>Cancelar</button>
+            <p>¿Seguro qué desea eliminar este producto de su carrito?</p>
+            <div className={customCss.botonesConfirmacion}>
+                    <button onClick={() => handleEliminar(showConfirmModal)} className={customCss.botonEliminar}>
+                        Eliminar
+                    </button>
+                    <button onClick={() => setShowConfirmModal(null)} className={customCss.botonCancelar}>
+                        Cancelar
+                    </button>
+                </div>
           </div>
         )}
 

@@ -143,7 +143,7 @@
   height: 180px;
 }
 
-.divCaracteristicas p{
+.divCaracteristicas p {
   margin-left: 21px;
   color: #3a3a3a;
   width: 90%;
@@ -177,10 +177,10 @@ input[type="radio"] {
 
 .customRadio {
   display: inline-block;
-  width: 15px; 
-  height: 15px; 
+  width: 15px;
+  height: 15px;
   border: 2px solid green;
-  border-radius: 5px; 
+  border-radius: 5px;
   background-color: transparent;
   position: relative;
   vertical-align: middle;
