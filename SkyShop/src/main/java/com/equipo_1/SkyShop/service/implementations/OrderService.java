@@ -10,13 +10,16 @@ import com.equipo_1.SkyShop.entity.Order;
 import com.equipo_1.SkyShop.entity.User;
 import com.equipo_1.SkyShop.entity.enums.Categories;
 import com.equipo_1.SkyShop.entity.enums.OrderStatus;
+import com.equipo_1.SkyShop.repository.ItemRepository;
 import com.equipo_1.SkyShop.repository.OrderRepository;
 import com.equipo_1.SkyShop.repository.UserRepository;
+import com.equipo_1.SkyShop.service.implementations.CalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,77 +32,92 @@ public class OrderService {
     private UserRepository userRepository;
 
     @Autowired
-    private CalendarService calendarService; // Agregar el CalendarService
+    private CalendarService calendarService;
+
+    @Autowired
+    private ItemRepository itemRepository;
 
     public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO) {
-        // Obtener el usuario desde el repositorio
         User user = userRepository.findById(orderRequestDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Verificar cuántos pedidos en estado PENDING tiene el usuario
         long pendingOrdersCount = orderRepository.countByUserIdAndStatus(user.getId(), OrderStatus.PENDING);
         if (pendingOrdersCount >= 2) {
             throw new RuntimeException("You cannot create more than 2 pending orders.");
         }
 
-        // Determinar el rango de fechas del pedido
         LocalDateTime orderStartTime = LocalDateTime.now();
-        LocalDateTime orderEndTime = orderStartTime.plusHours(1); // Ajusta la duración según sea necesario
+        LocalDateTime orderEndTime = orderStartTime.plusHours(1);
 
-        // Verificar si la fecha solicitada ya está bloqueada
         boolean isBlocked = calendarService.isDateBlocked(orderStartTime, orderEndTime);
         if (isBlocked) {
             throw new RuntimeException("The selected date and time are not available.");
         }
 
-        // Asignar el estado inicial como PENDING
-        Order order = new Order();
-        order.setUser(user);
-        order.setStatus(OrderStatus.PENDING);
+        // Crear el Item desde ItemRequestDTO
+        ItemRequestDTO itemRequestDTO = orderRequestDTO.getItem();
+        if (itemRequestDTO == null) {
+            throw new RuntimeException("Item information is missing.");
+        }
 
-        // Lógica para agregar los items al pedido y calcular el total
-        order.setItems(mapItemsFromDTO(orderRequestDTO.getItems()));
-        order.setTotal(calculateTotal(order.getItems()));
-        order.setOrderedAt(orderStartTime);
-
-        // Guardar la orden en la base de datos
-        Order savedOrder = orderRepository.save(order);
-
-        // Bloquear la fecha correspondiente en el calendario
-        BlockDateRequestDTO blockDateRequestDTO = new BlockDateRequestDTO(
-                orderStartTime.minusHours(1), // Ajusta según el rango de bloqueo necesario
-                orderEndTime.plusHours(1)     // Ajusta según el rango de bloqueo necesario
-        );
-        calendarService.blockDate(blockDateRequestDTO);
-
-        return mapToOrderResponseDTO(savedOrder);
-    }
-
-    private Set<Item> mapItemsFromDTO(Set<ItemRequestDTO> itemRequestDTOs) {
-        return itemRequestDTOs.stream().map(this::mapToItem).collect(Collectors.toSet());
-    }
-
-    private Item mapToItem(ItemRequestDTO itemRequestDTO) {
         Item item = new Item();
         item.setName(itemRequestDTO.getName());
         item.setPrice(itemRequestDTO.getPrice());
         item.setDescription(itemRequestDTO.getDescription());
         item.setCategory(Categories.valueOf(itemRequestDTO.getCategory()));
         item.setImage(itemRequestDTO.getImage());
-        return item;
+
+        Item savedItem = itemRepository.save(item); // Guarda el item y obtiene el ID generado
+
+        Order order = new Order();
+        order.setUser(user);
+        order.setItem(savedItem); // Asigna el item guardado a la orden
+        order.setStatus(OrderStatus.PENDING);
+        order.setTotal(savedItem.getPrice()); // Total es el precio del item
+        order.setOrderedAt(orderStartTime);
+
+        Order savedOrder = orderRepository.save(order);
+
+        BlockDateRequestDTO blockDateRequestDTO = new BlockDateRequestDTO(
+                orderStartTime.minusHours(1),
+                orderEndTime.plusHours(1)
+        );
+        calendarService.blockDate(blockDateRequestDTO);
+
+        return mapToOrderResponseDTO(savedOrder);
     }
 
-    private double calculateTotal(Set<Item> items) {
-        return items.stream().mapToDouble(Item::getPrice).sum();
+    public void deleteOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        BlockDateRequestDTO blockDateRequestDTO = new BlockDateRequestDTO(
+                order.getOrderedAt().minusHours(1),
+                order.getOrderedAt().plusHours(1)
+        );
+        calendarService.unblockDate(order.getId());
+
+        orderRepository.delete(order);
+    }
+
+    public OrderResponseDTO getOrderById(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+        return mapToOrderResponseDTO(order);
+    }
+
+    public List<OrderResponseDTO> getAllOrders() {
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream()
+                .map(this::mapToOrderResponseDTO)
+                .collect(Collectors.toList());
     }
 
     private OrderResponseDTO mapToOrderResponseDTO(Order savedOrder) {
         OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
         orderResponseDTO.setId(savedOrder.getId());
         orderResponseDTO.setClientId(savedOrder.getUser().getId());
-        orderResponseDTO.setItems(savedOrder.getItems().stream()
-                .map(this::mapToItemResponseDTO)
-                .collect(Collectors.toSet()));
+        orderResponseDTO.setItem(mapToItemResponseDTO(savedOrder.getItem())); // Mapea un solo item
         orderResponseDTO.setTotal(savedOrder.getTotal());
         orderResponseDTO.setOrderedAt(savedOrder.getOrderedAt().toString());
         orderResponseDTO.setStatus(savedOrder.getStatus().name());
