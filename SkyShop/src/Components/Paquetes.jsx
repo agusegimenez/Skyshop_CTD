@@ -53,7 +53,7 @@ const Paquetes = () => {
           {productos.map(producto => (
             <tr key={producto.id} className={customCss.trListado}>
               <td>
-                <img src={producto.imagen} alt={producto.nombre} style={{ width: '60px', marginRight: '10px' }} />
+                <img src={producto.imagenes[0]} alt={producto.nombre} style={{ width: '60px', marginRight: '10px' }} />
               </td>
               <td>{producto.nombre}</td>
               <td className={customCss.letraVer}>${producto.precio.toLocaleString('es-AR')}</td>
@@ -96,6 +96,15 @@ const Paquetes = () => {
                                 {category}
                               </label>
                             ))}
+                          </div>
+                          <div className={customCss.saveBtnDiv}>
+                            <button
+                              className={customCss.btnVer}
+                              style={{
+                                margin: 5,
+                                width: "100px",
+                              }}>Guardar
+                            </button>
                           </div>
                         </div>
                       </td>

@@ -33,7 +33,7 @@
   width: 500px;
   flex-direction: column;
   justify-content: space-between;
-  height: 286px;
+  height: 360px;
 }
 
 .divNombreYBoton {
@@ -88,7 +88,7 @@
 
 .imgDiv img {
   height: 160px;
-  margin: 20px 20px 50px 20px;
+  margin: 20px;
 }
 
 .imgDiv {
@@ -161,6 +161,33 @@
   border: none;
   border-radius: 50px;
   margin: 25px 0;
+}
+
+.allImgsDiv{
+  border: 3px solid #d0fdd7;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgOptionBtn{
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  border-radius: 10%;
+  padding: 10px;
+  margin: 10px;
+  transition: background-color 0.5s ease;
+}
+
+.imgOptionBtn:hover{
+  background-color: #d0fdd7;
+}
+
+.imgOptionBtn img{
+  height: 50px;
 }
 @media screen and (max-width: 1440px) {
   .detailSect {

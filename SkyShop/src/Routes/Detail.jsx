@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate,useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import customCss from "./Detail.module.css";
@@ -12,6 +12,11 @@ const Detail = () => {
   const producto = productos.find((prod) => prod.id == id); // producto encontrado en array por id
   const { loggedUser } = useContext(BotonContext);
   const { agregarProductoAlCarrito } = useContext(BotonContext);
+  const [mainImg, setMainImg] = useState(producto.imagenes[0]); // estado que guarda la imagen que se muestra grande
+
+  const handleMainImg = (newMainImg) => {
+    if(newMainImg !== mainImg) setMainImg(newMainImg);
+  }
 
   console.log("valor de producto: " + producto);
 
@@ -39,7 +44,7 @@ const Detail = () => {
   if (!producto) {
     return <div>Producto no encontrado</div>;
   }
-  const { nombre, imagen, contenido, precio } = producto;
+  const { nombre, imagenes, contenido, precio } = producto;
   return (
     <section className={customCss.detailSect}>
       <div className={customCss.divGral}>
@@ -53,7 +58,15 @@ const Detail = () => {
             </button>
           </div>
           <div className={customCss.imgDiv}>
-            <img src={imagen} alt={nombre} />
+            <img src={mainImg} alt={nombre} />
+          </div>
+          <div className={customCss.allImgsDiv}>
+            {imagenes.map(imagen => <button
+              className={customCss.imgOptionBtn}
+              style={{ backgroundColor: imagen === mainImg && '#d0fdd7'}}
+              onClick={() => handleMainImg(imagen)}>
+                <img src={imagen}/>
+              </button> )}
           </div>
         </div>
         <div>

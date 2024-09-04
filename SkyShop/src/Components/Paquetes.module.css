@@ -140,7 +140,7 @@
   box-sizing: border-box;
   margin-bottom: 30px;
   width: 580px;
-  height: 180px;
+  height: 205px;
 }
 
 .divCaracteristicas p {
@@ -185,6 +185,12 @@ input[type="radio"] {
   position: relative;
   vertical-align: middle;
   cursor: pointer;
+}
+
+.saveBtnDiv{
+  width: 100%;
+  display: flex;
+  justify-content: right;
 }
 
 @media screen and (max-width: 1400px) {

@@ -1,7 +1,11 @@
 export const productos = [
   {
     id: 1,
-    imagen: "/paquete_medicamentos.png",
+    imagenes: [
+      "/paquete_medicamentos.png",
+      "/paquete_medicamentos.png",
+      "/paquete_almuerzo.png",
+      "/paquete_noche_peliculas.png"],
     nombre: "Paquete Medicamentos",
     contenido: [
       "Analgésicos (paracetamol, ibuprofeno)",
@@ -23,7 +27,11 @@ export const productos = [
   },
   {
     id: 2,
-    imagen: "/paquete_facial.png",
+    imagenes: [
+      "/paquete_facial.png",
+      "/paquete_medicamentos.png",
+      "/paquete_almuerzo.png",
+      "/paquete_noche_peliculas.png"],
     nombre: "Paquete Cuidado Facial",
     contenido: ["Limpiador facial", "Tónico", "Hidratante", "Protector solar"],
     caracteristicas: [
@@ -40,7 +48,11 @@ export const productos = [
   },
   {
     id: 3,
-    imagen: "/paquete_almuerzo.png",
+    imagenes: [
+      "/paquete_almuerzo.png",
+      "/paquete_facial.png",
+      "/paquete_medicamentos.png",
+      "/paquete_noche_peliculas.png"],
     categoria: "Alimentos",
     nombre: "Paquete Almuerzo Rápido",
     contenido: [
@@ -62,7 +74,11 @@ export const productos = [
   },
   {
     id: 4,
-    imagen: "/paquete_noche_peliculas.png",
+    imagenes: [
+      "/paquete_noche_peliculas.png",
+      "/paquete_almuerzo.png",
+      "/paquete_facial.png",
+      "/paquete_medicamentos.png"],
     nombre: "Paquete Noche de Películas",
     contenido: [
       "Palomitas de maíz",
@@ -83,7 +99,11 @@ export const productos = [
   },
   {
     id: 5,
-    imagen: "/paquete_perro.png",
+    imagenes: [
+      "/paquete_perro.png",
+      "/paquete_noche_peliculas.png",
+      "/paquete_almuerzo.png",
+      "/paquete_facial.png"],
     nombre: "Paquete Perro Feliz",
     categoria: "Mascotas",
     contenido: [
@@ -105,7 +125,11 @@ export const productos = [
   },
   {
     id: 6,
-    imagen: "/paquete_gato.png",
+    imagenes: [
+      "/paquete_gato.png",
+      "/paquete_noche_peliculas.png",
+      "/paquete_almuerzo.png",
+      "/paquete_facial.png"],
     categoria: "Mascotas",
     nombre: "Paquete Gato Consentido",
     contenido: [
@@ -127,7 +151,11 @@ export const productos = [
   {
     id: 7,
     categoria: "Oficina",
-    imagen: "/paquete_oficina_casa.png",
+    imagenes: [
+      "/paquete_oficina_casa.png",
+      "/paquete_noche_peliculas.png",
+      "/paquete_almuerzo.png",
+      "/paquete_facial.png"],
     nombre: "Paquete Oficina en Casa",
     contenido: [
       "Cuadernos y bolígrafos",
@@ -148,7 +176,11 @@ export const productos = [
   },
   {
     id: 8,
-    imagen: "/paquete_oficina_organizada.png",
+    imagenes: [
+      "/paquete_oficina_organizada.png",
+      "/paquete_noche_peliculas.png",
+      "/paquete_almuerzo.png",
+      "/paquete_facial.png"], 
     categoria: "Oficina",
     nombre: "Paquete Oficina Organizada",
     contenido: [
@@ -171,7 +203,11 @@ export const productos = [
   {
     id: 9,
     categoria: "Alimentos",
-    imagen: "/paquete_dulce.png",
+    imagenes: [
+      "/paquete_dulce.png",
+      "/paquete_noche_peliculas.png",
+      "/paquete_almuerzo.png",
+      "/paquete_facial.png"],
     nombre: "Paquete dulce",
     contenido: ["Barra de Kitkat", "Ositos Mogul"],
     caracteristicas: [
@@ -187,7 +223,11 @@ export const productos = [
   },
   {
     id: 10,
-    imagen: "/paquete_previa.png",
+    imagenes: [
+      "/paquete_previa.png",
+      "/paquete_noche_peliculas.png",
+      "/paquete_almuerzo.png",
+      "/paquete_facial.png"],
     categoria: "Ocio",
     nombre: "Paquete Previa",
     contenido: ["10 Latas Guiness Stout", "Maní"],
@@ -205,8 +245,11 @@ export const productos = [
   {
     id: 11,
     categoria: "Alimentos",
-    imagen:
+    imagenes:[
       "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/doritos.png",
+      "/paquete_noche_peliculas.png",
+      "/paquete_almuerzo.png",
+      "/paquete_facial.png"],
     nombre: "Paquete Salado",
     contenido: ["Doritos Sabor Queso", "Papitas Lays Sabor Asado"],
     caracteristicas: [
