@@ -7,9 +7,9 @@ const AñadirProd = () => {
     const [productDescription, setProductDescription] = useState("");
     const [productPrice, setProductPrice] = useState("");
     const [selectedCategorie, setSelectedCategorie] = useState(""); // estado que guarda la categoria seleccionada
-    const [imagen, setImagen] = useState(""); // estado que guarda la imagen subida al navegador
-    const [imgFile, setImgFile] = useState(null); // estado que guarda la imagen en formato archivo
-    const [imageCloudUrl, setImageCloudUrl] = useState(""); // estado q guarda el link de la url de la imagen en Cloudinary
+    const [images, setImages] = useState([]); // estado que guarda las imagenes subidas al navegador
+    const [imgFiles, setImgFiles] = useState([]); // estado que guarda las imagenes en formato archivo
+    const [imagesCloudUrls, setImagesCloudUrls] = useState(""); // estado q guarda el link de la url de la imagen en Cloudinary
     const [error, setError] = useState(false);
     const [selectedCharacteristics, setSelectedCharecteristics] = useState([]); // estado que guarda las caracteristicas seleccionadas
 
@@ -17,33 +17,41 @@ const AñadirProd = () => {
       setProductName("");
       setProductDescription("");
       setProductPrice("");
-      setCategorias([]);
-      setImagen("");
-      setImgFile(null);
-      setImageCloudUrl("");
+      setSelectedCategorie("");
+      setSelectedCharecteristics([]);
+      setImage([]);
+      setImgFiles([]);
+      setImagesCloudUrls("");
   };
 
     const handleImagenSubida = (e) => {
-      const file = e.target.files[0]; // Selecciona solo el primer archivo
-      setImgFile(file);
-      const nuevaImagen = URL.createObjectURL(file);
-      setImagen(nuevaImagen); // Reemplaza la imagen anterior si la hubiera
+      const files = Array.from(e.target.files);
+      if (files.length + imgFiles.length > 4) {
+        alert("Puedes subir hasta 4 imágenes.");
+        return;
+      }
+      setImgFiles(prevFiles => [...prevFiles, ...files]);
+      const nuevasImagenes = files.map(file => URL.createObjectURL(file));
+      setImages(prevImages => [...prevImages, ...nuevasImagenes]);
   };
 
   // subida de imagen a Cloudinary
   // (implementacion cuando se pueda agregar productos al back-end)
-  const uploadImageToCloudinary  = async (file) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'x1kdwphk');
-
-    try {
-      const response = await axios.post('https://api.cloudinary.com/v1_1/dqeczcnjq/image/upload', formData);
-      return response.data.secure_url;
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      return null;
+  const uploadImageToCloudinary  = async (files) => {
+    const urls = [];
+    for(const file of files){
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', 'x1kdwphk');
+      try{
+        const response = await axios.post('https://api.cloudinary.com/v1_1/dqeczcnjq/image/upload', formData);
+        urls.push(response.data.secure_url);
+      }catch(error){
+        console.error("Error uploading image:", error);
+        urls.push(null);
+      }
     }
+    return urls;
   };
 
   const handleCharacteristics = (e) => {
@@ -61,22 +69,19 @@ const AñadirProd = () => {
           setError(true);
       }else {
           setError(false);
-          let url = "";
-          // se ejecuta subida de img a Cloudinary si no hay errores y si hay una imagen seleccionada
-          if(imgFile !== null){
-            url = await uploadImageToCloudinary(imgFile);
-            if (url) {
-              setImageCloudUrl(url);
+          let urls = [];
+          // se ejecuta subida de img a Cloudinary si no hay errores y si hay imagenes seleccionadas
+          if(imgFiles.length > 0){
+            urls = await uploadImageToCloudinary(imgFiles);
+            if (urls) {
+              setImagesCloudUrls(urls);
             } else {
               console.error("Error uploading image");
               return;
             }
           }
-          if(imagen === "" || imgFile === null){
-            console.error("Error uploading image");
-          }
           // cambiar esto con POST a API
-          console.log('Producto guardado', { productName, productDescription, productPrice, categorias, imageCloudUrl });
+          console.log('Producto guardado', { productName, productDescription, productPrice, selectedCategorie, selectedCharacteristics, imagesCloudUrls });
           //limpiar los inputs si se guardo bien el producto
           resetForm();
       }
@@ -87,14 +92,15 @@ const AñadirProd = () => {
             <label>Imagen:</label>
             <div className={customCss.imgPreview}>
                 {/* Vista previa de imágenes */}
-                {
-                  imagen !== "" && <img src={imagen} className={customCss.imgThumbnail} />
-                }
+                {images.map((image, index) => (
+                  <img key={index} src={image} className={customCss.imgThumbnail} alt={`preview-${index}`} />
+                ))}
                 {/* Botón para agregar más imágenes */}
                 <label className={customCss.addImage}>
                     <input 
                         type="file" 
-                        accept='image/*'  
+                        accept='image/*'
+                        multiple  
                         onChange={handleImagenSubida} 
                         style={{ display: 'none' }} 
                     />
