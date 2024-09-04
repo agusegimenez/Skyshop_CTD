@@ -72,7 +72,7 @@ const Detail = () => {
         <div>
           <div className={customCss.contenidoMod}>
             <ul>
-              {contenido.map((item, index) => (
+              {contenido.split(',').map((item, index) => (
                 <li key={index}>
                   {item}
                   <p>x1</p>

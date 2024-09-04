@@ -11,6 +11,7 @@ import Suscribe from './Components/Suscribe';
 import { UserDetail } from './Routes/UserDetail';
 import AñadirProd from './Routes/AñadirProd';
 import Carrito from './Routes/Carrito';
+import EditProd from './Routes/EditProd';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/register" element={<Create/>}/>
         <Route path="/login" element={<Login/>} />
         <Route path="/admin" element={<PanelAdmin/>} />
+        <Route path="/admin/edit/product/:id" element={<EditProd />} />
         <Route path="/user" element={<UserDetail/>} />
         <Route path="/addProd" element={<AñadirProd/>}/>
         <Route path="/carrito" element={<Carrito/>} />

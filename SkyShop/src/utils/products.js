@@ -7,12 +7,7 @@ export const productos = [
       "/paquete_almuerzo.png",
       "/paquete_noche_peliculas.png"],
     nombre: "Paquete Medicamentos",
-    contenido: [
-      "Analgésicos (paracetamol, ibuprofeno)",
-      "Antiséptico para heridas",
-      "Bandas adhesivas (curitas)",
-      "Jarabe para la tos",
-    ],
+    contenido: "Analgésicos (paracetamol e ibuprofeno), Antiséptico para heridas, Bandas adhesivas (curitas), Jarabe para la tos",
     caracteristicas: [
       "Alimentos",
       "Higiene",
@@ -33,7 +28,7 @@ export const productos = [
       "/paquete_almuerzo.png",
       "/paquete_noche_peliculas.png"],
     nombre: "Paquete Cuidado Facial",
-    contenido: ["Limpiador facial", "Tónico", "Hidratante", "Protector solar"],
+    contenido: "Limpiador facial, Tónico, Hidratante, Protector solar",
     caracteristicas: [
       "Alimentos",
       "Higiene",
@@ -55,12 +50,7 @@ export const productos = [
       "/paquete_noche_peliculas.png"],
     categoria: "Alimentos",
     nombre: "Paquete Almuerzo Rápido",
-    contenido: [
-      "Wraps de pollo y vegetales",
-      "Fruta fresca (manzanas, naranjas)",
-      "Botellas de agua mineral",
-      "Barras de granola",
-    ],
+    contenido: "Wraps de pollo y vegetales, Fruta fresca (manzanas y naranjas), Botellas de agua mineral, Barras de granola",
     caracteristicas: [
       "Alimentos",
       "Higiene",
@@ -80,11 +70,7 @@ export const productos = [
       "/paquete_facial.png",
       "/paquete_medicamentos.png"],
     nombre: "Paquete Noche de Películas",
-    contenido: [
-      "Palomitas de maíz",
-      "Chocolates y dulces",
-      "Snacks salados (papas fritas, nachos)",
-    ],
+    contenido: "Palomitas de maíz, Chocolates y dulces, Snacks salados (papas fritas, nachos)",
     caracteristicas: [
       "Alimentos",
       "Higiene",
@@ -106,12 +92,7 @@ export const productos = [
       "/paquete_facial.png"],
     nombre: "Paquete Perro Feliz",
     categoria: "Mascotas",
-    contenido: [
-      "Comida premium para perros",
-      "Juguetes masticables",
-      "Premios para perros",
-      "Shampoo para perros",
-    ],
+    contenido: "Comida premium para perros, Juguetes masticables, Premios para perros, Shampoo para perros",
     caracteristicas: [
       "Alimentos",
       "Higiene",
@@ -132,11 +113,7 @@ export const productos = [
       "/paquete_facial.png"],
     categoria: "Mascotas",
     nombre: "Paquete Gato Consentido",
-    contenido: [
-      "Arena para gatos",
-      "Juguetes interactivos",
-      "Snacks para gatos",
-    ],
+    contenido: "Arena para gatos, Juguetes interactivos, Snacks para gatos",
     caracteristicas: [
       "Alimentos",
       "Higiene",
@@ -157,12 +134,7 @@ export const productos = [
       "/paquete_almuerzo.png",
       "/paquete_facial.png"],
     nombre: "Paquete Oficina en Casa",
-    contenido: [
-      "Cuadernos y bolígrafos",
-      "Café premium y tazas",
-      "Snacks saludables (frutos secos, barras de proteína)",
-      "Auriculares con micrófono",
-    ],
+    contenido: "Cuadernos y bolígrafos, Café premium y tazas, Snacks saludables (frutos secos y barras de proteína), Auriculares con micrófono",
     caracteristicas: [
       "Alimentos",
       "Higiene",
@@ -183,12 +155,7 @@ export const productos = [
       "/paquete_facial.png"], 
     categoria: "Oficina",
     nombre: "Paquete Oficina Organizada",
-    contenido: [
-      "Organizadores de escritorio",
-      "Soporte para laptop",
-      "Calendario y planificador semanal",
-      "Grapadora y grapas",
-    ],
+    contenido: "Organizadores de escritorio, Soporte para laptop, Calendario y planificador semanal, Grapadora y grapas",
     caracteristicas: [
       "Alimentos",
       "Higiene",
@@ -209,7 +176,7 @@ export const productos = [
       "/paquete_almuerzo.png",
       "/paquete_facial.png"],
     nombre: "Paquete dulce",
-    contenido: ["Barra de Kitkat", "Ositos Mogul"],
+    contenido: "Barra de Kitkat, Ositos Mogul",
     caracteristicas: [
       "Alimentos",
       "Higiene",
@@ -230,7 +197,7 @@ export const productos = [
       "/paquete_facial.png"],
     categoria: "Ocio",
     nombre: "Paquete Previa",
-    contenido: ["10 Latas Guiness Stout", "Maní"],
+    contenido: "10 Latas Guiness Stout, Maní",
     caracteristicas: [
       "Alimentos",
       "Higiene",
@@ -251,7 +218,7 @@ export const productos = [
       "/paquete_almuerzo.png",
       "/paquete_facial.png"],
     nombre: "Paquete Salado",
-    contenido: ["Doritos Sabor Queso", "Papitas Lays Sabor Asado"],
+    contenido: "Doritos Sabor Queso, Papitas Lays Sabor Asado",
     caracteristicas: [
       "Alimentos",
       "Higiene",
