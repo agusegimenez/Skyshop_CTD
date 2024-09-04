@@ -97,6 +97,15 @@ const Paquetes = () => {
                               </label>
                             ))}
                           </div>
+                          <div className={customCss.saveBtnDiv}>
+                            <button
+                              className={customCss.btnVer}
+                              style={{
+                                margin: 5,
+                                width: "100px",
+                              }}>Guardar
+                            </button>
+                          </div>
                         </div>
                       </td>
                     )}

@@ -9,7 +9,7 @@ const AñadirProd = () => {
     const [selectedCategorie, setSelectedCategorie] = useState(""); // estado que guarda la categoria seleccionada
     const [images, setImages] = useState([]); // estado que guarda las imagenes subidas al navegador
     const [imgFiles, setImgFiles] = useState([]); // estado que guarda las imagenes en formato archivo
-    const [imagesCloudUrls, setImagesCloudUrls] = useState(""); // estado q guarda el link de la url de la imagen en Cloudinary
+    const [imagesCloudUrls, setImagesCloudUrls] = useState([]); // estado q guarda el link de la url de la imagen en Cloudinary
     const [error, setError] = useState(false);
     const [selectedCharacteristics, setSelectedCharecteristics] = useState([]); // estado que guarda las caracteristicas seleccionadas
 
@@ -21,7 +21,7 @@ const AñadirProd = () => {
       setSelectedCharecteristics([]);
       setImage([]);
       setImgFiles([]);
-      setImagesCloudUrls("");
+      setImagesCloudUrls([]);
   };
 
     const handleImagenSubida = (e) => {
@@ -34,6 +34,13 @@ const AñadirProd = () => {
       const nuevasImagenes = files.map(file => URL.createObjectURL(file));
       setImages(prevImages => [...prevImages, ...nuevasImagenes]);
   };
+
+  const eliminarImagen = (index) => {
+    const nuevasImagenes = images.filter((_, i) => i !== index);
+    const nuevosArchivos = imgFiles.filter((_, i) => i !== index);
+    setImages(nuevasImagenes);
+    setImgFiles(nuevosArchivos);
+};
 
   // subida de imagen a Cloudinary
   // (implementacion cuando se pueda agregar productos al back-end)
@@ -93,7 +100,7 @@ const AñadirProd = () => {
             <div className={customCss.imgPreview}>
                 {/* Vista previa de imágenes */}
                 {images.map((image, index) => (
-                  <img key={index} src={image} className={customCss.imgThumbnail} alt={`preview-${index}`} />
+                  <img key={index} src={image} className={customCss.imgThumbnail} onClick={() => eliminarImagen(index)} alt={`preview-${index}`} />
                 ))}
                 {/* Botón para agregar más imágenes */}
                 <label className={customCss.addImage}>
