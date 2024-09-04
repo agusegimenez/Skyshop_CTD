@@ -6,11 +6,12 @@ const AñadirProd = () => {
     const [productName, setProductName] = useState("");
     const [productDescription, setProductDescription] = useState("");
     const [productPrice, setProductPrice] = useState("");
-    const [categorias, setCategorias] = useState([]);
+    const [selectedCategorie, setSelectedCategorie] = useState(""); // estado que guarda la categoria seleccionada
     const [imagen, setImagen] = useState(""); // estado que guarda la imagen subida al navegador
     const [imgFile, setImgFile] = useState(null); // estado que guarda la imagen en formato archivo
     const [imageCloudUrl, setImageCloudUrl] = useState(""); // estado q guarda el link de la url de la imagen en Cloudinary
     const [error, setError] = useState(false);
+    const [selectedCharacteristics, setSelectedCharecteristics] = useState([]); // estado que guarda las caracteristicas seleccionadas
 
     const resetForm = () => {
       setProductName("");
@@ -45,9 +46,13 @@ const AñadirProd = () => {
     }
   };
 
-  const handleCategory = (e) => {
+  const handleCharacteristics = (e) => {
       const value = e.target.value;
-      setCategorias([...categorias, value]);
+      if(selectedCharacteristics.includes(value)){
+        setSelectedCharecteristics(selectedCharacteristics.filter((item) => item !== value));
+      }else{
+        setSelectedCharecteristics([...selectedCharacteristics, value]);
+      }
   }
     
   const handleSubmit = async (e) => {
@@ -123,52 +128,54 @@ const AñadirProd = () => {
       <label>Categoría:</label>
       <div className={customCss.categories}>
         <div className={customCss.caracteristicas}>
-        <label>
-          <input
-            type="checkbox"
-            value="Alimentos"
-            onChange={handleCategory}
-          /><img src='./caracteristica_alimentos.png' alt='alimentos-logo'/>
-          Alimentos
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            value="Higiene"
-            onChange={handleCategory}
-          />
-          <img src="./caracteristica_higiene.png" alt="higiene-logo" />
-          Higiene
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            value="Diversión"
-            onChange={handleCategory}
-          />
-          <img src="./caracteristica_diversion.png" alt="diversion-logo" />
-          Diversión
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            value="Mascotas"
-            onChange={handleCategory}
-          />
-          <img src="./caracteristica_mascotas.png" alt="mascotas-logo" />
-          Mascotas
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            value="Perros"
-            onChange={handleCategory}
-          />
-          <img src="./caracteristica_perros.png" alt="perros-logo" />
-          Perros
-        </label>
+        {['Alimentos', 'Higiene', 'Diversion', 'Mascotas', 'Perros'].map((category) => (
+          <label key={category}>
+            <input
+            type="radio"
+            name="categoria"
+            value={category}
+            checked={selectedCategorie == category}
+            onChange={() => setSelectedCategorie(category)}
+            />
+            <div>
+              { selectedCategorie == category ? <div className={customCss.radioChecked}>✅</div> : <div className={customCss.customRadio}></div>}
+              <img src={`./caracteristica_${category.toLowerCase()}.png`} alt={`${category}-logo`} />
+            </div>
+              {category}
+          </label>
+        ))}
         </div>
       </div>
+
+      {/* campo de caracteristicas */}
+      <label>Características:</label>
+      <div className={customCss.categories}>
+        <div className={customCss.caracteristicas}>
+        {['Alimentos', 'Higiene', 'Diversion', 'Mascotas', 'Perros'].map((characteristic) => (
+          <label key={characteristic} onClick={(e) => e.stopPropagation()}>
+            <input
+            type="radio"
+            name="categoria"
+            value={characteristic}
+            checked={selectedCharacteristics.includes(characteristic)}
+            onChange={handleCharacteristics}
+            />
+            <div>
+              { selectedCharacteristics.includes(characteristic)
+              ? <button type="button" className={customCss.radioCheckedButton}
+              onClick={(event) => {
+                event.preventDefault(); // Evita que se seleccione el input
+                handleCharacteristics({ target: { value: characteristic } });
+              }}>✅</button>
+              : <div className={customCss.customRadio}></div>}
+              <img src={`./caracteristica_${characteristic.toLowerCase()}.png`} alt={`${characteristic}-logo`} />
+            </div>
+              {characteristic}
+          </label>
+        ))}
+        </div>
+      </div>
+
 
        {/* Campo de precio */}
        <label>Precio:</label>
@@ -180,7 +187,7 @@ const AñadirProd = () => {
       />
 
         {/* Botón de guardar */}
-        <button type="submit">Guardar producto</button>
+        <button type="submit" className={customCss.buttonSubmit}>Guardar producto</button>
     </form>
   )
 }

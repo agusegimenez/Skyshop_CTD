@@ -114,6 +114,41 @@
 .caracteristicas label {
   display: flex;
   align-items: center;
+  margin-left: 5px;
+}
+
+.caracteristicas div {
+  display: flex;
+  margin-right: 10px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.customRadio {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid green;
+  border-radius: 5px;
+  background-color: transparent;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.radioChecked{
+  cursor: pointer;
+}
+
+.radioCheckedButton{
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
 .descripcion {
@@ -128,7 +163,7 @@
   margin-bottom: 60px;
 }
 
-.productForm button {
+.buttonSubmit {
   margin-left: 40%;
   padding: 15px;
   width: 17%;
@@ -138,4 +173,15 @@
   border: none;
   border-radius: 50px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1500px) {
+  .caracteristicas {
+    flex-wrap: wrap;
+  }
+
+  .caracteristicas div,
+  .radioCheckedButton {
+    margin-right: 5px;
+  }
 }
