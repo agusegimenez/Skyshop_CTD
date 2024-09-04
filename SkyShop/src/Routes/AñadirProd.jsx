@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import customCss from "./AñadirProd.module.css"
 import axios from 'axios';
+import { BotonContext } from '../Context/Context';
 
 const AñadirProd = () => {
     const [productName, setProductName] = useState("");
@@ -12,6 +13,62 @@ const AñadirProd = () => {
     const [imageCloudUrl, setImageCloudUrl] = useState(""); // estado q guarda el link de la url de la imagen en Cloudinary
     const [error, setError] = useState(false);
     const [selectedCharacteristics, setSelectedCharecteristics] = useState([]); // estado que guarda las caracteristicas seleccionadas
+    const {loggedUser} = useContext(BotonContext);
+    const [isMobile, setIsMobile] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
+
+    const isAdmin = () => {
+      let response;
+      if(loggedUser.role == "ADMIN"){
+          response = true;
+      }else{
+          response = false;
+      }
+      return response;
+  }
+
+  useEffect(() => {
+      const handleResize = () => {
+          if (window.innerWidth < 1024) {
+              setIsMobile(true);
+              setShowPopup(true); 
+          } else {
+              setIsMobile(false);
+              setShowPopup(false); 
+          }
+      };
+
+      handleResize();
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+  }, [loggedUser]);
+
+  const closePopup = () => {
+    window.location.reload(); 
+};
+
+if(loggedUser === null){
+  return <div className={customCss.ifNotAdminDiv}>
+  <h3>Usted ni siquiera está logueado como usuario. ¡Fuera!</h3>
+  {isMobile && showPopup && (
+      <div className={customCss.popupOverlay}>
+          <div className={customCss.popup}>
+              <p className={customCss.warning}>No puede acceder a esta función desde este dispositivo</p>
+              <p>Ingrese desde un ordenador para acceder al Panel de Admin.</p>
+              <button className={customCss.acceptButton} onClick={closePopup}>Aceptar</button>
+          </div>
+      </div>
+  )}
+</div>
+}
+
+const handleButtonClick = (option) => {
+  if (isMobile) {
+      setShowPopup(true); 
+  } else {
+      setSelectedOption(option); 
+  }
+};
 
     const resetForm = () => {
       setProductName("");
@@ -81,8 +138,11 @@ const AñadirProd = () => {
           resetForm();
       }
   }
+
+  if(isAdmin()){
   return (
-     <form onSubmit={handleSubmit} className={customCss.productForm}>
+    <>
+     <form onSubmit={handleSubmit} className={`${customCss.productForm} ${showPopup ? customCss.blur : ''}`}>
             <h2>Datos del Producto</h2>
             <label>Imagen:</label>
             <div className={customCss.imgPreview}>
@@ -189,7 +249,33 @@ const AñadirProd = () => {
         {/* Botón de guardar */}
         <button type="submit" className={customCss.buttonSubmit}>Guardar producto</button>
     </form>
+    {showPopup && (
+      <div className={customCss.popupOverlay}>
+          <div className={customCss.popup}>
+              <p className={customCss.warning}>No puede acceder a esta función desde este dispositivo</p>
+              <p>Ingrese desde un ordenador para acceder al Panel de Admin.</p>
+              <button className={customCss.acceptButton} onClick={closePopup}>Aceptar</button>
+          </div>
+      </div>
+  )}
+    </>
   )
+}else {
+  return (
+    <div className={customCss.ifNotAdminDiv}>
+                <h3>¡Para tener acceso a a la funcionalidad admin debes estar logeado con un usuario que cuente con el rol ADMIN!</h3>
+                {isMobile && showPopup && (
+                    <div className={customCss.popupOverlay}>
+                        <div className={customCss.popup}>
+                            <p className={customCss.warning}>No puede acceder a esta función desde este dispositivo</p>
+                            <p>Ingrese desde un ordenador para acceder al Panel de Admin.</p>
+                            <button className={customCss.acceptButton} onClick={closePopup}>Aceptar</button>
+                        </div>
+                    </div>
+                )}
+            </div>
+  )
+}
 }
 
 export default AñadirProd

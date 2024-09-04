@@ -37,7 +37,7 @@ const Carrito = () => {
 
   return (
     <>
-    <h3 className={customCss.carritoTittle}>Carrito</h3>
+    <h3 className={customCss.carritoTittle}>Detalle de Reserva</h3>
     <div className={customCss.carritoContainer}>
       <div className={customCss.fechaHoraSelector}>
         <div>
@@ -117,7 +117,7 @@ const Carrito = () => {
           <span>${totalCarrito.toLocaleString()}</span>
         </div>
       </div>
-      <button className={customCss.finalizarPedido} onClick={finalizarPedido}>Finalizar pedido</button>
+      <button className={customCss.finalizarPedido} onClick={finalizarPedido}>Confirmar Reserva</button>
       </div>
     </div>
     </>
