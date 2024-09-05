@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 @Configuration
@@ -22,7 +24,7 @@ public class DataInitializer {
                     "Analgésicos (paracetamol ibuprofeno), Antiséptico para heridas, Bandas adhesivas (curitas), Jarabe para la tos",
                     Categories.SALUD_Y_BELLEZA,
                     new HashSet<>(),
-                    "/paquete_medicamentos.png"
+                    new ArrayList<>(Arrays.asList("/paquete_medicamentos.png"))
             ));
             itemRepository.save(new Item(
                     null,
@@ -31,7 +33,7 @@ public class DataInitializer {
                     "Limpiador facial, Tónico, Hidratante, Protector solar",
                     Categories.SALUD_Y_BELLEZA,
                     new HashSet<>(),
-                    "/paquete_facial.png"
+                    new ArrayList<>(Arrays.asList("/paquete_facial.png"))
             ));
             itemRepository.save(new Item(
                     null,
@@ -40,7 +42,7 @@ public class DataInitializer {
                     "Wraps de pollo y vegetales, Fruta fresca (manzanas naranjas), Botellas de agua mineral, Barras de granola",
                     Categories.ALIMENTOS,
                     new HashSet<>(),
-                    "/paquete_almuerzo.png"
+                    new ArrayList<>(Arrays.asList("/paquete_almuerzo.png"))
             ));
             itemRepository.save(new Item(
                     null,
@@ -49,7 +51,7 @@ public class DataInitializer {
                     "Palomitas de maíz, Chocolates y dulces, Snacks salados (papas fritas nachos)",
                     Categories.ALIMENTOS,
                     new HashSet<>(),
-                    "/paquete_noche_peliculas.png"
+                    new ArrayList<>(Arrays.asList("/paquete_noche_peliculas.png"))
             ));
             itemRepository.save(new Item(
                     null,
@@ -58,7 +60,7 @@ public class DataInitializer {
                     "Comida premium para perros, Juguetes masticables, Premios para perros, Shampoo para perros",
                     Categories.MASCOTAS,
                     new HashSet<>(),
-                    "/paquete_perro.png"
+                    new ArrayList<>(Arrays.asList("/paquete_perro.png"))
             ));
             itemRepository.save(new Item(
                     null,
@@ -67,7 +69,7 @@ public class DataInitializer {
                     "Arena para gatos, Juguetes interactivos, Snacks para gatos",
                     Categories.MASCOTAS,
                     new HashSet<>(),
-                    "/paquete_gato.png"
+                    new ArrayList<>(Arrays.asList("/paquete_gato.png"))
             ));
             itemRepository.save(new Item(
                     null,
@@ -76,7 +78,7 @@ public class DataInitializer {
                     "Cuadernos y bolígrafos, Café premium y tazas, Snacks saludables (frutos secos barras de proteína), Auriculares con micrófono",
                     Categories.OFICINA,
                     new HashSet<>(),
-                    "/paquete_oficina_casa.png"
+                    new ArrayList<>(Arrays.asList("/paquete_oficina_casa.png"))
             ));
             itemRepository.save(new Item(
                     null,
@@ -85,7 +87,7 @@ public class DataInitializer {
                     "Organizadores de escritorio, Soporte para laptop, Calendario y planificador semanal, Grapadora y grapas",
                     Categories.OFICINA,
                     new HashSet<>(),
-                    "/paquete_oficina_organizada.png"
+                    new ArrayList<>(Arrays.asList("/paquete_oficina_organizada.png"))
             ));
             itemRepository.save(new Item(
                     null,
@@ -94,7 +96,7 @@ public class DataInitializer {
                     "Barra de Kitkat, Ositos Mogul",
                     Categories.ALIMENTOS,
                     new HashSet<>(),
-                    "/paquete_dulce.png"
+                    new ArrayList<>(Arrays.asList("/paquete_dulce.png"))
             ));
             itemRepository.save(new Item(
                     null,
@@ -103,7 +105,7 @@ public class DataInitializer {
                     "10 Latas Guiness Stout, Maní",
                     Categories.OFICINA,
                     new HashSet<>(),
-                    "/paquete_previa.png"
+                    new ArrayList<>(Arrays.asList("/paquete_previa.png"))
             ));
             itemRepository.save(new Item(
                     null,
@@ -112,8 +114,9 @@ public class DataInitializer {
                     "Doritos Sabor Queso, Papitas Lays Sabor Asado",
                     Categories.ALIMENTOS,
                     new HashSet<>(),
-                    "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/doritos.png"
+                    new ArrayList<>(Arrays.asList("https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/doritos.png"))
             ));
         };
     }
 }
+
