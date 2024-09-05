@@ -213,7 +213,7 @@ const handleButtonClick = (option) => {
             onChange={() => setSelectedCategorie(category)}
             />
             <div>
-              { selectedCategorie == category ? <div className={customCss.radioChecked}>✅</div> : <div className={customCss.customRadio}></div>}
+              <div className={customCss.customRadio} style={{color: "green"}}>{ selectedCategorie == category && "✔"}</div>
               <img src={`/caracteristica_${category.toLowerCase()}.png`} alt={`${category}-logo`} />
             </div>
               {category}
@@ -236,13 +236,11 @@ const handleButtonClick = (option) => {
             onChange={handleCharacteristics}
             />
             <div>
-              { selectedCharacteristics.includes(characteristic)
-              ? <button type="button" className={customCss.radioCheckedButton}
+              <button type="button" className={customCss.customRadio} style={{color: "green"}}
               onClick={(event) => {
                 event.preventDefault(); // Evita que se seleccione el input
                 handleCharacteristics({ target: { value: characteristic } });
-              }}>✅</button>
-              : <div className={customCss.customRadio}></div>}
+              }}>{selectedCharacteristics.includes(characteristic) && "✔"}</button>
               <img src={`/caracteristica_${characteristic.toLowerCase()}.png`} alt={`${characteristic}-logo`} />
             </div>
               {characteristic}

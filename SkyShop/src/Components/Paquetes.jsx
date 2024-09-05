@@ -92,7 +92,9 @@ const Paquetes = () => {
                                   onChange={() => handleCategoryChange(producto.id, category)}
                                 />
                                 <div>
-                                  { selectedCategories[producto.id] == category ? <div className={customCss.radioChecked}>✅</div> : <div className={customCss.customRadio}></div>}
+                                  <div className={customCss.customRadio} style={{color: "green"}}>   
+                                    {selectedCategories[producto.id] == category && "✓"}                                 
+                                  </div>
                                   <img src={`./caracteristica_${category.toLowerCase()}.png`} alt={`${category}-logo`} />
                                 </div>
                                 {category}
