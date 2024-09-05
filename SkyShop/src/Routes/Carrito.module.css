@@ -337,18 +337,6 @@
   color: #4caf50;
 }
 
-.noLogueado {
-  margin-top: 90px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 90px);
-  background-color: #f7f7f7;
-  margin-bottom: -100px;
-  font-family: "Roboto", sans-serif;
-}
-
 @media screen and (max-width: 1024px) {
   .carritoContainer {
     display: flex;
