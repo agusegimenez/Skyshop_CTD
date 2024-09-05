@@ -67,7 +67,7 @@ const Header = () => {
     ) : (
       <div className={customCss.dropdownMenu}>
         <a href="/user" className={customCss.logMenu}>Usuario</a>
-        <a href="#" className={customCss.logMenu}>Carrito</a>
+        <a href="/carrito" className={customCss.logMenu}>Carrito</a>
         <button className={customCss.logBtn} onClick={cerrarSesion}>Cerrar Sesión</button>
       </div>
     )}
@@ -89,7 +89,7 @@ const Header = () => {
         </div>
        )}
         <div className={customCss.cartIcon}>
-          {loggedUser && <a href="#"><img src="/cart.png" alt="carrito" /></a>}
+          {loggedUser && <a href="/carrito"><img src="/cart.png" alt="carrito" /></a>}
         </div>
       </div>
     </header>

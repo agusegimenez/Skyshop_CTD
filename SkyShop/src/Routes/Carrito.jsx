@@ -5,9 +5,10 @@ import DatePicker from "react-datepicker";
 import { es } from 'date-fns/locale';
 import "/node_modules/react-datepicker/dist/react-datepicker.css"; 
 import "./CustomDatePicker.css"
+import { useNavigate } from 'react-router-dom';
 
 const Carrito = () => {
-  const { products, setProducts, finalizarPedido } = useContext(BotonContext);
+  const { products, setProducts, finalizarPedido, loggedUser } = useContext(BotonContext);
   const [showConfirmModal, setShowConfirmModal] = useState(null); // Producto que se va a eliminar
   const [selectedDate, setSelectedDate] = useState(new Date()); // Estado para la fecha seleccionada
   const [isHorarioVisible, setIsHorarioVisible] = useState(false);
@@ -78,6 +79,7 @@ const Carrito = () => {
           </div>
           )}
         </div>
+          <button className={customCss.finalizarCalendar} onClick={finalizarPedido}>Confirmar Reserva</button>
       </div>
       <div className={customCss.carritoPadre}>
         <div className={customCss.carritoProductos}>
@@ -89,7 +91,8 @@ const Carrito = () => {
               type="number" 
               value={producto.cantidad} 
               min="1" 
-              onChange={(e) => handleCantidadChange(producto.id, e.target.value)} 
+              onChange={(e) => handleCantidadChange(producto.id, e.target.value)}
+              className={customCss.cantidad} 
             />
             <span className={customCss.precioVerd}>${(producto.precio * producto.cantidad).toLocaleString()}</span>
             <button onClick={() => setShowConfirmModal(producto.id)}>
@@ -121,7 +124,7 @@ const Carrito = () => {
       </div>
     </div>
     </>
-  );
+);
 };
 
 export default Carrito;

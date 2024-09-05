@@ -160,6 +160,9 @@
 .finalizarPedido:hover {
   background-color: #01ac5cc6;
 }
+.finalizarCalendar {
+  display: none;
+}
 .carritoTittle {
   margin-top: 15vh;
   text-align: center;
@@ -210,9 +213,9 @@
 }
 
 .horarioDropdown {
-  position: absolute;
-  top: 920px;
-  left: 380px;
+  position: relative;
+  top: 1%;
+  left: 40%;
   max-height: 150px;
   border: 1px solid #00843d;
   border-radius: 5px;
@@ -332,4 +335,92 @@
 .react-datepicker__day-name {
   font-weight: bold;
   color: #4caf50;
+}
+
+.noLogueado {
+  margin-top: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 90px);
+  background-color: #f7f7f7;
+  margin-bottom: -100px;
+  font-family: "Roboto", sans-serif;
+}
+
+@media screen and (max-width: 1024px) {
+  .carritoContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5vh;
+  }
+  .finalizarPedido {
+    display: none;
+  }
+  .finalizarCalendar {
+    display: block;
+    margin-top: 30px;
+    width: 200px;
+    padding: 10px;
+    background-color: #01ac5c;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .horarioDropdown {
+    position: relative;
+    top: 100%;
+    left: 44%;
+    max-height: 150px;
+    border: 1px solid #00843d;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    z-index: 1;
+    overflow-y: auto;
+  }
+  .carritoProductos {
+    margin-bottom: 30px;
+  }
+  .modalConfirmacion {
+    top: 50%;
+    left: 50%;
+  }
+  .react-datepicker {
+    width: 90%; /* Hacemos el calendario más pequeño */
+    font-size: 0.9em; /* Disminuimos ligeramente el tamaño del texto */
+  }
+
+  .react-datepicker__day,
+  .react-datepicker__day-name {
+    width: 35px; /* Hacemos los días más pequeños */
+    height: 35px;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 1em; /* Reducimos el tamaño del texto del mes */
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .carritoProductos {
+    width: 400px;
+    height: 100%;
+  }
+  .cantidad {
+    display: none;
+  }
+}
+@media screen and (max-width: 460px) {
+  .carritoProductos {
+    width: 360px;
+    height: 100%;
+  }
 }
