@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { productos } from '../utils/products'; 
 import customCss from "./Paquetes.module.css";
+import { useNavigate } from 'react-router-dom';
 const Paquetes = () => {
   const [visibleMenu, setVisibleMenu] = useState(null);
   const [visibleMenuCaract, setVisibleMenuCaract] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState({});
+  const navigate = useNavigate();
 
   const toggleMenu = (productId) => {
     if (visibleMenu === productId) {
@@ -65,7 +67,7 @@ const Paquetes = () => {
                   &#9776;
                   {visibleMenu === producto.id && (
                     <div className={customCss.actionDropdown}>
-                      <a href="#" className={customCss.editar}><img src="./iEdit.png" alt="icon-edit" />Editar</a>
+                      <a className={customCss.editar} onClick={() => navigate(`/admin/edit/product/${producto.id}`)}><img src="./iEdit.png" alt="icon-edit" />Editar</a>
                       <a href="#" className={customCss.editar} onClick={(e) => {
                           e.stopPropagation();
                           toggleMenuCaract(producto.id);
@@ -90,7 +92,9 @@ const Paquetes = () => {
                                   onChange={() => handleCategoryChange(producto.id, category)}
                                 />
                                 <div>
-                                  { selectedCategories[producto.id] == category ? <div className={customCss.radioChecked}>✅</div> : <div className={customCss.customRadio}></div>}
+                                  <div className={customCss.customRadio} style={{color: "green"}}>   
+                                    {selectedCategories[producto.id] == category && "✓"}                                 
+                                  </div>
                                   <img src={`./caracteristica_${category.toLowerCase()}.png`} alt={`${category}-logo`} />
                                 </div>
                                 {category}

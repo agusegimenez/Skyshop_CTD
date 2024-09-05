@@ -2,20 +2,36 @@ import React, { useContext, useEffect, useState } from 'react'
 import customCss from "./AñadirProd.module.css"
 import axios from 'axios';
 import { BotonContext } from '../Context/Context';
+import { useParams } from 'react-router-dom';
+import { productos } from '../utils/products';
 
-const AñadirProd = () => {
-    const [productName, setProductName] = useState("");
-    const [productDescription, setProductDescription] = useState("");
-    const [productPrice, setProductPrice] = useState("");
-    const [selectedCategorie, setSelectedCategorie] = useState(""); // estado que guarda la categoria seleccionada
+const EditProd = () => {
+    const { id } = useParams(); // id de producto
+    const producto = productos.find((prod) => prod.id == id); // producto encontrado en array por id
+    const [productName, setProductName] = useState(producto.nombre || "");
+    const [productDescription, setProductDescription] = useState(producto.contenido || "");
+    const [productPrice, setProductPrice] = useState(producto.precio || "");
+    const [selectedCategorie, setSelectedCategorie] = useState(producto.categoria || ""); // estado que guarda la categoria seleccionada
     const [images, setImages] = useState([]); // estado que guarda las imagenes subidas al navegador
     const [imgFiles, setImgFiles] = useState([]); // estado que guarda las imagenes en formato archivo
-    const [imagesCloudUrls, setImagesCloudUrls] = useState([]); // estado q guarda el link de la url de la imagen en Cloudinary
+    const [imagesCloudUrls, setImagesCloudUrls] = useState(producto.imagenes || []); // estado q guarda el link de la url de la imagen en Cloudinary
     const [error, setError] = useState(false);
-    const [selectedCharacteristics, setSelectedCharecteristics] = useState([]); // estado que guarda las caracteristicas seleccionadas
+    const [selectedCharacteristics, setSelectedCharecteristics] = useState(producto.caracteristicas || []); // estado que guarda las caracteristicas seleccionadas
     const {loggedUser} = useContext(BotonContext);
     const [isMobile, setIsMobile] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
+
+    const eliminarImagenCloud = (index) => {
+        const nuevasUrls = imagesCloudUrls.filter((_, i) => i !== index);
+        setImagesCloudUrls(nuevasUrls);
+    
+        // Una vez eliminada, recalcula el total de imágenes
+        const totalImages = imgFiles.length + nuevasUrls.length;
+    
+        if (totalImages >= 4) {
+            alert("Puedes subir hasta 4 imágenes en total.");
+        }
+    };
 
     const isAdmin = () => {
       let response;
@@ -81,15 +97,22 @@ const handleButtonClick = (option) => {
       setImagesCloudUrls([]);
   };
 
-    const handleImagenSubida = (e) => {
-      const files = Array.from(e.target.files);
-      if (files.length + imgFiles.length > 4) {
-        alert("Puedes subir hasta 4 imágenes.");
+  const handleImagenSubida = (e) => {
+    const files = Array.from(e.target.files);
+
+    // Calcular el total de imágenes después de eliminar
+    const totalImages = files.length + imgFiles.length + imagesCloudUrls.length;
+
+    // Si supera las 4 imágenes, muestra la alerta
+    if (totalImages > 4) {
+        alert("Puedes subir hasta 4 imágenes en total.");
         return;
-      }
-      setImgFiles(prevFiles => [...prevFiles, ...files]);
-      const nuevasImagenes = files.map(file => URL.createObjectURL(file));
-      setImages(prevImages => [...prevImages, ...nuevasImagenes]);
+    }
+
+    // Añadir las nuevas imágenes a los estados correspondientes
+    setImgFiles(prevFiles => [...prevFiles, ...files]);
+    const nuevasImagenes = files.map(file => URL.createObjectURL(file));
+    setImages(prevImages => [...prevImages, ...nuevasImagenes]);
   };
 
   const eliminarImagen = (index) => {
@@ -98,6 +121,14 @@ const handleButtonClick = (option) => {
     setImages(nuevasImagenes);
     setImgFiles(nuevosArchivos);
 };
+
+useEffect(() => {
+    // Calcular el total de imágenes cada vez que cambien las imágenes o archivos
+    const totalImages = imgFiles.length + imagesCloudUrls.length;
+    if (totalImages > 4) {
+        alert("Puedes subir hasta 4 imágenes en total.");
+    }
+}, [imgFiles, imagesCloudUrls]);
 
   // subida de imagen a Cloudinary
   // (implementacion cuando se pueda agregar productos al back-end)
@@ -156,24 +187,32 @@ const handleButtonClick = (option) => {
     <>
      <form onSubmit={handleSubmit} className={`${customCss.productForm} ${showPopup ? customCss.blur : ''}`}>
             <h2>Datos del Producto</h2>
-            <label>Imagen:</label>
+            <label>Imagenes actuales: </label>
             <div className={customCss.imgPreview}>
                 {/* Vista previa de imágenes */}
-                {images.map((image, index) => (
-                  <img key={index} src={image} className={customCss.imgThumbnail} onClick={() => eliminarImagen(index)} alt={`preview-${index}`} />
+                {imagesCloudUrls.map((image, index) => (
+                  <img key={index} src={image} className={customCss.imgThumbnail} onClick={() => eliminarImagenCloud(index)} alt={`preview-${index}`} />
                 ))}
                 {/* Botón para agregar más imágenes */}
-                <label className={customCss.addImage}>
-                    <input 
-                        type="file" 
-                        accept='image/*'
-                        multiple  
-                        onChange={handleImagenSubida} 
-                        style={{ display: 'none' }} 
-                    />
-                    <div className={customCss.plusIcon}>+</div>
-                </label>
             </div>
+
+            {/* Vista previa de imágenes nuevas */}
+            <label>Imágenes Nuevas:</label>
+                <div className={customCss.imgPreview}>
+                    {images.map((image, index) => (
+                        <img key={index} src={image} className={customCss.imgThumbnail} onClick={() => eliminarImagen(index)} alt={`preview-${index}`} />
+                    ))}
+                    <label className={customCss.addImage}>
+                        <input 
+                            type="file" 
+                            accept="image/*"
+                            multiple  
+                            onChange={handleImagenSubida} 
+                            style={{ display: 'none' }} 
+                        />
+                        <div className={customCss.plusIcon}>+</div>
+                    </label>
+                </div>
         {/* Campo de nombre con validación */}
         <label>Nombre:</label>
         <input
@@ -199,6 +238,7 @@ const handleButtonClick = (option) => {
         onChange={(e) => setProductDescription(e.target.value)}
       ></textarea>
 
+
       {/* Campo de categorías */}
       <label>Categoría:</label>
       <div className={customCss.categories}>
@@ -213,7 +253,7 @@ const handleButtonClick = (option) => {
             onChange={() => setSelectedCategorie(category)}
             />
             <div>
-              <div className={customCss.customRadio} style={{color: "green"}}>{ selectedCategorie == category && "✔"}</div>
+                <div className={customCss.customRadio} style={{color: "green"}}>{ selectedCategorie == category && "✔"}</div>
               <img src={`/caracteristica_${category.toLowerCase()}.png`} alt={`${category}-logo`} />
             </div>
               {category}
@@ -236,7 +276,7 @@ const handleButtonClick = (option) => {
             onChange={handleCharacteristics}
             />
             <div>
-              <button type="button" className={customCss.customRadio} style={{color: "green"}}
+            <button type="button" className={customCss.customRadio} style={{color: "green"}}
               onClick={(event) => {
                 event.preventDefault(); // Evita que se seleccione el input
                 handleCharacteristics({ target: { value: characteristic } });
@@ -291,4 +331,4 @@ const handleButtonClick = (option) => {
 }
 }
 
-export default AñadirProd
+export default EditProd

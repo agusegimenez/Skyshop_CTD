@@ -185,6 +185,9 @@ input[type="radio"] {
   position: relative;
   vertical-align: middle;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .saveBtnDiv{
