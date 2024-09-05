@@ -19,7 +19,7 @@ public class DataInitializer {
                     null,
                     "Paquete Medicamentos",
                     1990f,
-                    "Analgésicos (paracetamol, ibuprofeno), Antiséptico para heridas, Bandas adhesivas (curitas), Jarabe para la tos",
+                    "Analgésicos (paracetamol ibuprofeno), Antiséptico para heridas, Bandas adhesivas (curitas), Jarabe para la tos",
                     Categories.SALUD_Y_BELLEZA,
                     new HashSet<>(),
                     "/paquete_medicamentos.png"
@@ -37,7 +37,7 @@ public class DataInitializer {
                     null,
                     "Paquete Almuerzo Rápido",
                     9670f,
-                    "Wraps de pollo y vegetales, Fruta fresca (manzanas, naranjas), Botellas de agua mineral, Barras de granola",
+                    "Wraps de pollo y vegetales, Fruta fresca (manzanas naranjas), Botellas de agua mineral, Barras de granola",
                     Categories.ALIMENTOS,
                     new HashSet<>(),
                     "/paquete_almuerzo.png"
@@ -46,7 +46,7 @@ public class DataInitializer {
                     null,
                     "Paquete Noche de Películas",
                     21700f,
-                    "Palomitas de maíz, Chocolates y dulces, Snacks salados (papas fritas, nachos)",
+                    "Palomitas de maíz, Chocolates y dulces, Snacks salados (papas fritas nachos)",
                     Categories.ALIMENTOS,
                     new HashSet<>(),
                     "/paquete_noche_peliculas.png"
@@ -73,7 +73,7 @@ public class DataInitializer {
                     null,
                     "Paquete Oficina en Casa",
                     1425f,
-                    "Cuadernos y bolígrafos, Café premium y tazas, Snacks saludables (frutos secos, barras de proteína), Auriculares con micrófono",
+                    "Cuadernos y bolígrafos, Café premium y tazas, Snacks saludables (frutos secos barras de proteína), Auriculares con micrófono",
                     Categories.OFICINA,
                     new HashSet<>(),
                     "/paquete_oficina_casa.png"
