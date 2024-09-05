@@ -1,21 +1,20 @@
 package com.equipo_1.SkyShop.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class BlockedDateResponseDTO {
 
     private Long id;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    public BlockedDateResponseDTO(Long id, LocalDateTime startDate, LocalDateTime endDate) {
-        this.id = id;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
 }

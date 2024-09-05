@@ -39,7 +39,7 @@ public class ItemController {
     }
 
     // CrearItem
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<ItemResponseDTO> createItem(@RequestBody ItemRequestDTO itemRequestDTO) {
         Item newItem = new Item(
                 null,

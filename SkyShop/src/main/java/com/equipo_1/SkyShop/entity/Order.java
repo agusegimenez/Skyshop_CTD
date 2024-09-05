@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name="orders")
@@ -21,15 +19,20 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
-    private Set<Item> items = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
+
     private double total;
+
     @Column(name = "ordered_at")
     private LocalDateTime orderedAt;
+
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 }
