@@ -2,15 +2,17 @@ import { useContext, useEffect, useRef, useState } from "react";
 import customCss from "./Searcher.module.css"
 import { productos } from "../utils/products";
 import { BotonContext } from "../Context/Context";
+import { useNavigate } from "react-router-dom";
 
 export default function Searcher({setSearchResultProds}) {
 
   const [isTyping, setIsTyping] = useState(false);
   const [typingContent, setTypingContent] = useState("");
   const { searchProdsByName, prods} = useContext(BotonContext);
-  const productNames = prods.map(product => product.name);
+  // const productNames = prods.map(product => product.name);
   const inputRef = useRef(null);
   const recommendationsRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleTypingContent = (e) => {
     setTypingContent(e.target.value);
@@ -19,8 +21,8 @@ export default function Searcher({setSearchResultProds}) {
   const mapMatches = (stringValue) => {
     if (stringValue === "") return [];
     const lowercasedSearchValue = stringValue.toLowerCase();
-    return productNames.filter((item) =>
-      item.toLowerCase().includes(lowercasedSearchValue)
+    return prods.filter((p) =>
+      p.name.toLowerCase().includes(lowercasedSearchValue)
     );
   };
 
@@ -60,12 +62,6 @@ export default function Searcher({setSearchResultProds}) {
     setSearchResultProds(searchProdsByName(typingContent));
   }
 
-  const handleClickSearchRecs = (searchRecomendation) => {
-    setTypingContent(searchRecomendation);
-    handleSearchBtn();
-    setTypingContent("");
-  }
-
   // ejecuta la búsqueda cuando se apreta enter estando en el input de busqueda
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -82,7 +78,7 @@ export default function Searcher({setSearchResultProds}) {
       >
         <div className={customCss.searchRecs}>
           {matches.map((match, index) => (
-            <a key={index} onClick={() => handleClickSearchRecs(match)}>{match}</a>
+            <a key={index} onClick={() => navigate("/details/" + match.id)}>{match.name}</a>
           ))}
         </div>
       </div>
@@ -98,12 +94,14 @@ export default function Searcher({setSearchResultProds}) {
             ¡Esperalo de tranquis<br/>
             en tu balcón!
           </h2>
+          <span className={customCss.spanSearch}>Buscador</span>
           <div className={customCss.inputDiv}>
             <input ref={inputRef} className={customCss.searcherInput} onKeyDown={handleKeyDown} type="search" id="buscador" onChange={(e) => handleSearch(e)}/>
             <a onClick={handleSearchBtn}>
               <img src="/search.png"/>
             </a>
           </div>
+          <span className={customCss.spanSearch}>Ingresa el nombre del producto que buscas</span>
           {isTyping && renderMatches(mapMatches(typingContent))}
         </div>
         <div className={customCss.divImg}>

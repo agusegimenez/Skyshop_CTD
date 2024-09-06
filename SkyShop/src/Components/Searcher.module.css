@@ -156,6 +156,10 @@
   .divSearchRecs {
     top: 300px; 
   }
+
+  .spanSearch{
+    font-size: 10px;
+  }
 }
 
 @media screen and (max-width: 769px) {
