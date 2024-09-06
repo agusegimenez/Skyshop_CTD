@@ -9,6 +9,7 @@ import com.equipo_1.SkyShop.entity.User;
 import com.equipo_1.SkyShop.entity.enums.Categories;
 import com.equipo_1.SkyShop.entity.enums.UserRole;
 import com.equipo_1.SkyShop.repository.ItemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +22,9 @@ import java.util.HashSet;
 @Configuration
 public class DataInitializer {
 
+    @Autowired
     private UserService userService;
+    @Autowired
     private ItemService itemService;
     @Bean
     public CommandLineRunner loadData(ItemRepository itemRepository) {
