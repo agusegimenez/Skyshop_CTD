@@ -62,12 +62,6 @@ export default function Searcher({setSearchResultProds}) {
     setSearchResultProds(searchProdsByName(typingContent));
   }
 
-  const handleClickSearchRecs = (searchRecomendation) => {
-    setTypingContent(searchRecomendation);
-    handleSearchBtn();
-    setTypingContent("");
-};
-
   // ejecuta la búsqueda cuando se apreta enter estando en el input de busqueda
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -100,12 +94,14 @@ export default function Searcher({setSearchResultProds}) {
             ¡Esperalo de tranquis<br/>
             en tu balcón!
           </h2>
+          <span className={customCss.spanSearch}>Buscador</span>
           <div className={customCss.inputDiv}>
             <input ref={inputRef} className={customCss.searcherInput} onKeyDown={handleKeyDown} type="search" id="buscador" onChange={(e) => handleSearch(e)}/>
             <a onClick={handleSearchBtn}>
               <img src="/search.png"/>
             </a>
           </div>
+          <span className={customCss.spanSearch}>Ingresa el nombre del producto que buscas</span>
           {isTyping && renderMatches(mapMatches(typingContent))}
         </div>
         <div className={customCss.divImg}>
