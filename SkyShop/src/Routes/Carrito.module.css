@@ -1,3 +1,6 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
 .carritoContainer {
   display: flex;
   justify-content: space-between;
@@ -395,6 +398,18 @@
   background-color: gray;
   pointer-events: none;
   text-decoration: line-through;
+}
+
+.swal2-title-custom {
+  font-family: "Roboto", sans-serif;
+}
+
+.swal2-text-custom {
+  font-family: "Roboto", sans-serif;
+}
+
+.swal2-button-custom {
+  font-family: "Roboto", sans-serif;
 }
 @media screen and (max-width: 1024px) {
   .carritoContainer {

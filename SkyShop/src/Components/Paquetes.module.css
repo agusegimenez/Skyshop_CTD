@@ -170,7 +170,7 @@
   width: 120px;
 }
 
-.caracteristicas label text{
+.caracteristicas label text {
   margin-left: 10px;
 }
 
@@ -193,12 +193,22 @@ input[type="radio"] {
   align-items: center;
 }
 
-.saveBtnDiv{
+.saveBtnDiv {
   width: 100%;
   display: flex;
   justify-content: right;
 }
+.swal2-title-custom {
+  font-family: "Roboto", sans-serif;
+}
 
+.swal2-text-custom {
+  font-family: "Roboto", sans-serif;
+}
+
+.swal2-button-custom {
+  font-family: "Roboto", sans-serif;
+}
 @media screen and (max-width: 1400px) {
   .dropdownRow {
     margin-left: 3%;

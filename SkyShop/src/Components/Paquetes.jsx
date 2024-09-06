@@ -3,6 +3,7 @@ import { productos } from '../utils/products';
 import customCss from "./Paquetes.module.css";
 import { useNavigate } from 'react-router-dom';
 import { BotonContext } from '../Context/Context';
+import Swal from 'sweetalert2';
 
 const Paquetes = () => {
   const { prods, updateProd, deleteProd } = useContext(BotonContext);
@@ -121,7 +122,43 @@ const Paquetes = () => {
                           e.stopPropagation();
                           toggleMenuCaract(producto.id);
                         }}><img src="./iCategories.png" alt="icon-categories" />Categorias</a>
-                      <a href="#" className={customCss.eliminar} onClick={() => handleDelete(producto.id)}><img src="./iDelete.png" alt="icon-Delete" />Eliminar</a>
+                      <a href="#" className={customCss.eliminar} onClick={(e) => {
+  e.preventDefault(); // Evita la recarga de la página
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: "No podrás revertir esto",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'No, cancelar',
+    customClass: {
+      title: 'swal2-title-custom',     // Clase personalizada para el título
+      content: 'swal2-text-custom',    // Clase personalizada para el contenido
+      confirmButton: 'swal2-button-custom', // Clase personalizada para el botón de confirmación
+      cancelButton: 'swal2-button-custom'
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      handleDelete(producto.id);  // Llama a la función de eliminar
+      Swal.fire({
+        tittle: 'Eliminado',
+        content: 'El producto ha sido eliminado correctamente.',
+        confirmButton: 'success',
+        customClass: {
+          title: 'swal2-title-custom',
+          content: 'swal2-text-custom',
+          confirmButton: 'swal2-button-custom'
+        }
+      }).then(() => {
+        window.location.reload();
+      });
+    }
+  });
+}}>
+  <img src="./iDelete.png" alt="icon-Delete" />Eliminar
+</a>
                     </div>
                   )}
                 </div>

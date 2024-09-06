@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import { es } from 'date-fns/locale';
 import "/node_modules/react-datepicker/dist/react-datepicker.css"; 
 import "./CustomDatePicker.css"
-import Detail from './Detail';
+import Swal from 'sweetalert2';
 
 const Carrito = () => {
   const { products, setProducts, finalizarPedido, loggedUser } = useContext(BotonContext);
@@ -18,6 +18,52 @@ const Carrito = () => {
  
   const toggleHorario = () => {
     setIsHorarioVisible(!isHorarioVisible);
+  };
+
+   // Alerta para cancelar pedido
+   const cancelarPedido = () => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      html: "¡Tu pedido será cancelado y no podrás revertirlo!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'No, continuar',
+      customClass: {
+        title: 'swal2-title-custom',     
+        content: 'swal2-text-custom',   
+        confirmButton: 'swal2-button-custom', 
+        cancelButton: 'swal2-button-custom',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Cancelado',
+          'Tu pedido ha sido cancelado.',
+          'success'
+        );
+        finalizarPedido();
+      }
+    });
+  };
+
+  // Alerta para confirmar la reserva
+  const confirmarReserva = () => {
+    Swal.fire({
+      title: '¡Reserva confirmada!',
+      text: 'Tu pedido ha sido confirmado correctamente.',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      customClass: {
+        title: 'swal2-title-custom',
+        content: 'swal2-text-custom',
+        confirmButton: 'swal2-button-custom'
+      }
+    });
+    // Lógica para confirmar el pedido
+    finalizarPedido();  // Aquí llamas la función que ya tienes implementada para finalizar el pedido
   };
 
   const handleCantidadChange = (id, cantidad) => {
@@ -50,7 +96,7 @@ const Carrito = () => {
     }
     return false;
   };
-  
+
   return (
     <>
       <h3 className={customCss.carritoTittle}>Reservas</h3>
@@ -154,8 +200,8 @@ const Carrito = () => {
             </div>
           </div>
           <div className={customCss.btnsCart}>
-          <button className={customCss.finalizarPedido} onClick={finalizarPedido}>Confirmar Reserva</button>
-          <button className={customCss.cancelarPedido} onClick={finalizarPedido}>Cancelar Pedido</button>
+          <button className={customCss.finalizarPedido} onClick={confirmarReserva}>Confirmar Reserva</button>
+          <button className={customCss.cancelarPedido} onClick={cancelarPedido}>Cancelar Pedido</button>
           </div>
         </div>
       </div>
