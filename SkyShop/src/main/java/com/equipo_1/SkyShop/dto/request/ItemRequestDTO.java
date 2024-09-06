@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -15,5 +17,6 @@ public class ItemRequestDTO {
     private Float price;
     private String description;
     private String category;
-    private String image;
+    private List<String> images;
+    private List<String> characteristics;
 }

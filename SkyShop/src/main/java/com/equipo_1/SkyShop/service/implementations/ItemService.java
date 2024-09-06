@@ -7,6 +7,7 @@ import com.equipo_1.SkyShop.service.IItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +42,7 @@ public class ItemService implements IItemService {
     }
 
     @Override
-    public Item updateItem(Long id, String name, Float price, String description, Categories category, String image) {
+    public Item updateItem(Long id, String name, Float price, String description, Categories category, List<String> images) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Item not found"));
 
@@ -49,7 +50,7 @@ public class ItemService implements IItemService {
         item.setPrice(price);
         item.setDescription(description);
         item.setCategory(category);
-        item.setImage(image);
+        item.setImages(images);
 
         return itemRepository.save(item);
     }
