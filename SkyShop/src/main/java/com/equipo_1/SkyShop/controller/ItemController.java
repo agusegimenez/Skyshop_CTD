@@ -33,7 +33,7 @@ public class ItemController {
                         item.getPrice(),
                         item.getDescription(),
                         item.getCategory().name(),
-                        item.getImage()))
+                        item.getImages()))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(itemDTOs);
     }
@@ -48,7 +48,7 @@ public class ItemController {
                 itemRequestDTO.getDescription(),
                 Categories.valueOf(itemRequestDTO.getCategory()),
                 new HashSet<>(),
-                itemRequestDTO.getImage()
+                itemRequestDTO.getImages()
         );
         Item savedItem = itemService.createItem(newItem); // Este método ahora devuelve un Item
         return ResponseEntity.ok(new ItemResponseDTO(
@@ -57,7 +57,7 @@ public class ItemController {
                 savedItem.getPrice(),
                 savedItem.getDescription(),
                 savedItem.getCategory().name(),
-                savedItem.getImage()
+                savedItem.getImages()
         ));
     }
 
@@ -70,7 +70,7 @@ public class ItemController {
                 itemRequestDTO.getPrice(),
                 itemRequestDTO.getDescription(),
                 Categories.valueOf(itemRequestDTO.getCategory()),
-                itemRequestDTO.getImage()
+                itemRequestDTO.getImages()
         );
         return ResponseEntity.ok(new ItemResponseDTO(
                 updatedItem.getId(),
@@ -78,7 +78,7 @@ public class ItemController {
                 updatedItem.getPrice(),
                 updatedItem.getDescription(),
                 updatedItem.getCategory().name(),
-                updatedItem.getImage()
+                updatedItem.getImages()
         ));
     }
 
@@ -99,7 +99,7 @@ public class ItemController {
                 item.getPrice(),
                 item.getDescription(),
                 item.getCategory().name(),
-                item.getImage()
+                item.getImages()
         ));
     }
 }

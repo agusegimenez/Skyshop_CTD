@@ -32,5 +32,5 @@ public class Item {
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CartItem> cartItems = new HashSet<>();
 
-    private List<String> images = new ArrayList<>();
+    private List<String> images;
 }

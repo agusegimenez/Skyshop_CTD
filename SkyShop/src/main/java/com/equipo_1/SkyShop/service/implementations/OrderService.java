@@ -65,7 +65,7 @@ public class OrderService {
         item.setPrice(itemRequestDTO.getPrice());
         item.setDescription(itemRequestDTO.getDescription());
         item.setCategory(Categories.valueOf(itemRequestDTO.getCategory()));
-        item.setImage(itemRequestDTO.getImage());
+        item.setImages(itemRequestDTO.getImages());
 
         Item savedItem = itemRepository.save(item); // Guarda el item y obtiene el ID generado
 
@@ -132,7 +132,7 @@ public class OrderService {
         itemResponseDTO.setPrice(item.getPrice());
         itemResponseDTO.setDescription(item.getDescription());
         itemResponseDTO.setCategory(String.valueOf(item.getCategory()));
-        itemResponseDTO.setImage(item.getImage());
+        itemResponseDTO.setImages(item.getImages());
 
         return itemResponseDTO;
     }
