@@ -11,6 +11,6 @@ public interface IItemService {
     Optional<Item> getItem(Long id);
     List<Item> listItems();
     void deleteItem(Long id);
-    Item updateItem(Long id, String name, Float price, String description, Categories category, String image);
+    Item updateItem(Long id, String name, Float price, String description, Categories category, List<String> images);
     Item getItemById(Long id);
 }

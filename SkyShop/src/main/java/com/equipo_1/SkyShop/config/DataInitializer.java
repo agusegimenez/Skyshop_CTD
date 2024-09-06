@@ -14,9 +14,10 @@ import java.util.HashSet;
 @Configuration
 public class DataInitializer {
 
-    @Bean
+    // @Bean // Comento esto para evitar la ejecucion automatica
     public CommandLineRunner loadData(ItemRepository itemRepository) {
         return args -> {
+            /*
             itemRepository.save(new Item(
                     null,
                     "Paquete Medicamentos",
@@ -116,6 +117,8 @@ public class DataInitializer {
                     new HashSet<>(),
                     new ArrayList<>(Arrays.asList("https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/doritos.png"))
             ));
+
+           */
         };
     }
 }
