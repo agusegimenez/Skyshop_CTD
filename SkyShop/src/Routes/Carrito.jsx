@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import { es } from 'date-fns/locale';
 import "/node_modules/react-datepicker/dist/react-datepicker.css"; 
 import "./CustomDatePicker.css"
+import Detail from './Detail';
 
 const Carrito = () => {
   const { products, setProducts, finalizarPedido, loggedUser } = useContext(BotonContext);
@@ -14,7 +15,7 @@ const Carrito = () => {
   const [isHorarioVisible, setIsHorarioVisible] = useState(false);
   const [selectedTime, setSelectedTime] = useState("");
   const navigate = useNavigate();  
-
+ 
   const toggleHorario = () => {
     setIsHorarioVisible(!isHorarioVisible);
   };
@@ -35,7 +36,7 @@ const Carrito = () => {
   };
 
   const totalCarrito = products.reduce((total, producto) => 
-    total + producto.precio * producto.cantidad, 0);
+    total + producto.price * producto.cantidad, 0);
 
   if (!loggedUser) {
     navigate('/login');
@@ -44,9 +45,28 @@ const Carrito = () => {
 
   return (
     <>
-      <h3 className={customCss.carritoTittle}>Detalle de Reserva</h3>
+      <h3 className={customCss.carritoTittle}>Reservas</h3>
       <div className={customCss.carritoContainer}>
         <div className={customCss.fechaHoraSelector}>
+          <form className={customCss.datosUser}>
+            <h2>Datos del usuario</h2>
+            <div className={customCss.inpUser}>
+            <label>Nombre:</label>
+            <input type="text" value={loggedUser.username} placeholder='Ingrese su nombre'/>
+            </div>
+            <div className={customCss.inpUser}>
+            <label>Apellido:</label>
+            <input type="text" placeholder='Ingrese su apellido' />
+            </div>
+            <div className={customCss.inpUser}>
+            <label>Email:</label>
+            <input type="email" value={loggedUser.email} placeholder='Ingrese su email'/>
+            </div>
+            <div className={customCss.inpUser}>
+            <label>Direccion:</label>
+            <input type="text" placeholder='Ingrese su dirección' />
+            </div>
+          </form>
           <div>
             <h3>Seleccione el día y hora en el que se encontrará disponible para recibir su pedido.</h3>
           </div>
@@ -90,22 +110,18 @@ const Carrito = () => {
           <div className={customCss.carritoProductos}>
             {products.map(producto => (
               <div className={customCss.productoItem} key={producto.id}>
-                <img src={producto.imagen} alt={producto.nombre} />
-                <span>{producto.nombre}</span>
-                <input 
-                  type="number" 
-                  value={producto.cantidad} 
-                  min="1" 
-                  onChange={(e) => handleCantidadChange(producto.id, e.target.value)}
-                  className={customCss.cantidad} 
-                />
-                <span className={customCss.precioVerd}>${(producto.precio * producto.cantidad).toLocaleString()}</span>
-                <button onClick={() => setShowConfirmModal(producto.id)}>
-                  <img className={customCss.deleteImg} src="./delete.png" alt="delete-icon"/>
-                </button>
+                <span>{producto.name}</span>
+                <img src={producto.images[0]} alt={producto.name} />
+                {producto.description.split(",").map(item => <span>{item}</span>)}
+                <span className={customCss.precioVerd}>Precio ${(producto.price * producto.cantidad).toLocaleString()}</span>
               </div>
             ))}
-
+            <div className={customCss.caracteristicas}>
+              <h2>Caracteristicas</h2>
+              {products.map(productos => (
+            <span>{productos.characteristics}</span>
+              ))}
+            </div>
             {showConfirmModal !== null && (
               <div className={customCss.modalConfirmacion}>
                 <p>¿Seguro qué desea eliminar este producto de su carrito?</p>
@@ -119,13 +135,16 @@ const Carrito = () => {
                 </div>
               </div>
             )}
-
+          
             <div className={customCss.total}>
               <h3>Total</h3>
               <span>${totalCarrito.toLocaleString()}</span>
             </div>
           </div>
+          <div className={customCss.btnsCart}>
           <button className={customCss.finalizarPedido} onClick={finalizarPedido}>Confirmar Reserva</button>
+          <button className={customCss.cancelarPedido} onClick={finalizarPedido}>Cancelar Pedido</button>
+          </div>
         </div>
       </div>
     </>

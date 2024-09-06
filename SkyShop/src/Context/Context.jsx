@@ -16,7 +16,7 @@ export const BotonProvider = ({ children }) => {
     const [users, setUsers] = useState([]);
     const [prods, setProds] = useState([]);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
-    const token = "0eea198a-f7c4-4261-a4b1-d0925cfd12b6"; // token que hay que actualizar cada vez que se levanta el back end
+    const token = "5fd6e9a7-d279-4961-bd4c-d2771a3230d6"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
 
     const getProds = async () => {
@@ -188,21 +188,24 @@ export const BotonProvider = ({ children }) => {
 
     // Funcion para poder agregar productos al carrito
     const agregarProductoAlCarrito = (producto) => {
-      setProducts(products => {
-          const productoExistente = products.find(p => p.id === producto.id);
-          if (productoExistente) {
-              // Actualiza la cantidad si el producto ya esta en el carrito
-              const productosActualizados = products.map(p =>
-                  p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
-              );
-              localStorage.setItem("carrito", JSON.stringify(productosActualizados));
-              return productosActualizados;
-          } else {
-              // Agrega el nuevo producto al carrito
-              const nuevoCarrito = [...products, { ...producto, cantidad: 1 }];
-              localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
-              return nuevoCarrito;
-          }
+      setProducts(prevProducts => {
+        const productoExistente = prevProducts.find(p => p.id === producto.id);
+
+        let nuevoCarrito;
+
+        if (productoExistente) {
+          // Actualiza la cantidad si el producto ya está en el carrito
+          nuevoCarrito = prevProducts.map((prod) => 
+            prod.id === producto.id ? { ...prod, cantidad: prod.cantidad + 1 } : prod
+          );
+        } else {
+          // Agrega el nuevo producto al carrito
+          nuevoCarrito = [...prevProducts, { ...producto, cantidad: 1 }];
+        }
+
+        // Actualizar localStorage después de modificar el carrito
+        localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
+        return nuevoCarrito;
       });
   };
 

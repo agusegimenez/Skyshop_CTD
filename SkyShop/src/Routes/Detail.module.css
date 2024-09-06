@@ -254,8 +254,13 @@
   }
 
   .primerDiv {
+    margin-bottom: 55px;
     width: 100%;
     height: 286px;
+  }
+  .imgOptionBtn img {
+    width: 42px;
+    height: 42px;
   }
 
   .contenidoMod {

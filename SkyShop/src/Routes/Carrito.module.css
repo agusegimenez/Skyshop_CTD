@@ -42,12 +42,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-left: 2px solid #d0fdd7;
 }
 
 .carritoProductos {
-  border: 2px solid #00843d;
-  border-radius: 10px;
-  padding: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .productoItem {
@@ -57,36 +57,19 @@
   padding: 10px;
   border-bottom: 1px solid #ccc;
   gap: 40px;
+  flex-direction: column;
 }
 
 .productoItem img {
-  width: 50px;
-  height: 50px;
+  width: 216px;
+  height: 163px;
 }
 
 .productoItem span {
-  font-size: 18px;
-}
-.productoItem .precioVerd {
-  color: #00843d;
-  font-weight: 700;
-}
-.productoItem input {
-  width: 50px;
-  padding: 5px;
-  text-align: center;
-}
-
-.productoItem button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.productoItem .deleteImg {
-  width: 20px;
-  height: 20px;
+  font: bold;
+  margin-right: 500px;
+  font-size: 24px;
+  font-weight: 500;
 }
 
 .modalConfirmacion {
@@ -158,7 +141,9 @@
   transition: background-color 0.3s, color 0.3s;
 }
 .finalizarPedido:hover {
-  background-color: #01ac5cc6;
+  border: 1px solid #01ac5c;
+  color: #01ac5c;
+  background-color: white;
 }
 .finalizarCalendar {
   display: none;
@@ -337,6 +322,74 @@
   color: #4caf50;
 }
 
+.datosUser {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  margin-bottom: 40px;
+  font-family: "Roboto", sans-serif;
+}
+.datosUser h2 {
+  font-size: 30px;
+  margin-right: 200px;
+}
+
+.inpUser {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.inpUser label {
+  color: #00843d;
+  font-size: 25px;
+}
+.inpUser input {
+  border: none;
+  border-bottom: 2px solid #d0fdd7;
+}
+.btnsCart {
+  display: flex;
+  gap: 100px;
+}
+.cancelarPedido {
+  margin-top: 30px;
+  width: 200px;
+  padding: 10px;
+  background-color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  color: #01ac5c;
+  border: 1px solid #01ac5c;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+.cancelarPedido:hover {
+  color: white;
+  background-color: #01ac5c;
+}
+.caracteristicas {
+  display: flex;
+  flex-direction: column;
+}
+.caracteristicas h2 {
+  color: #00843d;
+  font-weight: 600;
+  font-size: 24px;
+}
+.caracteristicas span {
+  display: flex;
+  margin: 0;
+  padding-left: 20px;
+  font-weight: 500;
+}
+.precioVerd {
+  color: #00843d;
+  margin: 0;
+  font-weight: 700;
+  font-size: 20px;
+}
 @media screen and (max-width: 1024px) {
   .carritoContainer {
     display: flex;
