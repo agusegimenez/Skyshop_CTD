@@ -1,11 +1,7 @@
 export const productos = [
   {
     id: 1,
-    imagenes: [
-      "/paquete_medicamentos.png",
-      "/paquete_medicamentos.png",
-      "/paquete_almuerzo.png",
-      "/paquete_noche_peliculas.png"],
+    imagenes: "/paquete_medicamentos.png, /paquete_medicamentos.png, /paquete_almuerzo.png, /paquete_noche_peliculas.png",
     nombre: "Paquete Medicamentos",
     contenido: "Analgésicos (paracetamol e ibuprofeno), Antiséptico para heridas, Bandas adhesivas (curitas), Jarabe para la tos",
     caracteristicas: [
@@ -22,11 +18,7 @@ export const productos = [
   },
   {
     id: 2,
-    imagenes: [
-      "/paquete_facial.png",
-      "/paquete_medicamentos.png",
-      "/paquete_almuerzo.png",
-      "/paquete_noche_peliculas.png"],
+    imagenes:"/paquete_facial.png, /paquete_medicamentos.png,  /paquete_almuerzo.png, /paquete_noche_peliculas.png",
     nombre: "Paquete Cuidado Facial",
     contenido: "Limpiador facial, Tónico, Hidratante, Protector solar",
     caracteristicas: [
@@ -43,11 +35,7 @@ export const productos = [
   },
   {
     id: 3,
-    imagenes: [
-      "/paquete_almuerzo.png",
-      "/paquete_facial.png",
-      "/paquete_medicamentos.png",
-      "/paquete_noche_peliculas.png"],
+    imagenes:"/paquete_facial.png, /paquete_medicamentos.png,  /paquete_almuerzo.png, /paquete_noche_peliculas.png",
     categoria: "Alimentos",
     nombre: "Paquete Almuerzo Rápido",
     contenido: "Wraps de pollo y vegetales, Fruta fresca (manzanas y naranjas), Botellas de agua mineral, Barras de granola",
@@ -64,11 +52,7 @@ export const productos = [
   },
   {
     id: 4,
-    imagenes: [
-      "/paquete_noche_peliculas.png",
-      "/paquete_almuerzo.png",
-      "/paquete_facial.png",
-      "/paquete_medicamentos.png"],
+    imagenes:"/paquete_facial.png, /paquete_medicamentos.png,  /paquete_almuerzo.png, /paquete_noche_peliculas.png",
     nombre: "Paquete Noche de Películas",
     contenido: "Palomitas de maíz, Chocolates y dulces, Snacks salados (papas fritas, nachos)",
     caracteristicas: [
@@ -85,11 +69,7 @@ export const productos = [
   },
   {
     id: 5,
-    imagenes: [
-      "/paquete_perro.png",
-      "/paquete_noche_peliculas.png",
-      "/paquete_almuerzo.png",
-      "/paquete_facial.png"],
+    imagenes:"/paquete_facial.png, /paquete_medicamentos.png,  /paquete_almuerzo.png, /paquete_noche_peliculas.png",
     nombre: "Paquete Perro Feliz",
     categoria: "Mascotas",
     contenido: "Comida premium para perros, Juguetes masticables, Premios para perros, Shampoo para perros",
@@ -106,11 +86,7 @@ export const productos = [
   },
   {
     id: 6,
-    imagenes: [
-      "/paquete_gato.png",
-      "/paquete_noche_peliculas.png",
-      "/paquete_almuerzo.png",
-      "/paquete_facial.png"],
+    imagenes:"/paquete_facial.png, /paquete_medicamentos.png,  /paquete_almuerzo.png, /paquete_noche_peliculas.png",
     categoria: "Mascotas",
     nombre: "Paquete Gato Consentido",
     contenido: "Arena para gatos, Juguetes interactivos, Snacks para gatos",
@@ -128,11 +104,7 @@ export const productos = [
   {
     id: 7,
     categoria: "Oficina",
-    imagenes: [
-      "/paquete_oficina_casa.png",
-      "/paquete_noche_peliculas.png",
-      "/paquete_almuerzo.png",
-      "/paquete_facial.png"],
+    imagenes:"/paquete_facial.png, /paquete_medicamentos.png,  /paquete_almuerzo.png, /paquete_noche_peliculas.png",
     nombre: "Paquete Oficina en Casa",
     contenido: "Cuadernos y bolígrafos, Café premium y tazas, Snacks saludables (frutos secos y barras de proteína), Auriculares con micrófono",
     caracteristicas: [
@@ -148,11 +120,7 @@ export const productos = [
   },
   {
     id: 8,
-    imagenes: [
-      "/paquete_oficina_organizada.png",
-      "/paquete_noche_peliculas.png",
-      "/paquete_almuerzo.png",
-      "/paquete_facial.png"], 
+    imagenes:"/paquete_facial.png, /paquete_medicamentos.png,  /paquete_almuerzo.png, /paquete_noche_peliculas.png", 
     categoria: "Oficina",
     nombre: "Paquete Oficina Organizada",
     contenido: "Organizadores de escritorio, Soporte para laptop, Calendario y planificador semanal, Grapadora y grapas",
@@ -170,11 +138,7 @@ export const productos = [
   {
     id: 9,
     categoria: "Alimentos",
-    imagenes: [
-      "/paquete_dulce.png",
-      "/paquete_noche_peliculas.png",
-      "/paquete_almuerzo.png",
-      "/paquete_facial.png"],
+    imagenes:"/paquete_facial.png, /paquete_medicamentos.png,  /paquete_almuerzo.png, /paquete_noche_peliculas.png",
     nombre: "Paquete dulce",
     contenido: "Barra de Kitkat, Ositos Mogul",
     caracteristicas: [
@@ -190,11 +154,7 @@ export const productos = [
   },
   {
     id: 10,
-    imagenes: [
-      "/paquete_previa.png",
-      "/paquete_noche_peliculas.png",
-      "/paquete_almuerzo.png",
-      "/paquete_facial.png"],
+    imagenes:"/paquete_facial.png, /paquete_medicamentos.png,  /paquete_almuerzo.png, /paquete_noche_peliculas.png",
     categoria: "Ocio",
     nombre: "Paquete Previa",
     contenido: "10 Latas Guiness Stout, Maní",
@@ -212,11 +172,7 @@ export const productos = [
   {
     id: 11,
     categoria: "Alimentos",
-    imagenes:[
-      "https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/doritos.png",
-      "/paquete_noche_peliculas.png",
-      "/paquete_almuerzo.png",
-      "/paquete_facial.png"],
+    imagenes:"/paquete_facial.png, /paquete_medicamentos.png,  /paquete_almuerzo.png, /paquete_noche_peliculas.png",
     nombre: "Paquete Salado",
     contenido: "Doritos Sabor Queso, Papitas Lays Sabor Asado",
     caracteristicas: [

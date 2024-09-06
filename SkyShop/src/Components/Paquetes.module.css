@@ -164,11 +164,14 @@
 }
 
 .caracteristicas label {
-  margin-left: 15px;
-  margin: 10px 20px 15px 15px;
+  margin: 10px 20px 15px 20px;
   display: flex;
-  justify-content: space-around;
-  width: 150px;
+  justify-content: left;
+  width: 120px;
+}
+
+.caracteristicas label text{
+  margin-left: 10px;
 }
 
 input[type="radio"] {

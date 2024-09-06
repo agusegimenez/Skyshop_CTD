@@ -7,19 +7,65 @@ import { productos } from '../utils/products';
 
 const EditProd = () => {
     const { id } = useParams(); // id de producto
-    const producto = productos.find((prod) => prod.id == id); // producto encontrado en array por id
-    const [productName, setProductName] = useState(producto.nombre || "");
-    const [productDescription, setProductDescription] = useState(producto.contenido || "");
-    const [productPrice, setProductPrice] = useState(producto.precio || "");
-    const [selectedCategorie, setSelectedCategorie] = useState(producto.categoria || ""); // estado que guarda la categoria seleccionada
+    const [producto, setProducto] = useState({});
+    const [productName, setProductName] = useState(producto.name || "");
+    const [productDescription, setProductDescription] = useState(producto.description || "");
+    const [productPrice, setProductPrice] = useState(producto.price || "");
+    const [selectedCategorie, setSelectedCategorie] = useState(producto.category || ""); // estado que guarda la categoria seleccionada
     const [images, setImages] = useState([]); // estado que guarda las imagenes subidas al navegador
     const [imgFiles, setImgFiles] = useState([]); // estado que guarda las imagenes en formato archivo
-    const [imagesCloudUrls, setImagesCloudUrls] = useState(producto.imagenes || []); // estado q guarda el link de la url de la imagen en Cloudinary
+    const [imagesCloudUrls, setImagesCloudUrls] = useState(producto.images || []); // estado q guarda el link de la url de la imagen en Cloudinary
     const [error, setError] = useState(false);
-    const [selectedCharacteristics, setSelectedCharecteristics] = useState(producto.caracteristicas || []); // estado que guarda las caracteristicas seleccionadas
-    const {loggedUser} = useContext(BotonContext);
+    const [selectedCharacteristics, setSelectedCharecteristics] = useState([]); // estado que guarda las caracteristicas seleccionadas
+    const {loggedUser, token, updateProd} = useContext(BotonContext);
     const [isMobile, setIsMobile] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
+    const urlGet = "http://localhost:8080/api/items/" + id;
+    const url = "http://localhost:8080/api/items";
+
+    const getProdById = async () => {
+      const settings = {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        credentials: 'include',
+      }
+  
+      try{
+        const response = await fetch(urlGet, settings);
+  
+        if(!response.ok){
+          throw new Error('Error al hacer peticion GET de productos');
+        }else{
+          const data = await response.json();
+          console.log("GET Producto detalle: ", data);
+
+          let handledCategory = "";
+
+          if(data.category == "SALUD_Y_BELLEZA"){
+            handledCategory = "Salud/Belleza";
+          }else if(data.category == "MASCOTAS"){
+            handledCategory = "Mascotas";
+          }else if(data.category == "OFICINA"){
+            handledCategory = "Oficina";
+          }else if(data.category == "ALIMENTOS"){
+            handledCategory = "Alimentos";
+          };
+
+          setProducto(data);
+          setProductName(data.name || "");
+          setProductDescription(data.description || "");
+          setProductPrice(data.price || "");
+          setSelectedCategorie(handledCategory || "");
+          setImagesCloudUrls(data.images || []);
+          setSelectedCharecteristics(data.characteristics || []);
+        }
+      }catch(error){
+        console.error('Error en la petición GET de productos: ', error);
+      }
+    }
 
     const eliminarImagenCloud = (index) => {
         const nuevasUrls = imagesCloudUrls.filter((_, i) => i !== index);
@@ -149,6 +195,10 @@ useEffect(() => {
     return urls;
   };
 
+  useEffect(() => {
+    getProdById();
+  }, [])
+
   const handleCharacteristics = (e) => {
       const value = e.target.value;
       if(selectedCharacteristics.includes(value)){
@@ -175,10 +225,34 @@ useEffect(() => {
               return;
             }
           }
+
+          let handledCategory = "";
+
+          if(selectedCategorie == "Salud/Belleza"){
+            handledCategory = "SALUD_Y_BELLEZA";
+          }else if(selectedCategorie == "Mascotas"){
+            handledCategory = "MASCOTAS";
+          }else if(selectedCategorie == "Oficina"){
+            handledCategory = "OFICINA";
+          }else if(selectedCategorie == "Alimentos"){
+            handledCategory = "ALIMENTOS";
+          };
+
+          const prod = {
+            id: id,
+            name: productName,
+            price: productPrice,
+            description: productDescription,
+            category: handledCategory,
+            images: imagesCloudUrls,
+            characteristics: selectedCharacteristics
+          };
+
+
           // cambiar esto con POST a API
-          console.log('Producto guardado', { productName, productDescription, productPrice, selectedCategorie, selectedCharacteristics, imagesCloudUrls });
+          await updateProd(prod);
           //limpiar los inputs si se guardo bien el producto
-          resetForm();
+          //resetForm();
       }
   }
 
@@ -243,7 +317,7 @@ useEffect(() => {
       <label>Categoría:</label>
       <div className={customCss.categories}>
         <div className={customCss.caracteristicas}>
-        {['Alimentos', 'Higiene', 'Diversion', 'Mascotas', 'Perros'].map((category) => (
+        {['Salud/Belleza', 'Mascotas', 'Oficina', 'Alimentos'].map((category) => (
           <label key={category}>
             <input
             type="radio"
@@ -253,8 +327,7 @@ useEffect(() => {
             onChange={() => setSelectedCategorie(category)}
             />
             <div>
-                <div className={customCss.customRadio} style={{color: "green"}}>{ selectedCategorie == category && "✔"}</div>
-              <img src={`/caracteristica_${category.toLowerCase()}.png`} alt={`${category}-logo`} />
+              <div className={customCss.customRadio} style={{color: "green"}}>{ selectedCategorie == category && "✔"}</div>
             </div>
               {category}
           </label>

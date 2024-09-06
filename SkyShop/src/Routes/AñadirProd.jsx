@@ -13,9 +13,38 @@ const AñadirProd = () => {
     const [imagesCloudUrls, setImagesCloudUrls] = useState([]); // estado q guarda el link de la url de la imagen en Cloudinary
     const [error, setError] = useState(false);
     const [selectedCharacteristics, setSelectedCharecteristics] = useState([]); // estado que guarda las caracteristicas seleccionadas
-    const {loggedUser} = useContext(BotonContext);
+    const {loggedUser, token, prods, getProds} = useContext(BotonContext);
     const [isMobile, setIsMobile] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
+    const url = "http://localhost:8080/api/items/create"
+
+    const postProd = async (prod) => {
+
+      const settings = {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        credentials: 'include',
+        body: JSON.stringify(prod),
+      }
+
+      try{
+        const response = await fetch(url, settings);
+        const data = await response.json();
+        console.log("producto creado con POST: ", data);
+
+        if(!response.ok){
+          throw new Error('Error al hacer peticion de POST de producto');
+        }else{
+          console.log("Producto agregado: ", data);
+          getProds();
+        }
+      }catch(err){
+        console.error('Error en la petición POST de producto:', err);
+      }
+    }
 
     const isAdmin = () => {
       let response;
@@ -144,8 +173,30 @@ const handleButtonClick = (option) => {
               return;
             }
           }
+
+          let handledCategory = "";
+
+          if(selectedCategorie == "Salud/Belleza"){
+            handledCategory = "SALUD_Y_BELLEZA";
+          }else if(selectedCategorie == "Mascotas"){
+            handledCategory = "MASCOTAS";
+          }else if(selectedCategorie == "Oficina"){
+            handledCategory = "OFICINA";
+          }else if(selectedCategorie == "Alimentos"){
+            handledCategory = "ALIMENTOS";
+          };
+
+          const prod = {
+            name: productName,
+            price: productPrice,
+            description: productDescription,
+            category: handledCategory,
+            images: urls,
+            characteristics: selectedCharacteristics
+          };
+
           // cambiar esto con POST a API
-          console.log('Producto guardado', { productName, productDescription, productPrice, selectedCategorie, selectedCharacteristics, imagesCloudUrls });
+          await postProd(prod);
           //limpiar los inputs si se guardo bien el producto
           resetForm();
       }
@@ -203,7 +254,7 @@ const handleButtonClick = (option) => {
       <label>Categoría:</label>
       <div className={customCss.categories}>
         <div className={customCss.caracteristicas}>
-        {['Alimentos', 'Higiene', 'Diversion', 'Mascotas', 'Perros'].map((category) => (
+        {['Salud/Belleza', 'Mascotas', 'Oficina', 'Alimentos'].map((category) => (
           <label key={category}>
             <input
             type="radio"
@@ -214,7 +265,6 @@ const handleButtonClick = (option) => {
             />
             <div>
               <div className={customCss.customRadio} style={{color: "green"}}>{ selectedCategorie == category && "✔"}</div>
-              <img src={`/caracteristica_${category.toLowerCase()}.png`} alt={`${category}-logo`} />
             </div>
               {category}
           </label>
@@ -260,7 +310,7 @@ const handleButtonClick = (option) => {
       />
 
         {/* Botón de guardar */}
-        <button type="submit" className={customCss.buttonSubmit}>Guardar producto</button>
+        <button type="submit" className={customCss.buttonSubmit} onClick={postProd}>Guardar producto</button>
     </form>
     {showPopup && (
       <div className={customCss.popupOverlay}>

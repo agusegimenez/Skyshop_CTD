@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { productos } from '../utils/products'; 
 import customCss from "./Paquetes.module.css";
 import { useNavigate } from 'react-router-dom';
+import { BotonContext } from '../Context/Context';
+
 const Paquetes = () => {
+  const { prods, updateProd, deleteProd } = useContext(BotonContext);
   const [visibleMenu, setVisibleMenu] = useState(null);
   const [visibleMenuCaract, setVisibleMenuCaract] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState({});
+  const [refreshKey, setRefreshKey] = useState(0); // estado para forzar render despues de eliminar un producto
   const navigate = useNavigate();
+
+  const handleDelete = (id) => {
+    deleteProd(id);
+    setRefreshKey(prevKey => prevKey + 1);
+  };
 
   const toggleMenu = (productId) => {
     if (visibleMenu === productId) {
@@ -14,6 +23,7 @@ const Paquetes = () => {
       setVisibleMenuCaract(null);
     } else {
       setVisibleMenu(productId);
+      setVisibleMenuCaract(null); // Asegúrate de cerrar el menú de categorías cuando se abra el menú principal
     }
   };
 
@@ -25,6 +35,45 @@ const Paquetes = () => {
       setVisibleMenuCaract(productId);
     }
   };
+
+  useEffect(() => {
+    const initialCategories = {};
+    let handledCategory = "";
+
+    prods.forEach(p => {
+      if(p.category == "SALUD_Y_BELLEZA"){
+        handledCategory = "Salud/Belleza";
+      }else if(p.category == "MASCOTAS"){
+        handledCategory = "Mascotas";
+      }else if(p.category == "OFICINA"){
+        handledCategory = "Oficina";
+      }else if(p.category == "ALIMENTOS"){
+        handledCategory = "Alimentos";
+      };
+
+      initialCategories[p.id] = handledCategory;
+    });
+    setSelectedCategories(initialCategories);
+  }, [prods])
+  
+
+  const updateCategory = (prodId) => {
+    const findedProd = prods.find(p => p.id === prodId);
+    let categoryUpdate = "";
+
+    if(selectedCategories[prodId] == "Salud/Belleza"){
+      categoryUpdate = "SALUD_Y_BELLEZA";
+    }else if(selectedCategories[prodId] == "Mascotas"){
+      categoryUpdate = "MASCOTAS";
+    }else if(selectedCategories[prodId] == "Oficina"){
+      categoryUpdate = "OFICINA";
+    }else if(selectedCategories[prodId] == "Alimentos"){
+      categoryUpdate = "ALIMENTOS";
+    };
+
+    const prodUpdate = {...findedProd, category: categoryUpdate};
+    updateProd(prodUpdate);
+  }
 
   const handleCategoryChange = (productId, category) => {
     setSelectedCategories(prev => ({
@@ -46,22 +95,22 @@ const Paquetes = () => {
             <th>PRODUCTO</th>
             <th>PRECIO</th>
             <th>CATEGORÍA</th>
-            <th>VENTAS</th>
-            <th>FECHA LISTADO</th>
+            <th>ID</th>
+            <th>CANTIDAD IMAGENES</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {productos.map(producto => (
+          {prods.map(producto => (
             <tr key={producto.id} className={customCss.trListado}>
               <td>
-                <img src={producto.imagenes[0]} alt={producto.nombre} style={{ width: '60px', marginRight: '10px' }} />
+                <img src={producto.images[0]} alt={producto.name} style={{ width: '60px', marginRight: '10px' }} />
               </td>
-              <td>{producto.nombre}</td>
-              <td className={customCss.letraVer}>${producto.precio.toLocaleString('es-AR')}</td>
-              <td>{producto.categoria}</td>
-              <td>{producto.stock}</td>
-              <td>{producto.fecha}</td>
+              <td>{producto.name}</td>
+              <td className={customCss.letraVer}>${producto.price.toLocaleString('es-AR')}</td>
+              <td>{producto.category}</td>
+              <td>{producto.id}</td>
+              <td>{producto.images.length}</td>
               <td>
                 <div className={customCss.actionMenu} onClick={() => toggleMenu(producto.id)}>
                   &#9776;
@@ -72,7 +121,7 @@ const Paquetes = () => {
                           e.stopPropagation();
                           toggleMenuCaract(producto.id);
                         }}><img src="./iCategories.png" alt="icon-categories" />Categorias</a>
-                      <a href="#" className={customCss.eliminar}><img src="./iDelete.png" alt="icon-Delete" />Eliminar</a>
+                      <a href="#" className={customCss.eliminar} onClick={() => handleDelete(producto.id)}><img src="./iDelete.png" alt="icon-Delete" />Eliminar</a>
                     </div>
                   )}
                 </div>
@@ -82,7 +131,7 @@ const Paquetes = () => {
                         <div className={customCss.divCaracteristicas}>
                           <p>Categoría:</p>
                           <div className={customCss.caracteristicas}>
-                            {['Alimentos', 'Higiene', 'Diversion', 'Mascotas', 'Perros'].map((category) => (
+                            {['Salud/Belleza', 'Mascotas', 'Oficina', 'Alimentos'].map((category) => (
                               <label key={category}>
                                 <input
                                   type="radio"
@@ -93,17 +142,19 @@ const Paquetes = () => {
                                 />
                                 <div>
                                   <div className={customCss.customRadio} style={{color: "green"}}>   
-                                    {selectedCategories[producto.id] == category && "✓"}                                 
+                                    {selectedCategories[producto.id] === category && "✓"}                                 
                                   </div>
-                                  <img src={`./caracteristica_${category.toLowerCase()}.png`} alt={`${category}-logo`} />
                                 </div>
-                                {category}
+                                <text>
+                                  {category}
+                                </text>
                               </label>
                             ))}
                           </div>
                           <div className={customCss.saveBtnDiv}>
                             <button
                               className={customCss.btnVer}
+                              onClick={() => updateCategory(producto.id)}
                               style={{
                                 margin: 5,
                                 width: "100px",

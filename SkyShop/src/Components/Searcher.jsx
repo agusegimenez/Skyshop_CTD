@@ -1,11 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import customCss from "./Searcher.module.css"
 import { productos } from "../utils/products";
+import { BotonContext } from "../Context/Context";
 
 export default function Searcher() {
 
   const [isTyping, setIsTyping] = useState(false);
   const [typingContent, setTypingContent] = useState("");
+  const { searchProdsByName} = useContext(BotonContext);
+
   const productNames = productos.map(product => product.nombre);
 
   const inputRef = useRef(null);

@@ -2,7 +2,7 @@ import customCss from "./Card.module.css";
 import { useNavigate } from 'react-router-dom';
 
 export const Card = ({ producto }) => {
-  const { imagenes, nombre, precio, id } = producto;
+  const { images, name, price, id } = producto;
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -12,11 +12,11 @@ export const Card = ({ producto }) => {
   return (
     <article className={customCss.card} key={id} onClick={handleClick}>
       <div className={customCss.divImg}>
-        <img src={imagenes[0]} alt={nombre} />
+        <img src={images[0]} alt={name} />
       </div>
       <div className={customCss.divNombreYPrecio}>
-        <h3>{nombre}</h3>
-        <p id="precio">${precio}</p>
+        <h3>{name}</h3>
+        <p id="precio">${price}</p>
       </div>
     </article>
   );

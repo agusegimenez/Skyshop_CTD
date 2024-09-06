@@ -14,9 +14,94 @@ export const BotonProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [loggedUser, setLoggedUser] = useState(loggingInitialState); //estado de usuario logueado
     const [users, setUsers] = useState([]);
+    const [prods, setProds] = useState([]);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
-    const token = "a4342962-b9f7-470f-a0ad-ac2555e3d314"; // token que hay que actualizar cada vez que se levanta el back end
+    const token = "0eea198a-f7c4-4261-a4b1-d0925cfd12b6"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
+
+    const getProds = async () => {
+      const settings = {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        credentials: 'include',
+      }
+
+      try{
+        const response = await fetch(`${url}/items`, settings);
+
+        if(!response.ok){
+          throw new Error('Error al hacer peticion GET de productos');
+        }else{
+          const data = await response.json();
+          console.log("GET Productos: ", data);
+          setProds(data);
+        }
+      }catch(error){
+        console.error('Error en la petición GET de productos: ', err);
+      }
+    }
+
+    const updateProd = async (prod) => {
+      const settings = {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        credentials: 'include',
+        body: JSON.stringify(prod),
+      }
+
+      try{
+        const response = await fetch(`${url}/items/${prod.id}`, settings);
+
+        if(!response.ok){
+          throw new Error('Error al hacer peticion PUT de producto');
+        }else{
+          const data = await response.json();
+          console.log("PUT Productos: ", data);
+          getProds();
+          return data;
+        }
+      }catch(error){
+        console.error('Error en la petición PUT de producto: ', error);
+      }
+    }
+
+    const deleteProd = async (id) => {
+      const settings = {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        credentials: 'include',
+      }
+
+      try{
+        const response = await fetch(`${url}/items/${id}`, settings);
+
+        if(!response.ok){
+          throw new Error('Error al hacer peticion DELETE de producto');
+        }else{
+          console.log("DELETE Producto: ", data);
+          getProds();
+        }
+      }catch(error){
+        console.error('Error en la petición DELETE de producto: ', error);
+      }
+    }
+
+    const searchProdsByName = (searchString) => {
+      const lowercasedSearchValue = searchString.toLowerCase();
+      return prods.filter(product =>
+        product.name.toLowerCase().includes(lowercasedSearchValue)
+      );
+    }
+    
 
     const fetchChangeUserRole = async (rol, id) => {
 
@@ -48,13 +133,6 @@ export const BotonProvider = ({ children }) => {
     }
 
     const fetchUsers = async () => {
-
-        const username = 'admin12'; // Reemplaza con el nombre de usuario real
-        const email = "admin12@example.com";
-        const password = 'Adminpassword'; // Reemplaza con la contraseña real
-        const credentials = btoa(`${username}:${email}:${password}`); // Codifica las credenciales en Base64
-
-
         try {
             const response = await fetch('http://localhost:8080/api/users', {
                 method: 'GET',
@@ -99,6 +177,7 @@ export const BotonProvider = ({ children }) => {
         if(loggedUser !== null){
             setShowButtons(false);
         }
+        getProds();
         fetchUsers();
       }, [showButtons])
 
@@ -134,7 +213,7 @@ export const BotonProvider = ({ children }) => {
   }
 
     return (
-        <BotonContext.Provider value={{ showButtons, setShowButtons, products, setProducts, agregarProductoAlCarrito, finalizarPedido, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers, fetchChangeUserRole, setUsers}}>
+        <BotonContext.Provider value={{ showButtons, setShowButtons, products, setProducts, agregarProductoAlCarrito, finalizarPedido, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers, fetchChangeUserRole, setUsers, token, prods, updateProd, deleteProd, searchProdsByName}}>
             {children}
         </BotonContext.Provider>
     );
