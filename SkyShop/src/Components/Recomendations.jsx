@@ -44,7 +44,7 @@ export default function Recomendations({ handleOpenModal }) {
       <div className={customCss.divCards}>
         {traerProductos10Random()}
       </div>
-      <button className={customCss.recomendacionesBtn}>Ver más</button>
+      {prods.length >= 11 && <button className={customCss.recomendacionesBtn}>Ver más</button>}
     </section>
   );
 }
