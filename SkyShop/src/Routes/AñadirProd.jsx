@@ -18,7 +18,18 @@ const AñadirProd = () => {
     const [showPopup, setShowPopup] = useState(false);
     const url = "http://localhost:8080/api/items/create"
 
+    const isNameRepeated = (product) => {
+      return prods.some(product => product.name === productName);
+    };
+
     const postProd = async (prod) => {
+
+      const isRepeated = isNameRepeated(prod);
+
+      if (isRepeated) {
+        setError(true);
+        return;
+      }
 
       const settings = {
         method: "POST",
@@ -34,6 +45,7 @@ const AñadirProd = () => {
         const response = await fetch(url, settings);
         const data = await response.json();
         console.log("producto creado con POST: ", data);
+        resetForm();
 
         if(!response.ok){
           throw new Error('Error al hacer peticion de POST de producto');
@@ -139,8 +151,8 @@ const handleButtonClick = (option) => {
       try{
         const response = await axios.post('https://api.cloudinary.com/v1_1/dqeczcnjq/image/upload', formData);
         urls.push(response.data.secure_url);
-      }catch(error){
-        console.error("Error uploading image:", error);
+      }catch(err){
+        console.error("Error uploading image:", err);
         urls.push(null);
       }
     }
@@ -198,7 +210,6 @@ const handleButtonClick = (option) => {
           // cambiar esto con POST a API
           await postProd(prod);
           //limpiar los inputs si se guardo bien el producto
-          resetForm();
       }
   }
 
