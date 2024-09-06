@@ -33,4 +33,5 @@ public class Item {
     private Set<CartItem> cartItems = new HashSet<>();
 
     private List<String> images;
+    private List<String> characteristics;
 }
