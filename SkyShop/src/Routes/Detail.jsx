@@ -8,6 +8,7 @@ import DatePicker from 'react-datepicker';
 import { es } from 'date-fns/locale';
 import "/node_modules/react-datepicker/dist/react-datepicker.css"; 
 import "./CustomDatePicker.css"
+import Swal from 'sweetalert2';
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -22,6 +23,23 @@ const Detail = () => {
   const [isHorarioVisible, setIsHorarioVisible] = useState(false);
   const url = "http://localhost:8080/api/items/" + id;
 
+  const handleAgregar = () => {
+    agregarProductoAlCarrito(producto);
+
+    Swal.fire({
+      title: '¡Éxito!',
+      text: 'Se agregó tu reserva correctamente!',
+      icon: 'success',
+      timer: 3000, // Duración de la alerta en milisegundos
+      timerProgressBar: true, // Muestra la barra de progreso
+      showConfirmButton: false, // Oculta el botón de confirmación
+    });
+
+    // Redirige después de 3 segundos
+    setTimeout(() => {
+      navigate('/carrito');
+    }, 3000); // Tiempo en milisegundos igual al temporizador de la alerta
+  };
   const toggleHorario = () => {
     setIsHorarioVisible(!isHorarioVisible);
   };
@@ -185,8 +203,8 @@ const Detail = () => {
           </div>
           <div className={customCss.divBtn}>
             {loggedUser ? (
-              <button className={customCss.btnAgregar} onClick={() => agregarProductoAlCarrito(producto)}>
-                <a href="/carrito">Agregar a mi pedido</a>
+              <button className={customCss.btnAgregar} onClick={handleAgregar}>
+                <a>Agregar a mi pedido</a>
               </button>
             ) : (
               <button className={customCss.btnAgregarDisabled} disabled>
