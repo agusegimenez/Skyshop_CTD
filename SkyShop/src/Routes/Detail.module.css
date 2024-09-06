@@ -286,6 +286,11 @@
   font-size: 20px;
   color: #228b22;
 }
+.disabled {
+  background-color: gray;
+  pointer-events: none;
+  text-decoration: line-through;
+}
 @media screen and (max-width: 1440px) {
   .detailSect {
     height: auto; /* Cambiar la altura para que se ajuste dinámicamente */

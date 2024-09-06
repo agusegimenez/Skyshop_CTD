@@ -43,6 +43,14 @@ const Carrito = () => {
     return null; 
   }
 
+  // Verifica si el día seleccionado es el 11 para deshabilitar ciertas horas
+  const isDisabledTime = (time) => {
+    if (selectedDate?.getDate() === 11 && time === "14:00 - 15:00") {
+      return true; // Deshabilita este horario el día 11
+    }
+    return false;
+  };
+  
   return (
     <>
       <h3 className={customCss.carritoTittle}>Reservas</h3>
@@ -96,7 +104,11 @@ const Carrito = () => {
               <div className={customCss.horarioDropdown}>
                 <ul className={customCss.horarioLista}>
                   {["07:00 - 08:00", "08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00","19:00 - 20:00", "20:00 - 21:00", "21:00 - 22:00"].map((time) => (
-                    <li key={time} className={customCss.horarioItem} onClick={() => setSelectedTime(time)}>
+                    <li
+                    key={time}
+                    className={`${isDisabledTime(time) ? 'disabled' : ''} ${customCss.horarioItem}`}
+                    onClick={() => !isDisabledTime(time) && setSelectedTime(time)}
+                  >
                       {time}
                     </li>
                   ))}

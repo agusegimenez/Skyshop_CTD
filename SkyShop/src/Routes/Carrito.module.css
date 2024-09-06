@@ -390,6 +390,12 @@
   font-weight: 700;
   font-size: 20px;
 }
+
+.disabled {
+  background-color: gray;
+  pointer-events: none;
+  text-decoration: line-through;
+}
 @media screen and (max-width: 1024px) {
   .carritoContainer {
     display: flex;
