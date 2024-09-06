@@ -3,6 +3,7 @@ import customCss from "./Login.module.css";
 import ErrorMessage from '../Components/ErrorMessage';
 import { BotonContext } from '../Context/Context';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -87,7 +88,11 @@ const Login = () => {
         navigate("/");
 
         // Redirigir al usuario a otra página o guardar el token, etc.
-        alert('Inicio de sesión exitoso');
+        Swal.fire({
+          title: 'Inicio de sesión exitoso',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
         setServerError('');  // Limpiar error del servidor si todo fue exitoso
 
       } catch (error) {
