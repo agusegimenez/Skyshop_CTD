@@ -148,7 +148,7 @@
   margin-top: 30px;
   display: flex;
   margin-left: 0;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-right: 10%;
 }
 
@@ -156,6 +156,8 @@
   list-style-type: none;
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin-left: 15px;
 }
 
 .listaCaracteristicas li img {
@@ -323,7 +325,7 @@
 
 @media screen and (max-width: 1024px) {
   .divGral {
-    width: 100%; /* Asegurarse de que la sección general ocupe el ancho completo */
+    width: 90%; /* Asegurarse de que la sección general ocupe el ancho completo */
   }
 
   .divCaracteristicas {
@@ -372,8 +374,13 @@
 }
 
 @media screen and (max-width: 550px) {
+  .listaCaracteristicas li {
+    justify-content: space-between;
+    margin-left: 0;
+  }
+  
   .divCaracteristicas {
-    height: 250px;
+    height: 300px;
   }
 
   .primerDiv {
@@ -387,6 +394,7 @@
   }
 
   .contenidoMod {
-    width: 100%;
+    width: 90vw;
+    height: 230px;
   }
 }
