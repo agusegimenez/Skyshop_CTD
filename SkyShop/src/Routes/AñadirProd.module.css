@@ -55,8 +55,8 @@
 
 .imgThumbnail:hover {
   opacity: 0.7;
-  border: 2px solid red; 
-  transform: scale(1.10); 
+  border: 2px solid red;
+  transform: scale(1.1);
   transition: all 0.5s ease;
 }
 
@@ -181,6 +181,10 @@ button.customRadio {
   border: none;
   border-radius: 50px;
   cursor: pointer;
+}
+.buttonSubmit a {
+  text-decoration: none;
+  color: white;
 }
 .ifNotAdminDiv {
   padding-top: 110px; /* esto es para que el detalle no quede atras del nav */
