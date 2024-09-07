@@ -16,7 +16,7 @@ export const BotonProvider = ({ children }) => {
     const [users, setUsers] = useState([]);
     const [prods, setProds] = useState([]);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
-    const token = "883a3609-ea54-40e4-a64f-5afe25a05b42"; // token que hay que actualizar cada vez que se levanta el back end
+    const token = "8e942052-2831-4e72-9d0d-99ca64e7a63b"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
 
     const getProds = async () => {

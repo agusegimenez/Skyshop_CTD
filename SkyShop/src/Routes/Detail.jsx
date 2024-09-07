@@ -24,8 +24,20 @@ const Detail = () => {
   const url = "http://localhost:8080/api/items/" + id;
 
   const handleAgregar = () => {
+    // Verificar si se ha seleccionado una hora
+    if (!selectedTime) {
+      Swal.fire({
+        title: '¡Atención!',
+        text: 'Debes seleccionar una hora antes de agregar tu reserva.',
+        icon: 'warning',
+        confirmButtonText: 'Aceptar'
+      });
+      return; // Salir de la función si no se ha seleccionado una hora
+    }
+  
+    // Si hay una hora seleccionada, agregar el producto al carrito
     agregarProductoAlCarrito(producto);
-
+  
     Swal.fire({
       title: '¡Éxito!',
       text: 'Se agregó tu reserva correctamente!',
@@ -34,7 +46,7 @@ const Detail = () => {
       timerProgressBar: true, // Muestra la barra de progreso
       showConfirmButton: false, // Oculta el botón de confirmación
     });
-
+  
     // Redirige después de 3 segundos
     setTimeout(() => {
       navigate('/carrito');
