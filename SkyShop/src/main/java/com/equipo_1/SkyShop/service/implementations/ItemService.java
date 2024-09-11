@@ -42,7 +42,7 @@ public class ItemService implements IItemService {
     }
 
     @Override
-    public Item updateItem(Long id, String name, Float price, String description, Categories category, List<String> images) {
+    public Item updateItem(Long id, String name, Float price, String description, Categories category, List<String> images, List<String> characteristics) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Item not found"));
 
@@ -51,6 +51,7 @@ public class ItemService implements IItemService {
         item.setDescription(description);
         item.setCategory(category);
         item.setImages(images);
+        item.setCharacteristics(characteristics);
 
         return itemRepository.save(item);
     }
