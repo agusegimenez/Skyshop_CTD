@@ -33,8 +33,7 @@ public class ItemController {
                         item.getPrice(),
                         item.getDescription(),
                         item.getCategory().name(),
-                        item.getImages(),
-                        item.getCharacteristics()))
+                        item.getImages()))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(itemDTOs);
     }
@@ -49,8 +48,7 @@ public class ItemController {
                 itemRequestDTO.getDescription(),
                 Categories.valueOf(itemRequestDTO.getCategory()),
                 new HashSet<>(),
-                itemRequestDTO.getImages(),
-                itemRequestDTO.getCharacteristics()
+                itemRequestDTO.getImages()
         );
         Item savedItem = itemService.createItem(newItem); // Este método ahora devuelve un Item
         return ResponseEntity.ok(new ItemResponseDTO(
@@ -59,8 +57,7 @@ public class ItemController {
                 savedItem.getPrice(),
                 savedItem.getDescription(),
                 savedItem.getCategory().name(),
-                savedItem.getImages(),
-                savedItem.getCharacteristics()
+                savedItem.getImages()
         ));
     }
 
@@ -81,8 +78,7 @@ public class ItemController {
                 updatedItem.getPrice(),
                 updatedItem.getDescription(),
                 updatedItem.getCategory().name(),
-                updatedItem.getImages(),
-                updatedItem.getCharacteristics()
+                updatedItem.getImages()
         ));
     }
 
@@ -103,8 +99,7 @@ public class ItemController {
                 item.getPrice(),
                 item.getDescription(),
                 item.getCategory().name(),
-                item.getImages(),
-                item.getCharacteristics()
+                item.getImages()
         ));
     }
 }
