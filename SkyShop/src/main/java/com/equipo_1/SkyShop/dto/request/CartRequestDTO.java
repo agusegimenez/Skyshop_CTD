@@ -17,5 +17,4 @@ public class CartRequestDTO {
     private Long id;
     private Long userId;
     private Set<CartItemRequestDTO> cartItems = new HashSet<>();
-    private String createdAt;
 }

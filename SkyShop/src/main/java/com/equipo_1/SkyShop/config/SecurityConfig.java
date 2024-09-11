@@ -24,7 +24,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/**").permitAll()  // Permite acceso a los endpoints de items sin autenticación
                         .requestMatchers("/api/orders/**").permitAll()  // Permite acceso a los endpoints de órdenes sin autenticación
                         .requestMatchers("/api/calendar/**").permitAll()  // Permite acceso a los endpoints de calendario sin autenticación
-                        .requestMatchers("/api/cart/**").permitAll()  // Permite acceso a los endpoints del carrito sin autenticación
+                        .requestMatchers("/api/carts/**").permitAll()  // Permite acceso a los endpoints del carrito sin autenticación
+                        .requestMatchers("/api/items/**").permitAll()
                         .anyRequest().authenticated()  // Requiere autenticación para cualquier otra solicitud
                 )
                 .formLogin(withDefaults())  // Usa la configuración por defecto para el formulario de login

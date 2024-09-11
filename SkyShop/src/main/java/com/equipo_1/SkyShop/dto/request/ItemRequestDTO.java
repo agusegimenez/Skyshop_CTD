@@ -18,5 +18,4 @@ public class ItemRequestDTO {
     private String description;
     private String category;
     private List<String> images;
-    private List<String> characteristics;
 }
