@@ -1,5 +1,6 @@
 package com.equipo_1.SkyShop.service.implementations;
 
+import com.equipo_1.SkyShop.entity.EmailRequest;
 import com.equipo_1.SkyShop.entity.User;
 import com.equipo_1.SkyShop.entity.enums.UserRole;
 import com.equipo_1.SkyShop.repository.UserRepository;
@@ -16,10 +17,12 @@ public class UserService implements IUserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;  // Añadimos el EmailService
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
 
     @Override
@@ -29,7 +32,16 @@ public class UserService implements IUserService {
         if (user.getRole() == null) {
             user.setRole(UserRole.CLIENT);
         }
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        // Enviar email al usuario registrado
+        String subject = "Bienvenido a SkyShop!";
+        String body = "Hola " + savedUser.getUsername() + ",\n\nGracias por registrarte en SkyShop.\nTus credenciales son:\nEmail: " + savedUser.getEmail() + "\n\nEsperamos que pronto puedas hacer tu pedido!";
+
+        EmailRequest emailRequest = new EmailRequest(savedUser.getEmail(), subject, body);
+        emailService.sendEmail(emailRequest);  // Enviar email
+
+        return savedUser;
     }
 
     @Override

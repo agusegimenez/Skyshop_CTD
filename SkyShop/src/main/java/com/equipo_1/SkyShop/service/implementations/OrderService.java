@@ -5,6 +5,7 @@ import com.equipo_1.SkyShop.dto.request.ItemRequestDTO;
 import com.equipo_1.SkyShop.dto.request.OrderRequestDTO;
 import com.equipo_1.SkyShop.dto.response.ItemResponseDTO;
 import com.equipo_1.SkyShop.dto.response.OrderResponseDTO;
+import com.equipo_1.SkyShop.entity.EmailRequest;
 import com.equipo_1.SkyShop.entity.Item;
 import com.equipo_1.SkyShop.entity.Order;
 import com.equipo_1.SkyShop.entity.User;
@@ -36,6 +37,8 @@ public class OrderService {
 
     @Autowired
     private ItemRepository itemRepository;
+    @Autowired
+    private EmailService emailService;
 
     public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO) {
         User user = userRepository.findById(orderRequestDTO.getUserId())
@@ -54,7 +57,6 @@ public class OrderService {
             throw new RuntimeException("The selected date and time are not available.");
         }
 
-        // Crear el Item desde ItemRequestDTO
         ItemRequestDTO itemRequestDTO = orderRequestDTO.getItem();
         if (itemRequestDTO == null) {
             throw new RuntimeException("Item information is missing.");
@@ -67,13 +69,13 @@ public class OrderService {
         item.setCategory(Categories.valueOf(itemRequestDTO.getCategory()));
         item.setImages(itemRequestDTO.getImages());
 
-        Item savedItem = itemRepository.save(item); // Guarda el item y obtiene el ID generado
+        Item savedItem = itemRepository.save(item);
 
         Order order = new Order();
         order.setUser(user);
-        order.setItem(savedItem); // Asigna el item guardado a la orden
+        order.setItem(savedItem);
         order.setStatus(OrderStatus.PENDING);
-        order.setTotal(savedItem.getPrice()); // Total es el precio del item
+        order.setTotal(savedItem.getPrice());
         order.setOrderedAt(orderStartTime);
 
         Order savedOrder = orderRepository.save(order);
@@ -83,6 +85,13 @@ public class OrderService {
                 orderEndTime.plusHours(1)
         );
         calendarService.blockDate(blockDateRequestDTO);
+
+        // Enviamos el email con los detalles del pedido
+        String subject = "Reserva Exitosa en SkyShop";
+        String body = "Hola " + user.getUsername() + ",\n\nTu reserva ha sido realizada con éxito.\n\nDetalles de la Orden:\nItem: " + savedItem.getName() +
+                "\nPrecio: $" + savedItem.getPrice() + "\nFecha y Hora del Envío: " + savedOrder.getOrderedAt() + "\n\nGracias por comprar en SkyShop!";
+        EmailRequest emailRequest = new EmailRequest(user.getEmail(), subject, body);
+        emailService.sendEmail(emailRequest);  // Se envia aca
 
         return mapToOrderResponseDTO(savedOrder);
     }
