@@ -73,4 +73,11 @@ public class OrderController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    // Obtener órdenes por ID de usuario
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<OrderResponseDTO>> getOrdersByUserId(@PathVariable Long userId) {
+        List<OrderResponseDTO> orders = orderService.getOrdersByUserId(userId);
+        return ResponseEntity.ok(orders);
+    }
 }

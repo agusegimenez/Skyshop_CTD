@@ -61,10 +61,33 @@ public class CartService implements ICartService {
         }
 
         cart.setCreatedAt(LocalDateTime.now());
-        cartRepository.save(cart);
+
+        // Crear un contenedor mutable para manejar los CartItems
+        Set<CartItem> cartItems = new HashSet<>();
+
+        // Agregar items al carrito si existen en el DTO
+        if (cartRequestDTO.getCartItems() != null) {
+            for (CartItemRequestDTO cartItemRequestDTO : cartRequestDTO.getCartItems()) {
+                Item item = itemRepository.findById(cartItemRequestDTO.getItemId())
+                        .orElseThrow(() -> new EntityNotFoundException("Item not found"));
+
+                CartItem cartItem = new CartItem();
+                cartItem.setItem(item);
+                cartItem.setQuantity(cartItemRequestDTO.getQuantity());
+                cartItem.setCart(cart); // Asegúrate de que 'cart' no sea null
+
+                cartItems.add(cartItem);
+            }
+        }
+
+        // Asignar los items al carrito y guardar
+        cart.setCartItems(cartItems);
+        cart = cartRepository.save(cart); // Guardar carrito con los items
 
         LOGGER.info("Cart successfully added.");
-        return new CartResponseDTO(cart.getId(), cart.getUser().getId(), new HashSet<>(), cart.getCreatedAt().toString());
+        return new CartResponseDTO(cart.getId(), cart.getUser().getId(), cart.getCartItems().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toSet()), cart.getCreatedAt().toString());
     }
 
     @Override

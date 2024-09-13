@@ -37,61 +37,76 @@ public class OrderService {
 
     @Autowired
     private ItemRepository itemRepository;
+
     @Autowired
     private EmailService emailService;
 
     public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO) {
+        // Verificamos que el usuario exista
         User user = userRepository.findById(orderRequestDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        // Validamos que el usuario no tenga más de 2 órdenes pendientes
         long pendingOrdersCount = orderRepository.countByUserIdAndStatus(user.getId(), OrderStatus.PENDING);
         if (pendingOrdersCount >= 2) {
-            throw new RuntimeException("You cannot create more than 2 pending orders.");
+            throw new IllegalStateException("You cannot create more than 2 pending orders.");
         }
 
         LocalDateTime orderStartTime = LocalDateTime.now();
         LocalDateTime orderEndTime = orderStartTime.plusHours(1);
 
+        // Validamos que la fecha no esté bloqueada
         boolean isBlocked = calendarService.isDateBlocked(orderStartTime, orderEndTime);
         if (isBlocked) {
-            throw new RuntimeException("The selected date and time are not available.");
+            throw new IllegalStateException("The selected date and time are not available.");
         }
 
+        // Verificamos la información del item
         ItemRequestDTO itemRequestDTO = orderRequestDTO.getItem();
         if (itemRequestDTO == null) {
-            throw new RuntimeException("Item information is missing.");
+            throw new IllegalArgumentException("Item information is missing.");
         }
 
-        Item item = new Item();
-        item.setName(itemRequestDTO.getName());
-        item.setPrice(itemRequestDTO.getPrice());
-        item.setDescription(itemRequestDTO.getDescription());
-        item.setCategory(Categories.valueOf(itemRequestDTO.getCategory()));
-        item.setImages(itemRequestDTO.getImages());
+        // Verificamos si el item ya existe en la base de datos
+        Item item = itemRepository.findByName(itemRequestDTO.getName())
+                .orElseGet(() -> {
+                    Item newItem = new Item();
+                    newItem.setName(itemRequestDTO.getName());
+                    newItem.setPrice(itemRequestDTO.getPrice());
+                    newItem.setDescription(itemRequestDTO.getDescription());
+                    newItem.setCategory(Categories.valueOf(itemRequestDTO.getCategory()));
+                    newItem.setImages(itemRequestDTO.getImages());
+                    return itemRepository.save(newItem);
+                });
 
-        Item savedItem = itemRepository.save(item);
-
+        // Creamos la orden
         Order order = new Order();
         order.setUser(user);
-        order.setItem(savedItem);
+        order.setItem(item);
         order.setStatus(OrderStatus.PENDING);
-        order.setTotal(savedItem.getPrice());
+        order.setTotal(item.getPrice());
         order.setOrderedAt(orderStartTime);
 
+        // Guardamos la orden en la base de datos
         Order savedOrder = orderRepository.save(order);
 
+        // Bloqueamos el rango de fechas en el calendario
         BlockDateRequestDTO blockDateRequestDTO = new BlockDateRequestDTO(
                 orderStartTime.minusHours(1),
                 orderEndTime.plusHours(1)
         );
         calendarService.blockDate(blockDateRequestDTO);
 
-        // Enviamos el email con los detalles del pedido
-        String subject = "Reserva Exitosa en SkyShop";
-        String body = "Hola " + user.getUsername() + ",\n\nTu reserva ha sido realizada con éxito.\n\nDetalles de la Orden:\nItem: " + savedItem.getName() +
-                "\nPrecio: $" + savedItem.getPrice() + "\nFecha y Hora del Envío: " + savedOrder.getOrderedAt() + "\n\nGracias por comprar en SkyShop!";
-        EmailRequest emailRequest = new EmailRequest(user.getEmail(), subject, body);
-        emailService.sendEmail(emailRequest);  // Se envia aca
+        // Enviamos un correo de confirmación al usuario
+        try {
+            String subject = "Reserva Exitosa en SkyShop";
+            String body = "Hola " + user.getUsername() + ",\n\nTu reserva ha sido realizada con éxito.\n\nDetalles de la Orden:\nItem: " + item.getName() +
+                    "\nPrecio: $" + item.getPrice() + "\nFecha y Hora del Envío: " + savedOrder.getOrderedAt() + "\n\nGracias por comprar en SkyShop!";
+            EmailRequest emailRequest = new EmailRequest(user.getEmail(), subject, body);
+            emailService.sendEmail(emailRequest);
+        } catch (Exception e) {
+            throw new RuntimeException("Error sending confirmation email", e);
+        }
 
         return mapToOrderResponseDTO(savedOrder);
     }
@@ -122,6 +137,7 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
+    // Mapeo de la entidad Order al DTO de respuesta
     private OrderResponseDTO mapToOrderResponseDTO(Order savedOrder) {
         OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
         orderResponseDTO.setId(savedOrder.getId());
@@ -134,6 +150,7 @@ public class OrderService {
         return orderResponseDTO;
     }
 
+    // Mapeo de la entidad Item al DTO de respuesta
     private ItemResponseDTO mapToItemResponseDTO(Item item) {
         ItemResponseDTO itemResponseDTO = new ItemResponseDTO();
         itemResponseDTO.setId(item.getId());
@@ -144,5 +161,20 @@ public class OrderService {
         itemResponseDTO.setImages(item.getImages());
 
         return itemResponseDTO;
+    }
+
+    // Obtener órdenes por ID de usuario
+    public List<OrderResponseDTO> getOrdersByUserId(Long userId) {
+        List<Order> orders = orderRepository.findByUserId(userId);
+        return orders.stream()
+                .map(order -> new OrderResponseDTO(
+                        order.getId(),
+                        order.getUser().getId(),
+                        // Convertir el item a ItemResponseDTO
+                        mapToItemResponseDTO(order.getItem()),
+                        order.getTotal(),
+                        order.getOrderedAt().toString(),
+                        order.getStatus().name()))
+                .collect(Collectors.toList());
     }
 }
