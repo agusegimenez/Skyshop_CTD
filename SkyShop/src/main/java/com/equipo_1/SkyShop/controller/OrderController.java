@@ -2,6 +2,7 @@ package com.equipo_1.SkyShop.controller;
 
 import com.equipo_1.SkyShop.dto.request.OrderRequestDTO;
 import com.equipo_1.SkyShop.dto.response.OrderResponseDTO;
+import com.equipo_1.SkyShop.entity.enums.OrderStatus;
 import com.equipo_1.SkyShop.service.implementations.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -78,6 +79,12 @@ public class OrderController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<OrderResponseDTO>> getOrdersByUserId(@PathVariable Long userId) {
         List<OrderResponseDTO> orders = orderService.getOrdersByUserId(userId);
+        return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<OrderResponseDTO>> getOrdersByStatus(@PathVariable OrderStatus status) {
+        List<OrderResponseDTO> orders = orderService.getOrdersByStatus(status);
         return ResponseEntity.ok(orders);
     }
 }

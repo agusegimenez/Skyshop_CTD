@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -12,7 +14,7 @@ import lombok.Setter;
 public class OrderResponseDTO {
     private Long id;
     private Long clientId;
-    private ItemResponseDTO item;
+    private List<OrderItemResponseDTO> items; // Lista de items
     private double total;
     private String orderedAt;
     private String status;

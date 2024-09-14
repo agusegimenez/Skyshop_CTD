@@ -5,16 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderRequestDTO {
-    private Long userId;
-    private List<OrderItemRequestDTO> items; // Lista de items
-    private double total;
-    private String status;
-
+public class OrderItemRequestDTO {
+    private Long itemId;
+    private int quantity;
+    private double price;
 }

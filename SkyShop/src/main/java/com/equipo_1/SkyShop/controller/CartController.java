@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -64,17 +65,24 @@ public class CartController {
     @PostMapping("/{cartId}/items")
     public ResponseEntity<CartResponseDTO> addItemToCart(@PathVariable Long cartId, @RequestBody CartItemRequestDTO cartItemRequestDTO) {
         Cart updatedCart = cartService.addItemToCart(cartId, cartItemRequestDTO);
+
+        // Convertir la lista de CartItem a una lista de CartItemResponseDTO
+        Set<CartItemResponseDTO> cartItemResponseDTOs = updatedCart.getCartItems().stream()
+                .map(cartItem -> new CartItemResponseDTO(
+                        cartItem.getId(),
+                        cartItem.getItem().getId(),
+                        cartItem.getQuantity()
+                ))
+                .collect(Collectors.toSet());
+
+        // Crear CartResponseDTO con la lista de CartItemResponseDTO
         CartResponseDTO cartResponseDTO = new CartResponseDTO(
                 updatedCart.getId(),
                 updatedCart.getUser().getId(),
-                updatedCart.getCartItems().stream()
-                        .map(cartItem -> new CartItemResponseDTO(
-                                cartItem.getId(),
-                                cartItem.getItem().getId(),
-                                cartItem.getQuantity()))
-                        .collect(Collectors.toSet()),
+                cartItemResponseDTOs,  // Usar el conjunto de CartItemResponseDTO
                 updatedCart.getCreatedAt().toString()
         );
+
         return ResponseEntity.ok(cartResponseDTO);
     }
 

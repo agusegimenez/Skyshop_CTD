@@ -5,15 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartResponseDTO {
-    private Long id;
-    private Long userId;
-    private Set<CartItemResponseDTO> cartItems;
-    private String createdAt;
+public class OrderItemResponseDTO {
+    private Long itemId;
+    private String itemName;
+    private int quantity;
+    private double price;
 }

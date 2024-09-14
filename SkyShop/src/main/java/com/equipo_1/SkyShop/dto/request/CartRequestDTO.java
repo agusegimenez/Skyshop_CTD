@@ -16,5 +16,5 @@ import java.util.Set;
 public class CartRequestDTO {
     private Long id;
     private Long userId;
-    private Set<CartItemRequestDTO> cartItems = new HashSet<>();
+    private Set<CartItemRequestDTO> cartItems;
 }
