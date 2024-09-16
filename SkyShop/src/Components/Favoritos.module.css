@@ -1,0 +1,86 @@
+.table {
+  margin-top: 8.5vh;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #01ac5c;
+  color: white;
+}
+
+th {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #01ac5c;
+}
+
+th:last-child {
+  text-align: center;
+}
+
+td {
+  padding: 10px;
+  vertical-align: middle;
+}
+.cards {
+  border-bottom: 2px solid #01ac5c;
+}
+.contenido {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid #01ac5c;
+}
+.contenido span {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.productImage {
+  width: 80px;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteButton img {
+  width: 25px;
+}
+
+.price {
+  font-weight: bold;
+  color: #01ac5c;
+  font-size: 20px;
+  border-bottom: 2px solid #01ac5c;
+}
+
+.eliminar {
+  border-bottom: 2px solid #01ac5c;
+}
+
+.nombre {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.verMasBtn {
+  background-color: #01ac5c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+  border-radius: 20px;
+}

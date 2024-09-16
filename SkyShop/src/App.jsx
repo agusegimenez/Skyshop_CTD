@@ -12,6 +12,7 @@ import { UserDetail } from './Routes/UserDetail';
 import AñadirProd from './Routes/AñadirProd';
 import Carrito from './Routes/Carrito';
 import EditProd from './Routes/EditProd';
+import PanelFavoritos from './Routes/PanelFavoritos';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/user" element={<UserDetail/>} />
         <Route path="/addProd" element={<AñadirProd/>}/>
         <Route path="/carrito" element={<Carrito/>} />
+        <Route path="/panel" element={<PanelFavoritos/>} />
       </Routes>
       <Suscribe/>
       <Footer/>

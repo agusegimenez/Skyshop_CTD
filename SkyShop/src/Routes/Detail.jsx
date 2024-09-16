@@ -9,6 +9,10 @@ import { es } from 'date-fns/locale';
 import "/node_modules/react-datepicker/dist/react-datepicker.css"; 
 import "./CustomDatePicker.css"
 import Swal from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
+
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -16,11 +20,12 @@ const Detail = () => {
   const { id } = useParams(); // id de producto
   const { loggedUser, token, finalizarPedido } = useContext(BotonContext);
   const [producto, setProducto] = useState(null);
-  const { agregarProductoAlCarrito } = useContext(BotonContext);
+  const { agregarProductoAlCarrito, toggleFavorito } = useContext(BotonContext);
   const [mainImg, setMainImg] = useState(""); // estado que guarda la imagen que se muestra grande
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isHorarioVisible, setIsHorarioVisible] = useState(false);
+  const [isFavorito, setIsFavorito] = useState(false);
   const url = "http://localhost:8080/api/items/" + id;
 
   const handleAgregar = () => {
@@ -36,7 +41,7 @@ const Detail = () => {
     }
   
     // Si hay una hora seleccionada, agregar el producto al carrito
-    agregarProductoAlCarrito(producto);
+    agregarProductoAlCarrito(producto, selectedDate, selectedTime);
   
     Swal.fire({
       title: '¡Éxito!',
@@ -128,17 +133,32 @@ const Detail = () => {
 
   const { name, images, description, price } = producto;
 
+  const handleFavoritoClick = (e) => {
+    e.stopPropagation(); // Evitar que se dispare el evento de click en la card
+    setIsFavorito(!isFavorito);
+    toggleFavorito(producto);  // Cambiar el estado de favorito
+    {/*navigate('/panel');*/}  // Redirigir al panel
+  };
+
   return (
     <section className={customCss.detailSect}>
       <div className={customCss.divGral}>
         <div className={customCss.primerDiv}>
           <div className={customCss.divNombreYBoton}>
             <h3 className={customCss.nombreSt}>{name}</h3>
+            <div>
+            <button onClick={handleFavoritoClick} className={`${customCss.favButton} ${isFavorito ? customCss.filled : ''}`}>
+        <FontAwesomeIcon 
+        icon={isFavorito ? solidHeart : regularHeart}
+         className={isFavorito ? customCss.filledIcon : ''}
+         style={{ fontSize: '30px', transition: 'transform 0.3s ease, color 0.3s ease', color: isFavorito ? 'red' : 'green' }} />
+        </button>
             <button
               className={customCss.btnCerrar}
               onClick={() => navigate(-1)}>
               <img src="/flechaizquierda.png" alt="flecha atras" />
             </button>
+            </div>
           </div>
           <div className={customCss.imgDiv}>
             <img src={mainImg} alt={name} />
@@ -184,6 +204,7 @@ const Detail = () => {
                 locale={es}
                 dateFormat="dd/MM/yyyy"
                 className={customCss.customCalendar}
+                minDate={new Date()}
               />
             </div>
           </div>

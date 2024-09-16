@@ -15,9 +15,12 @@ export const BotonProvider = ({ children }) => {
     const [loggedUser, setLoggedUser] = useState(loggingInitialState); //estado de usuario logueado
     const [users, setUsers] = useState([]);
     const [prods, setProds] = useState([]);
+    const [favoritos, setFavoritos] = useState([]);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
-    const token = "0382bff6-a9b9-444a-914f-dde7cb63500b"; // token que hay que actualizar cada vez que se levanta el back end
+    const token = "9068fa99-2b1b-4e5c-9f05-082ecd27373d"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
+    const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date()); // Nueva fecha seleccionada
+    const [horaSeleccionada, setHoraSeleccionada] = useState(""); 
 
     const getProds = async () => {
       const settings = {
@@ -186,28 +189,24 @@ export const BotonProvider = ({ children }) => {
         localStorage.removeItem("loggedUser");
     }
 
-    // Funcion para poder agregar productos al carrito
-    const agregarProductoAlCarrito = (producto) => {
+    const agregarProductoAlCarrito = (producto, fecha, hora) => {
       setProducts(prevProducts => {
-        const productoExistente = prevProducts.find(p => p.id === producto.id);
+        const nuevoProducto = { 
+          ...producto, 
+          cantidad: 1, 
+          fechaReserva: fecha,  // Agregar la fecha seleccionada
+          horaReserva: hora     // Agregar la hora seleccionada
+        };
 
-        let nuevoCarrito;
-
-        if (productoExistente) {
-          // Actualiza la cantidad si el producto ya está en el carrito
-          nuevoCarrito = prevProducts.map((prod) => 
-            prod.id === producto.id ? { ...prod, cantidad: prod.cantidad + 1 } : prod
-          );
-        } else {
-          // Agrega el nuevo producto al carrito
-          nuevoCarrito = [...prevProducts, { ...producto, cantidad: 1 }];
-        }
-
-        // Actualizar localStorage después de modificar el carrito
-        localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
-        return nuevoCarrito;
-      });
-  };
+        // Si ya hay productos en el carrito, reemplaza el producto existente
+        const nuevoCarrito = prevProducts.length > 0
+        ? [{ ...nuevoProducto }]
+        : [{ ...nuevoProducto }];
+  
+      localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
+      return nuevoCarrito;
+    });
+    };
 
   // Funcion para vaciar el carrito al finalizar el pedido
   const finalizarPedido = () => {
@@ -215,8 +214,28 @@ export const BotonProvider = ({ children }) => {
       localStorage.removeItem("carrito");
   }
 
+
+  // Función para alternar el estado de favorito
+  const toggleFavorito = (producto) => {
+    setFavoritos((prevFavoritos) => {
+      const isFavorito = prevFavoritos.some((item) => item.id === producto.id);
+      const nuevosFavoritos = isFavorito
+        ? prevFavoritos.filter((item) => item.id !== producto.id)
+        : [...prevFavoritos, producto];
+  
+      // Actualizar localStorage después de modificar los favoritos
+      localStorage.setItem('favoritos', JSON.stringify(nuevosFavoritos));
+      return nuevosFavoritos;
+    });
+  };
+
+  useEffect(() => {
+    const storedFavoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+    setFavoritos(storedFavoritos);
+  }, []);
+
     return (
-        <BotonContext.Provider value={{ showButtons, setShowButtons, products, setProducts, agregarProductoAlCarrito, finalizarPedido, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers, fetchChangeUserRole, setUsers, token, prods, updateProd, deleteProd, searchProdsByName}}>
+        <BotonContext.Provider value={{ showButtons, setShowButtons, products, setProducts, agregarProductoAlCarrito, finalizarPedido, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers, fetchChangeUserRole, setUsers, token, prods, updateProd, deleteProd, searchProdsByName, toggleFavorito, favoritos, fechaSeleccionada, setFechaSeleccionada, horaSeleccionada, setHoraSeleccionada}}>
             {children}
         </BotonContext.Provider>
     );

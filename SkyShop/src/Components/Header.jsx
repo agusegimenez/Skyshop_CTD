@@ -68,6 +68,7 @@ const Header = () => {
       <div className={customCss.dropdownMenu}>
         <a href="/user" className={customCss.logMenu}>Usuario</a>
         <a href="/carrito" className={customCss.logMenu}>Carrito</a>
+        <a href="/panel" className={customCss.logMenu}>Favoritos</a>
         <button className={customCss.logBtn} onClick={cerrarSesion}>Cerrar Sesión</button>
       </div>
     )}

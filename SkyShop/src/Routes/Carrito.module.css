@@ -58,21 +58,20 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
   gap: 40px;
   flex-direction: column;
 }
 
 .productoItem img {
-  width: 216px;
-  height: 163px;
+  width: 40%;
+  height: 100%;
 }
 
-.productoItem span {
-  font: bold;
-  margin-right: 500px;
+.productoItem .nombreCart {
+  margin-right: 250px;
   font-size: 24px;
   font-weight: 500;
+  width: 400px;
 }
 
 .modalConfirmacion {
@@ -113,23 +112,6 @@ body {
   color: white;
 }
 
-.total {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding-top: 15px;
-  font-size: 30px;
-  border-top: 2px solid #00843d;
-  color: #00843d;
-  font-weight: 700;
-}
-
-.total h3 {
-  color: #00843d;
-  font-weight: 700;
-  font-size: 30px;
-}
-
 .finalizarPedido {
   margin-top: 30px;
   width: 200px;
@@ -148,7 +130,7 @@ body {
   color: #01ac5c;
   background-color: white;
 }
-.finalizarCalendar {
+.btnsCartMobile {
   display: none;
 }
 .carritoTittle {
@@ -320,6 +302,11 @@ body {
   padding-bottom: 5px;
 }
 
+.react-datepicker__day--disabled {
+  color: #ccc; /* Color de texto para los días deshabilitados */
+  background-color: #f0f0f0; /* Fondo para los días deshabilitados */
+}
+
 .react-datepicker__day-name {
   font-weight: bold;
   color: #4caf50;
@@ -368,25 +355,51 @@ body {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
+
 .cancelarPedido:hover {
   color: white;
   background-color: #01ac5c;
 }
+
 .caracteristicas {
   display: flex;
   flex-direction: column;
+  border: 4px solid #d0fdd7;
+  padding: 30px;
+  padding-top: 5px;
+  border-radius: 15px;
 }
+
 .caracteristicas h2 {
   color: #00843d;
   font-weight: 600;
   font-size: 24px;
 }
+
 .caracteristicas span {
   display: flex;
   margin: 0;
   padding-left: 20px;
   font-weight: 500;
 }
+
+.boxCaracteristicas {
+  display: flex;
+}
+
+.boxCaracteristicas img {
+  width: 25px;
+  height: 25px;
+  margin-right: 2px;
+}
+
+.boxCaracteristicas li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 25px;
+}
+
 .precioVerd {
   color: #00843d;
   margin: 0;
@@ -411,6 +424,41 @@ body {
 .swal2-button-custom {
   font-family: "Roboto", sans-serif;
 }
+
+.h3Cart {
+  width: 60%;
+}
+
+.caracteristicasProd {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 60%;
+  border: 4px solid #d0fdd7;
+  border-radius: 15px;
+  padding: 40px;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+.caracteristicasProd span {
+  font-size: 16px;
+  margin: 0;
+  padding-left: 20px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.precioCart {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+.precioCart span {
+  font-size: 25px;
+}
+
 @media screen and (max-width: 1024px) {
   .carritoContainer {
     display: flex;
@@ -418,25 +466,19 @@ body {
     align-items: center;
     gap: 10px;
     margin-top: 5vh;
+    margin: 0;
   }
-  .finalizarPedido {
+  .carritoPadre {
+    border-left: none;
+  }
+  .btnsCart {
     display: none;
   }
-  .finalizarCalendar {
-    display: block;
-    margin-top: 30px;
-    width: 200px;
-    padding: 10px;
-    background-color: #01ac5c;
-    font-family: "Roboto", sans-serif;
-    font-size: 15px;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+  .btnsCartMobile {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
   }
-
   .horarioDropdown {
     position: relative;
     top: 100%;
@@ -469,6 +511,61 @@ body {
   .react-datepicker__current-month {
     font-size: 1em; /* Reducimos el tamaño del texto del mes */
   }
+
+  .datosUser h2 {
+    width: 100%;
+  }
+  .caracteristicas {
+    width: 95%;
+    padding: 10px;
+  }
+  .boxCaracteristicas li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 0px;
+  }
+  .nombreCart {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 765px) {
+  .carritoProductos {
+    width: 400px;
+    height: 100%;
+  }
+  .carritoContainer {
+    margin: 0;
+  }
+
+  .productoItem {
+    margin: 0;
+    padding: 0;
+  }
+  .caracteristicas {
+    display: flex;
+    width: 500px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .boxCaracteristicas li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-items: center;
+    margin-right: 0px;
+    font-size: 12px;
+  }
+  .boxCaracteristicas img {
+    width: 15px;
+    height: 15px;
+  }
+  .nombreCart {
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 550px) {
@@ -478,11 +575,5 @@ body {
   }
   .cantidad {
     display: none;
-  }
-}
-@media screen and (max-width: 460px) {
-  .carritoProductos {
-    width: 360px;
-    height: 100%;
   }
 }

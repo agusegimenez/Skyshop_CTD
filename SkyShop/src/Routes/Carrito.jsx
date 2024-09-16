@@ -12,16 +12,77 @@ const Carrito = () => {
   const { products, setProducts, finalizarPedido, loggedUser } = useContext(BotonContext);
   const [showConfirmModal, setShowConfirmModal] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [isHorarioVisible, setIsHorarioVisible] = useState(false);
   const [selectedTime, setSelectedTime] = useState("");
+  const [selectedDateTime, setSelectedDateTime] = useState(null);
+  const [isHorarioVisible, setIsHorarioVisible] = useState(false);
   const navigate = useNavigate();  
- 
+
   const toggleHorario = () => {
     setIsHorarioVisible(!isHorarioVisible);
   };
 
-   // Alerta para cancelar pedido
-   const cancelarPedido = () => {
+   // Función para manejar la selección de la fecha
+   const handleDateChange = (date) => {
+    setSelectedDate(date);
+    if (selectedTime) {
+      const dateTime = new Date(date);
+      const [hours, minutes] = selectedTime.split(" - ")[0].split(":");
+      dateTime.setHours(parseInt(hours, 10), parseInt(minutes, 10));
+      setSelectedDateTime(dateTime); // Actualiza la fecha y la hora seleccionadas
+    }
+  };
+
+  // Función para manejar la selección del horario
+  const handleTimeSelect = (time) => {
+    setSelectedTime(time);
+    const dateTime = new Date(selectedDate);
+    const [hours, minutes] = time.split(" - ")[0].split(":");
+    dateTime.setHours(parseInt(hours, 10), parseInt(minutes, 10));
+    setSelectedDateTime(dateTime); // Actualiza la fecha y la hora seleccionadas
+    setIsHorarioVisible(false);
+  };
+
+  // Función para deshabilitar horarios
+  const isDisabledTime = (time) => {
+    if (selectedDate?.getDate() === 11 && time === "14:00 - 15:00") {
+      return true;
+    }
+    return false;
+  };
+
+  // Ejemplo de alerta de confirmación
+  const confirmarReserva = () => {
+    if (selectedDateTime) {
+      Swal.fire({
+        title: '¡Reserva confirmada!',
+        text: `Tu pedido ha sido confirmado para el ${selectedDateTime.toLocaleDateString()} a las ${selectedTime}.`,
+        icon: 'success',
+        confirmButtonText: 'OK',
+        customClass: {
+          title: 'swal2-title-custom',
+          content: 'swal2-text-custom',
+          confirmButton: 'swal2-button-custom'
+        }
+      });
+      finalizarPedido();
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, selecciona una fecha y un horario antes de confirmar la reserva.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        customClass: {
+          title: 'swal2-title-custom',
+          content: 'swal2-text-custom',
+          confirmButton: 'swal2-button-custom'
+        }
+      });
+    }
+  };
+
+
+  // Alerta para cancelar pedido
+  const cancelarPedido = () => {
     Swal.fire({
       title: '¿Estás seguro?',
       html: "¡Tu pedido será cancelado y no podrás revertirlo!",
@@ -49,22 +110,6 @@ const Carrito = () => {
     });
   };
 
-  // Alerta para confirmar la reserva
-  const confirmarReserva = () => {
-    Swal.fire({
-      title: '¡Reserva confirmada!',
-      text: 'Tu pedido ha sido confirmado correctamente.',
-      icon: 'success',
-      confirmButtonText: 'OK',
-      customClass: {
-        title: 'swal2-title-custom',
-        content: 'swal2-text-custom',
-        confirmButton: 'swal2-button-custom'
-      }
-    });
-    // Lógica para confirmar el pedido
-    finalizarPedido();  // Aquí llamas la función que ya tienes implementada para finalizar el pedido
-  };
 
   const handleCantidadChange = (id, cantidad) => {
     const nuevosProductos = products.map(producto => 
@@ -73,6 +118,7 @@ const Carrito = () => {
     setProducts(nuevosProductos);
     localStorage.setItem("carrito", JSON.stringify(nuevosProductos));
   };
+  
 
   const handleEliminar = (id) => {
     const nuevosProductos = products.filter(producto => producto.id !== id);
@@ -89,14 +135,6 @@ const Carrito = () => {
     return null; 
   }
 
-  // Verifica si el día seleccionado es el 11 para deshabilitar ciertas horas
-  const isDisabledTime = (time) => {
-    if (selectedDate?.getDate() === 11 && time === "14:00 - 15:00") {
-      return true; // Deshabilita este horario el día 11
-    }
-    return false;
-  };
-
   return (
     <>
       <h3 className={customCss.carritoTittle}>Reservas</h3>
@@ -105,23 +143,19 @@ const Carrito = () => {
           <form className={customCss.datosUser}>
             <h2>Datos del usuario</h2>
             <div className={customCss.inpUser}>
-            <label>Nombre:</label>
-            <input type="text" value={loggedUser.username} placeholder='Ingrese su nombre'/>
+              <label>Nombre:</label>
+              <input type="text" value={loggedUser.username} placeholder='Ingrese su nombre'/>
             </div>
             <div className={customCss.inpUser}>
-            <label>Apellido:</label>
-            <input type="text" placeholder='Ingrese su apellido' />
+              <label>Email:</label>
+              <input type="email" value={loggedUser.email} placeholder='Ingrese su email'/>
             </div>
             <div className={customCss.inpUser}>
-            <label>Email:</label>
-            <input type="email" value={loggedUser.email} placeholder='Ingrese su email'/>
-            </div>
-            <div className={customCss.inpUser}>
-            <label>Direccion:</label>
-            <input type="text" placeholder='Ingrese su dirección' />
+              <label>Direccion:</label>
+              <input type="text" placeholder='Ingrese su dirección' />
             </div>
           </form>
-          <div>
+          <div className={customCss.h3Cart}>
             <h3>Seleccione el día y hora en el que se encontrará disponible para recibir su pedido.</h3>
           </div>
           <div className={customCss.calendarioPadre}>
@@ -133,6 +167,7 @@ const Carrito = () => {
                 locale={es} 
                 dateFormat="dd/MM/yyyy"
                 className={customCss.customCalendar}
+                minDate={new Date()}
               />
             </div>
           </div>
@@ -151,10 +186,10 @@ const Carrito = () => {
                 <ul className={customCss.horarioLista}>
                   {["07:00 - 08:00", "08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00","19:00 - 20:00", "20:00 - 21:00", "21:00 - 22:00"].map((time) => (
                     <li
-                    key={time}
-                    className={`${isDisabledTime(time) ? 'disabled' : ''} ${customCss.horarioItem}`}
-                    onClick={() => !isDisabledTime(time) && setSelectedTime(time)}
-                  >
+                      key={time}
+                      className={`${isDisabledTime(time) ? 'disabled' : ''} ${customCss.horarioItem}`}
+                      onClick={() => !isDisabledTime(time) && handleTimeSelect(time)}
+                    >
                       {time}
                     </li>
                   ))}
@@ -162,24 +197,38 @@ const Carrito = () => {
               </div>
             )}
           </div>
-          <button className={customCss.finalizarCalendar} onClick={finalizarPedido}>Confirmar Reserva</button>
+          <div className={customCss.btnsCartMobile}>
+          <button className={customCss.finalizarPedido} onClick={confirmarReserva}>Confirmar Reserva</button>
+          <button className={customCss.cancelarPedido} onClick={cancelarPedido}>Cancelar Pedido</button>
+          </div>
         </div>
         <div className={customCss.carritoPadre}>
           <div className={customCss.carritoProductos}>
             {products.map(producto => (
               <div className={customCss.productoItem} key={producto.id}>
-                <span>{producto.name}</span>
+                <span className={customCss.nombreCart}>{producto.name}</span>
                 <img src={producto.images[0]} alt={producto.name} />
-                {producto.description.split(",").map(item => <span>{item}</span>)}
-                <span className={customCss.precioVerd}>Precio ${(producto.price * producto.cantidad).toLocaleString()}</span>
+                <div className={customCss.caracteristicasProd}>
+                  {producto.description.split(",").map((item, i) => (
+                    <span key={i}>{item} <p>x1</p></span>
+                  ))}
+                  <div className={customCss.precioCart}>
+                    <span className={customCss.precioVerd}>Precio ${(producto.price * producto.cantidad).toLocaleString()}</span>
+                  </div>
+                </div>
+                <div className={customCss.caracteristicas}>
+                  <h2>Características</h2>
+                  <ul className={customCss.boxCaracteristicas}>
+                    {producto.characteristics.map((caracteristica, i) => (
+                      <li key={i}>
+                        <img src={`/caracteristica_${caracteristica.toLowerCase()}.png`} alt={caracteristica} />
+                        <p>{caracteristica}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
-            <div className={customCss.caracteristicas}>
-              <h2>Caracteristicas</h2>
-              {products.map(productos => (
-            <span>{productos.characteristics}</span>
-              ))}
-            </div>
             {showConfirmModal !== null && (
               <div className={customCss.modalConfirmacion}>
                 <p>¿Seguro qué desea eliminar este producto de su carrito?</p>
@@ -193,15 +242,10 @@ const Carrito = () => {
                 </div>
               </div>
             )}
-          
-            <div className={customCss.total}>
-              <h3>Total</h3>
-              <span>${totalCarrito.toLocaleString()}</span>
-            </div>
           </div>
           <div className={customCss.btnsCart}>
-          <button className={customCss.finalizarPedido} onClick={confirmarReserva}>Confirmar Reserva</button>
-          <button className={customCss.cancelarPedido} onClick={cancelarPedido}>Cancelar Pedido</button>
+            <button className={customCss.finalizarPedido} onClick={confirmarReserva}>Confirmar Reserva</button>
+            <button className={customCss.cancelarPedido} onClick={cancelarPedido}>Cancelar Pedido</button>
           </div>
         </div>
       </div>
