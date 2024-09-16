@@ -13,11 +13,13 @@ import AñadirProd from './Routes/AñadirProd';
 import Carrito from './Routes/Carrito';
 import EditProd from './Routes/EditProd';
 import PanelFavoritos from './Routes/PanelFavoritos';
+import WhatsAppBoton from './Components/WhatsAppBoton';
+
 
 function App() {
 
   return (
-    <>
+    <div className='padre'>
       <Header />
       <Routes>
         <Route path="/" element={<Body/>} />
@@ -31,9 +33,10 @@ function App() {
         <Route path="/carrito" element={<Carrito/>} />
         <Route path="/panel" element={<PanelFavoritos/>} />
       </Routes>
+
       <Suscribe/>
       <Footer/>
-    </>
+    </div>
   );
 }
 
