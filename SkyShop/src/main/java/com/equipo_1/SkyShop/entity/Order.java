@@ -29,7 +29,6 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> items = new ArrayList<>();
 
-    private double total;
 
     @Column(name = "ordered_at")
     private LocalDateTime orderedAt;

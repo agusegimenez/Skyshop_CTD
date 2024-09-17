@@ -1,8 +1,11 @@
 package com.equipo_1.SkyShop.controller;
 
+import com.equipo_1.SkyShop.dto.request.OrderItemRequestDTO;
 import com.equipo_1.SkyShop.dto.request.OrderRequestDTO;
+import com.equipo_1.SkyShop.dto.response.OrderItemResponseDTO;
 import com.equipo_1.SkyShop.dto.response.OrderResponseDTO;
 import com.equipo_1.SkyShop.entity.enums.OrderStatus;
+import com.equipo_1.SkyShop.service.implementations.OrderItemService;
 import com.equipo_1.SkyShop.service.implementations.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
+    @Autowired
+    private OrderItemService orderItemService;
 
     @Autowired
     private OrderService orderService;
@@ -86,5 +91,17 @@ public class OrderController {
     public ResponseEntity<List<OrderResponseDTO>> getOrdersByStatus(@PathVariable OrderStatus status) {
         List<OrderResponseDTO> orders = orderService.getOrdersByStatus(status);
         return ResponseEntity.ok(orders);
+    }
+
+    // Crear OrderItem cuando el usuario reserva un producto
+    @PostMapping("/reserve")
+    public ResponseEntity<?> reserveItem(@RequestBody OrderItemRequestDTO orderItemRequestDTO) {
+        try {
+            // Aquí estamos llamando al método a través de la instancia 'orderItemService', no de manera estática
+            OrderItemResponseDTO orderItemResponseDTO = orderItemService.createOrderItem(orderItemRequestDTO, null);
+            return new ResponseEntity<>(orderItemResponseDTO, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

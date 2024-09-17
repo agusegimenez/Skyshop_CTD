@@ -26,24 +26,26 @@ public class OrderItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public OrderItem createOrderItem(OrderItemRequestDTO orderItemRequestDTO, Long orderId) {
-        // Buscar la orden por ID
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
+    public OrderItemResponseDTO createOrderItem(OrderItemRequestDTO orderItemRequestDTO, Long orderId) {
+        OrderItem orderItem = new OrderItem();
 
-        // Buscar el ítem por ID
+        if (orderId != null) {
+            Order order = orderRepository.findById(orderId)
+                    .orElseThrow(() -> new RuntimeException("Order not found"));
+            orderItem.setOrder(order);
+        }
+
         Item item = itemRepository.findById(orderItemRequestDTO.getItemId())
                 .orElseThrow(() -> new RuntimeException("Item not found"));
-
-        // Crear un nuevo OrderItem
-        OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
         orderItem.setQuantity(orderItemRequestDTO.getQuantity());
-        orderItem.setPrice(item.getPrice()); // Aquí se asigna el precio desde el item
-        orderItem.setOrder(order);
+        orderItem.setPrice(item.getPrice());
 
-        return orderItemRepository.save(orderItem);
+        OrderItem savedOrderItem = orderItemRepository.save(orderItem);
+
+        return mapToOrderItemResponseDTO(savedOrderItem);
     }
+
 
     public List<OrderItemResponseDTO> getOrderItemsByOrderId(Long orderId) {
         List<OrderItem> orderItems = orderItemRepository.findAllByOrderId(orderId);
@@ -58,7 +60,6 @@ public class OrderItemService {
         orderItemResponseDTO.setItemId(orderItem.getItem().getId());
         orderItemResponseDTO.setItemName(orderItem.getItem().getName());
         orderItemResponseDTO.setQuantity(orderItem.getQuantity());
-        orderItemResponseDTO.setPrice(orderItem.getPrice());
 
         return orderItemResponseDTO;
     }

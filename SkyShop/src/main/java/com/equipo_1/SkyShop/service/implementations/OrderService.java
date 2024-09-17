@@ -50,7 +50,6 @@ public class OrderService {
         // Crear la orden
         Order order = new Order();
         order.setUser(user);
-        order.setTotal(orderRequestDTO.getTotal());
         order.setOrderedAt(orderStartTime);
         order.setStatus(OrderStatus.PENDING);
 
@@ -82,7 +81,6 @@ public class OrderService {
         orderResponseDTO.setId(savedOrder.getId());
         orderResponseDTO.setClientId(savedOrder.getUser().getId());
         orderResponseDTO.setItems(orderItemService.getOrderItemsByOrderId(savedOrder.getId())); // Asegúrate de usar el servicio correcto para obtener OrderItems
-        orderResponseDTO.setTotal(savedOrder.getTotal());
         orderResponseDTO.setOrderedAt(savedOrder.getOrderedAt().toString());
         orderResponseDTO.setStatus(savedOrder.getStatus().name());
 
@@ -101,8 +99,6 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
         // Verifica y actualiza el total, estado, etc., según sea necesario
-        order.setTotal(orderRequestDTO.getTotal());
-        order.setStatus(OrderStatus.valueOf(orderRequestDTO.getStatus()));
 
         // Guardar la orden actualizada
         Order updatedOrder = orderRepository.save(order);

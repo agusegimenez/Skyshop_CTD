@@ -15,7 +15,6 @@ public class OrderResponseDTO {
     private Long id;
     private Long clientId;
     private List<OrderItemResponseDTO> items; // Lista de items
-    private double total;
     private String orderedAt;
     private String status;
 }

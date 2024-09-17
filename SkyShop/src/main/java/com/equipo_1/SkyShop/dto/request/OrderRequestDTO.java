@@ -14,7 +14,5 @@ import java.util.List;
 public class OrderRequestDTO {
     private Long userId;
     private List<OrderItemRequestDTO> items; // Lista de items
-    private double total;
-    private String status;
 
 }
