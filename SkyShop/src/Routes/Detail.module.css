@@ -297,6 +297,7 @@
 .react-datepicker__day--disabled {
   color: #ccc; /* Color de texto para los días deshabilitados */
   background-color: #f0f0f0; /* Fondo para los días deshabilitados */
+  pointer-events: none;
 }
 
 .favButton {

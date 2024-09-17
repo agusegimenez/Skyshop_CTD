@@ -213,7 +213,7 @@ body {
 
 /* Estilo general del calendario */
 .react-datepicker {
-  border: 2px solid #4caf50; /* Borde verde */
+  border: 2px solid #161cd7; /* Borde verde */
   border-radius: 10px;
   font-family: Arial, sans-serif;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -278,12 +278,6 @@ body {
   background-color: white;
 }
 
-/* Días deshabilitados (fuera de mes actual) */
-.react-datepicker__day--disabled {
-  color: #c0c0c0;
-  cursor: not-allowed;
-}
-
 /* Selector de semanas (si lo usas) */
 .react-datepicker__week {
   display: flex;
@@ -303,8 +297,10 @@ body {
 }
 
 .react-datepicker__day--disabled {
-  color: #ccc; /* Color de texto para los días deshabilitados */
-  background-color: #f0f0f0; /* Fondo para los días deshabilitados */
+  color: #ccc !important; /* Color de texto para los días deshabilitados */
+  background-color: #f0f0f0 !important; /* Fondo para los días deshabilitados */
+  cursor: not-allowed !important; /* Cursor prohibido */
+  pointer-events: none !important; /* Fondo para los días deshabilitados */
 }
 
 .react-datepicker__day-name {

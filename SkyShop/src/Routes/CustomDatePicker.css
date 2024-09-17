@@ -57,3 +57,9 @@
 .react-datepicker__navigation--next {
   right: 30px; /* Ajusta la posición de la flecha derecha */
 }
+.react-datepicker__day--disabled {
+  color: #ccc !important; /* Color de texto para los días deshabilitados */
+  background-color: #d6f7d42e !important; /* Fondo para los días deshabilitados */
+  cursor: not-allowed !important; /* Cursor prohibido */
+  /* Fondo para los días deshabilitados */
+}
