@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 export const BotonContext = createContext();
 
 const ifUserInStorage = JSON.parse(localStorage.getItem("loggedUser"));
+const favsInStorage = JSON.parse(localStorage.getItem("userFavs")) || [];
 const carritoFromStorage = JSON.parse(localStorage.getItem("carrito")) || [];
 
 const loggingInitialState = ifUserInStorage === null ? null : ifUserInStorage;
@@ -15,12 +16,13 @@ export const BotonProvider = ({ children }) => {
     const [loggedUser, setLoggedUser] = useState(loggingInitialState); //estado de usuario logueado
     const [users, setUsers] = useState([]);
     const [prods, setProds] = useState([]);
-    const [favoritos, setFavoritos] = useState([]);
+    const [favoritos, setFavoritos] = useState(favsInStorage);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
     const token = "9068fa99-2b1b-4e5c-9f05-082ecd27373d"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
     const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date()); // Nueva fecha seleccionada
-    const [horaSeleccionada, setHoraSeleccionada] = useState(""); 
+    const [horaSeleccionada, setHoraSeleccionada] = useState("");
+
 
     const getProds = async () => {
       const settings = {
@@ -184,6 +186,19 @@ export const BotonProvider = ({ children }) => {
         fetchUsers();
       }, [showButtons])
 
+      useEffect(() => {
+        if (loggedUser === null) {
+          // si no hay usuario logueado, vacía el localStorage de favoritos
+          // implementar dinamicamente con el back end: cuando se loguea un usuario setear sus favoritos
+          localStorage.removeItem("userFavs");
+          setFavoritos([]);
+        }
+        if(loggedUser !== null){
+          // aca se deberia hacer una llamada al back que traiga
+          // los favoritos segun el Usuario para setearlos en localStorage
+        }
+      }, [loggedUser]);
+
     const cerrarSesion = () => {
         setLoggedUser(null);
         localStorage.removeItem("loggedUser");
@@ -217,22 +232,24 @@ export const BotonProvider = ({ children }) => {
 
   // Función para alternar el estado de favorito
   const toggleFavorito = (producto) => {
-    setFavoritos((prevFavoritos) => {
-      const isFavorito = prevFavoritos.some((item) => item.id === producto.id);
-      const nuevosFavoritos = isFavorito
-        ? prevFavoritos.filter((item) => item.id !== producto.id)
-        : [...prevFavoritos, producto];
-  
-      // Actualizar localStorage después de modificar los favoritos
-      localStorage.setItem('favoritos', JSON.stringify(nuevosFavoritos));
-      return nuevosFavoritos;
-    });
+    let updatedFavoritos;
+    if (favoritos.some(fav => fav.id === producto.id)) {
+      updatedFavoritos = favoritos.filter(fav => fav.id !== producto.id);
+    } else {
+      updatedFavoritos = [...favoritos, producto];
+    }
+    // Actualizar el estado de favoritos
+    setFavoritos(updatedFavoritos);
+    // Actualizar el localStorage
+    localStorage.setItem('userFavs', JSON.stringify(updatedFavoritos));
   };
+  
 
-  useEffect(() => {
-    const storedFavoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+  // Esto lo reemplace con la inicializacion del estado con el valor del localStorage en la linea 7
+  /* useEffect(() => {
+    const storedFavoritos = JSON.parse(localStorage.getItem('userFavs')) || [];
     setFavoritos(storedFavoritos);
-  }, []);
+  }, []); */
 
     return (
         <BotonContext.Provider value={{ showButtons, setShowButtons, products, setProducts, agregarProductoAlCarrito, finalizarPedido, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers, fetchChangeUserRole, setUsers, token, prods, updateProd, deleteProd, searchProdsByName, toggleFavorito, favoritos, fechaSeleccionada, setFechaSeleccionada, horaSeleccionada, setHoraSeleccionada}}>
