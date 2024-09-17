@@ -17,31 +17,33 @@ const Detail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams(); // id de producto
-  const { loggedUser, token, finalizarPedido, favoritos, toggleFavorito } = useContext(BotonContext);
+  const { loggedUser, token, finalizarPedido, favoritos, toggleFavorito, agregarProductoAlCarrito, fechaSeleccionada, setFechaSeleccionada, horaSeleccionada, setHoraSeleccionada} = useContext(BotonContext);
   const [producto, setProducto] = useState(null);
   const [mainImg, setMainImg] = useState(""); // estado que guarda la imagen que se muestra grande
-  const [selectedTime, setSelectedTime] = useState("");
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  // const [selectedTime, setSelectedTime] = useState("");
+  // const [selectedDate, setSelectedDate] = useState(new Date());
   const [isHorarioVisible, setIsHorarioVisible] = useState(false);
   const [isFavorito, setIsFavorito] = useState(false); // Inicialmente en false
   const url = "http://localhost:8080/api/items/" + id;
 
+  //console logs de fecha y hora
+  console.log("hora seleccionada: ", horaSeleccionada, " fecha seleccionada: ", fechaSeleccionada.toLocaleDateString());
+
   const handleAgregar = () => {
-    if (!selectedTime) {
+    if (!horaSeleccionada) {
       Swal.fire({
         title: '¡Atención!',
         text: 'Debes seleccionar una hora antes de agregar tu reserva.',
         icon: 'warning',
-        confirmButtonText: 'Aceptar'
+        confirmButtonText: 'Aceptar',
       });
       return;
     }
-  
-    agregarProductoAlCarrito(producto, selectedDate, selectedTime);
+    agregarProductoAlCarrito(producto, fechaSeleccionada, horaSeleccionada);
   
     Swal.fire({
       title: '¡Éxito!',
-      text: 'Se agregó tu reserva correctamente!',
+      text: 'Completa tu reserva correctamente!',
       icon: 'success',
       timer: 3000,
       timerProgressBar: true,
@@ -112,7 +114,7 @@ const Detail = () => {
   };
 
   const isDisabledTime = (time) => {
-    if (selectedDate?.getDate() === 11 && time === "14:00 - 15:00") {
+    if (fechaSeleccionada?.getDate() === 11 && time === "14:00 - 15:00") {
       return true;
     }
     return false;
@@ -190,8 +192,8 @@ const Detail = () => {
           <div className={customCss.calendarioPadre}>
             <div className={customCss.calendario}>
               <DatePicker
-                selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
+                selected={fechaSeleccionada}
+                onChange={(date) => setFechaSeleccionada(date)}
                 inline
                 locale={es}
                 dateFormat="dd/MM/yyyy"
@@ -204,7 +206,7 @@ const Detail = () => {
             <div className={customCss.horarioWrapper}>
               <span className={customCss.horarioLabel}>Horario:</span>
               <div className={customCss.horarioSelect}>
-                <span>{selectedTime || "Selecciona una hora"}</span>
+                <span>{horaSeleccionada || "Selecciona una hora"}</span>
                 <button onClick={toggleHorario} className={customCss.dropdownButton}>
                   &#9660;
                 </button>
@@ -217,7 +219,7 @@ const Detail = () => {
                     <li
                     key={time}
                     className={`${isDisabledTime(time) ? 'disabled' : ''} ${customCss.horarioItem}`}
-                    onClick={() => !isDisabledTime(time) && setSelectedTime(time)}
+                    onClick={() => !isDisabledTime(time) && setHoraSeleccionada(time)}
                   >
                       {time}
                     </li>

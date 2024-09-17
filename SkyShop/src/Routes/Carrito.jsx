@@ -9,38 +9,11 @@ import "./CustomDatePicker.css"
 import Swal from 'sweetalert2';
 
 const Carrito = () => {
-  const { products, setProducts, finalizarPedido, loggedUser } = useContext(BotonContext);
+  const { products, setProducts, finalizarPedido, loggedUser, fechaSeleccionada, horaSeleccionada} = useContext(BotonContext);
   const [showConfirmModal, setShowConfirmModal] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState("");
-  const [selectedDateTime, setSelectedDateTime] = useState(null);
-  const [isHorarioVisible, setIsHorarioVisible] = useState(false);
+  // const [selectedDateTime, setSelectedDateTime] = useState(null);
+  // const [isHorarioVisible, setIsHorarioVisible] = useState(false);
   const navigate = useNavigate();  
-
-  const toggleHorario = () => {
-    setIsHorarioVisible(!isHorarioVisible);
-  };
-
-   // Función para manejar la selección de la fecha
-   const handleDateChange = (date) => {
-    setSelectedDate(date);
-    if (selectedTime) {
-      const dateTime = new Date(date);
-      const [hours, minutes] = selectedTime.split(" - ")[0].split(":");
-      dateTime.setHours(parseInt(hours, 10), parseInt(minutes, 10));
-      setSelectedDateTime(dateTime); // Actualiza la fecha y la hora seleccionadas
-    }
-  };
-
-  // Función para manejar la selección del horario
-  const handleTimeSelect = (time) => {
-    setSelectedTime(time);
-    const dateTime = new Date(selectedDate);
-    const [hours, minutes] = time.split(" - ")[0].split(":");
-    dateTime.setHours(parseInt(hours, 10), parseInt(minutes, 10));
-    setSelectedDateTime(dateTime); // Actualiza la fecha y la hora seleccionadas
-    setIsHorarioVisible(false);
-  };
 
   // Función para deshabilitar horarios
   const isDisabledTime = (time) => {
@@ -52,10 +25,10 @@ const Carrito = () => {
 
   // Ejemplo de alerta de confirmación
   const confirmarReserva = () => {
-    if (selectedDateTime) {
+    if (horaSeleccionada && fechaSeleccionada) {
       Swal.fire({
         title: '¡Reserva confirmada!',
-        text: `Tu pedido ha sido confirmado para el ${selectedDateTime.toLocaleDateString()} a las ${selectedTime}.`,
+        text: `Tu pedido ha sido confirmado para el ${fechaSeleccionada.toLocaleDateString()} a las ${horaSeleccionada}.`,
         icon: 'success',
         confirmButtonText: 'OK',
         customClass: {
@@ -111,13 +84,13 @@ const Carrito = () => {
   };
 
 
-  const handleCantidadChange = (id, cantidad) => {
+  /*const handleCantidadChange = (id, cantidad) => {
     const nuevosProductos = products.map(producto => 
       producto.id === id ? { ...producto, cantidad: Number(cantidad) } : producto
     );
     setProducts(nuevosProductos);
     localStorage.setItem("carrito", JSON.stringify(nuevosProductos));
-  };
+  };*/
   
 
   const handleEliminar = (id) => {
@@ -127,9 +100,9 @@ const Carrito = () => {
     localStorage.setItem("carrito", JSON.stringify(nuevosProductos));
   };
 
-  const totalCarrito = products.reduce((total, producto) => 
+  /*const totalCarrito = products.reduce((total, producto) => 
     total + producto.price * producto.cantidad, 0);
-
+  */
   if (!loggedUser) {
     navigate('/login');
     return null; 
@@ -144,59 +117,28 @@ const Carrito = () => {
             <h2>Datos del usuario</h2>
             <div className={customCss.inpUser}>
               <label>Nombre:</label>
-              <input type="text" value={loggedUser.username} placeholder='Ingrese su nombre'/>
+              <input type="text" value={loggedUser.username} disabled placeholder='Ingrese su nombre'/>
             </div>
             <div className={customCss.inpUser}>
               <label>Email:</label>
-              <input type="email" value={loggedUser.email} placeholder='Ingrese su email'/>
+              <input type="email" value={loggedUser.email} disabled placeholder='Ingrese su email'/>
             </div>
+          </form>
+          <form className={customCss.datosUser}>
+            <h2>Datos de Envío</h2>
             <div className={customCss.inpUser}>
               <label>Direccion:</label>
               <input type="text" placeholder='Ingrese su dirección' />
             </div>
+            <div className={customCss.inpUser}>
+              <label>Fecha:</label>
+              <input type="text" value={fechaSeleccionada.toLocaleDateString()} disabled/>
+            </div>
+            <div className={customCss.inpUser}>
+              <label>Hora:</label>
+              <input type="text" value={horaSeleccionada} disabled/>
+            </div>
           </form>
-          <div className={customCss.h3Cart}>
-            <h3>Seleccione el día y hora en el que se encontrará disponible para recibir su pedido.</h3>
-          </div>
-          <div className={customCss.calendarioPadre}>
-            <div className={customCss.calendario}>
-              <DatePicker
-                selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
-                inline
-                locale={es} 
-                dateFormat="dd/MM/yyyy"
-                className={customCss.customCalendar}
-                minDate={new Date()}
-              />
-            </div>
-          </div>
-          <div className={customCss.horarioContainer}>
-            <div className={customCss.horarioWrapper}>
-              <span className={customCss.horarioLabel}>Horario:</span>
-              <div className={customCss.horarioSelect}>
-                <span>{selectedTime || "Selecciona una hora"}</span>
-                <button onClick={toggleHorario} className={customCss.dropdownButton}>
-                  &#9660; 
-                </button>
-              </div>
-            </div>
-            {isHorarioVisible && (
-              <div className={customCss.horarioDropdown}>
-                <ul className={customCss.horarioLista}>
-                  {["07:00 - 08:00", "08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00","19:00 - 20:00", "20:00 - 21:00", "21:00 - 22:00"].map((time) => (
-                    <li
-                      key={time}
-                      className={`${isDisabledTime(time) ? 'disabled' : ''} ${customCss.horarioItem}`}
-                      onClick={() => !isDisabledTime(time) && handleTimeSelect(time)}
-                    >
-                      {time}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
           <div className={customCss.btnsCartMobile}>
           <button className={customCss.finalizarPedido} onClick={confirmarReserva}>Confirmar Reserva</button>
           <button className={customCss.cancelarPedido} onClick={cancelarPedido}>Cancelar Pedido</button>

@@ -204,13 +204,13 @@ export const BotonProvider = ({ children }) => {
         localStorage.removeItem("loggedUser");
     }
 
-    const agregarProductoAlCarrito = (producto, fecha, hora) => {
+    const agregarProductoAlCarrito = (producto, fechaa, horaa) => {
       setProducts(prevProducts => {
         const nuevoProducto = { 
           ...producto, 
-          cantidad: 1, 
-          fechaReserva: fecha,  // Agregar la fecha seleccionada
-          horaReserva: hora     // Agregar la hora seleccionada
+          cantidad: 1,
+          fecha: fechaa,
+          hora: horaa,
         };
 
         // Si ya hay productos en el carrito, reemplaza el producto existente
@@ -225,6 +225,22 @@ export const BotonProvider = ({ children }) => {
 
   // Funcion para vaciar el carrito al finalizar el pedido
   const finalizarPedido = () => {
+
+      // esto convierte la fecha y hora al tipo de dato que se maneja en el back
+      // (LocalDateTime)
+  
+      const [startHour] = horaSeleccionada.split(' - ');
+      const selectedDateTime = new Date(fechaSeleccionada);
+    
+      const [hours, minutes] = startHour.split(':');
+      selectedDateTime.setHours(hours, minutes, 0, 0);
+  
+      const orderedAt = selectedDateTime.toISOString(); // "2024-09-19T08:00:00.000Z"
+
+      //aca se deberia hacer el post de la orden
+  
+      console.log("Fecha y hora en formato ISO:", orderedAt);
+
       setProducts([]);
       localStorage.removeItem("carrito");
   }
