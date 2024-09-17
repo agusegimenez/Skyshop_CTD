@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import customCss from "./Detail.module.css";
 import { BotonContext } from '../Context/Context';
-import { arrayToLowerCase, productos } from '../utils/products';
+import { arrayToLowerCase } from '../utils/products';
 import DatePicker from 'react-datepicker';
 import { es } from 'date-fns/locale';
 import "/node_modules/react-datepicker/dist/react-datepicker.css"; 
@@ -13,23 +13,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 
-
 const Detail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams(); // id de producto
-  const { loggedUser, token, finalizarPedido } = useContext(BotonContext);
+  const { loggedUser, token, finalizarPedido, favoritos, toggleFavorito } = useContext(BotonContext);
   const [producto, setProducto] = useState(null);
-  const { agregarProductoAlCarrito, toggleFavorito } = useContext(BotonContext);
   const [mainImg, setMainImg] = useState(""); // estado que guarda la imagen que se muestra grande
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isHorarioVisible, setIsHorarioVisible] = useState(false);
-  const [isFavorito, setIsFavorito] = useState(false);
+  const [isFavorito, setIsFavorito] = useState(false); // Inicialmente en false
   const url = "http://localhost:8080/api/items/" + id;
 
   const handleAgregar = () => {
-    // Verificar si se ha seleccionado una hora
     if (!selectedTime) {
       Swal.fire({
         title: '¡Atención!',
@@ -37,26 +34,25 @@ const Detail = () => {
         icon: 'warning',
         confirmButtonText: 'Aceptar'
       });
-      return; // Salir de la función si no se ha seleccionado una hora
+      return;
     }
   
-    // Si hay una hora seleccionada, agregar el producto al carrito
     agregarProductoAlCarrito(producto, selectedDate, selectedTime);
   
     Swal.fire({
       title: '¡Éxito!',
       text: 'Se agregó tu reserva correctamente!',
       icon: 'success',
-      timer: 3000, // Duración de la alerta en milisegundos
-      timerProgressBar: true, // Muestra la barra de progreso
-      showConfirmButton: false, // Oculta el botón de confirmación
+      timer: 3000,
+      timerProgressBar: true,
+      showConfirmButton: false,
     });
   
-    // Redirige después de 3 segundos
     setTimeout(() => {
       navigate('/carrito');
-    }, 3000); // Tiempo en milisegundos igual al temporizador de la alerta
+    }, 3000);
   };
+
   const toggleHorario = () => {
     setIsHorarioVisible(!isHorarioVisible);
   };
@@ -83,28 +79,24 @@ const Detail = () => {
         setProducto(data);
       }
     } catch (error) {
-      console.error('Error en la petición GET de productos: ', err);
+      console.error('Error en la petición GET de productos: ', error);
     }
   }
+
+  useEffect(() => {
+    getDetailProd();
+  }, [id]);
+
+  useEffect(() => {
+    if (producto) {
+      const isInFavoritos = favoritos.some(fav => fav.id === producto.id);
+      setIsFavorito(isInFavoritos);
+    }
+  }, [favoritos, producto]);
 
   const handleMainImg = (newMainImg) => {
     if (newMainImg !== mainImg) setMainImg(newMainImg);
   }
-
-  console.log("valor de producto: " + producto);
-
-  // esta funcion recorre el array de strings y devuelve un array de strings en minusculas
- // es para que por cada carcateristica, suponiendo q las imagenes de iconos de las caracteristicas
- // son por ej: si la caracteristica es "Alimentos", la imagen/icono tendria q llamarse "caracteristica_alimentos.png"
- // esto sirve para implementar la busqueda dinamica de los iconos de las caracteristicas ya que
- // tampoco va a pasar que se puedan crear nuevas caracteristicas con nuevos iconos
- // sino que en el agregado de productos (si es q lo implementamos) seria ideal que
- // las caracteristicas se pudieran solo elegir tipo checkbox con un maximo de tildar de 5 opciones o algo asi
- // y en la carpeta "public" habria un icono por cada caracteristica
- 
-  useEffect(() => {
-    getDetailProd();
-  }, [id]);
 
   const mostrarCaracteristicas = () => {
     const caracteristicasLowerCase = arrayToLowerCase(producto.characteristics);
@@ -119,10 +111,9 @@ const Detail = () => {
     });
   };
 
-  // Verifica si el día seleccionado es el 11 para deshabilitar ciertas horas
   const isDisabledTime = (time) => {
     if (selectedDate?.getDate() === 11 && time === "14:00 - 15:00") {
-      return true; // Deshabilita este horario el día 11
+      return true;
     }
     return false;
   };
@@ -134,11 +125,9 @@ const Detail = () => {
   const { name, images, description, price } = producto;
 
   const handleFavoritoClick = (e) => {
-    e.stopPropagation(); // Evitar que se dispare el evento de click en la card
-    setIsFavorito(!isFavorito);
-    toggleFavorito(producto);  // Cambiar el estado de favorito
-    {/*navigate('/panel');*/}  // Redirigir al panel
-  };
+    e.stopPropagation();
+    toggleFavorito(producto);
+};
 
   return (
     <section className={customCss.detailSect}>
@@ -147,17 +136,20 @@ const Detail = () => {
           <div className={customCss.divNombreYBoton}>
             <h3 className={customCss.nombreSt}>{name}</h3>
             <div>
-            <button onClick={handleFavoritoClick} className={`${customCss.favButton} ${isFavorito ? customCss.filled : ''}`}>
-        <FontAwesomeIcon 
-        icon={isFavorito ? solidHeart : regularHeart}
-         className={isFavorito ? customCss.filledIcon : ''}
-         style={{ fontSize: '30px', transition: 'transform 0.3s ease, color 0.3s ease', color: isFavorito ? 'red' : 'green' }} />
-        </button>
-            <button
-              className={customCss.btnCerrar}
-              onClick={() => navigate(-1)}>
-              <img src="/flechaizquierda.png" alt="flecha atras" />
-            </button>
+              {loggedUser !== null &&
+                <button onClick={handleFavoritoClick} className={`${customCss.favButton} ${isFavorito ? customCss.filled : ''}`}>
+                <FontAwesomeIcon 
+                  icon={isFavorito ? solidHeart : regularHeart}
+                  className={isFavorito ? customCss.filledIcon : ''}
+                  style={{ fontSize: '30px', transition: 'transform 0.3s ease, color 0.3s ease', color: isFavorito ? 'red' : 'green' }} 
+                />
+              </button>
+              }
+              <button
+                className={customCss.btnCerrar}
+                onClick={() => navigate(-1)}>
+                <img src="/flechaizquierda.png" alt="flecha atras" />
+              </button>
             </div>
           </div>
           <div className={customCss.imgDiv}>
