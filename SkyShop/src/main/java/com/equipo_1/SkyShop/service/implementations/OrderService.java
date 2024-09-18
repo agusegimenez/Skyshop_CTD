@@ -4,7 +4,6 @@ import com.equipo_1.SkyShop.dto.request.BlockDateRequestDTO;
 import com.equipo_1.SkyShop.dto.request.OrderItemRequestDTO;
 import com.equipo_1.SkyShop.dto.request.OrderRequestDTO;
 import com.equipo_1.SkyShop.dto.response.OrderResponseDTO;
-import com.equipo_1.SkyShop.dto.response.OrderItemResponseDTO;
 import com.equipo_1.SkyShop.entity.Order;
 import com.equipo_1.SkyShop.entity.User;
 import com.equipo_1.SkyShop.entity.enums.OrderStatus;
@@ -38,11 +37,8 @@ public class OrderService {
         User user = userRepository.findById(orderRequestDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        LocalDateTime orderStartTime = LocalDateTime.now();
-        LocalDateTime orderEndTime = orderStartTime.plusHours(1);
-
         // Validar que la fecha no esté bloqueada
-        boolean isBlocked = calendarService.isDateBlocked(orderStartTime, orderEndTime);
+        boolean isBlocked = calendarService.isDateBlocked(orderRequestDTO.getStartTime(), orderRequestDTO.getEndTime());
         if (isBlocked) {
             throw new IllegalStateException("The selected date and time are not available.");
         }
@@ -50,7 +46,9 @@ public class OrderService {
         // Crear la orden
         Order order = new Order();
         order.setUser(user);
-        order.setOrderedAt(orderStartTime);
+        order.setOrderedAt(LocalDateTime.now());
+        order.setStartTime(orderRequestDTO.getStartTime());
+        order.setEndTime(orderRequestDTO.getEndTime());
         order.setStatus(OrderStatus.PENDING);
 
         Order savedOrder = orderRepository.save(order);
@@ -62,8 +60,8 @@ public class OrderService {
 
         // Bloquear el rango de fechas en el calendario
         BlockDateRequestDTO blockDateRequestDTO = new BlockDateRequestDTO(
-                orderStartTime.minusHours(1),
-                orderEndTime.plusHours(1)
+                orderRequestDTO.getStartTime().minusHours(1),
+                orderRequestDTO.getEndTime().plusHours(1)
         );
         calendarService.blockDate(blockDateRequestDTO);
 
@@ -80,7 +78,7 @@ public class OrderService {
         OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
         orderResponseDTO.setId(savedOrder.getId());
         orderResponseDTO.setClientId(savedOrder.getUser().getId());
-        orderResponseDTO.setItems(orderItemService.getOrderItemsByOrderId(savedOrder.getId())); // Asegúrate de usar el servicio correcto para obtener OrderItems
+        orderResponseDTO.setItems(orderItemService.getOrderItemsByOrderId(savedOrder.getId()));
         orderResponseDTO.setOrderedAt(savedOrder.getOrderedAt().toString());
         orderResponseDTO.setStatus(savedOrder.getStatus().name());
 
@@ -90,7 +88,7 @@ public class OrderService {
     public List<OrderResponseDTO> getOrdersByUserId(Long userId) {
         List<Order> orders = orderRepository.findByUserId(userId);
         return orders.stream()
-                .map(order -> mapToOrderResponseDTO(order))
+                .map(this::mapToOrderResponseDTO)
                 .collect(Collectors.toList());
     }
 
@@ -98,13 +96,16 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
-        // Verifica y actualiza el total, estado, etc., según sea necesario
+        // Actualizar detalles de la orden
+        order.setStartTime(orderRequestDTO.getStartTime());
+        order.setEndTime(orderRequestDTO.getEndTime());
+        order.setStatus(OrderStatus.PENDING); // Actualizar estado si es necesario
 
         // Guardar la orden actualizada
         Order updatedOrder = orderRepository.save(order);
 
-        // Actualizar los OrderItems si es necesario (esto podría ser más complejo)
-        // Aquí podrías usar OrderItemService si necesitas manejar los items relacionados
+        // Actualizar los OrderItems si es necesario
+        // Puedes añadir lógica para actualizar los ítems aquí
 
         return mapToOrderResponseDTO(updatedOrder);
     }
@@ -127,15 +128,15 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
-        // Desbloquear el rango de fechas en el calendario (si es necesario)
-        BlockDateRequestDTO blockDateRequestDTO = new BlockDateRequestDTO(
-                order.getOrderedAt().minusHours(1),
-                order.getOrderedAt().plusHours(1)
-        );
-        calendarService.unblockDate(order.getId());
+        // Solo desbloquear si la orden fue confirmada
+        if (order.getStatus() == OrderStatus.CONFIRMED) {
+            BlockDateRequestDTO blockDateRequestDTO = new BlockDateRequestDTO(
+                    order.getStartTime().minusHours(1),
+                    order.getEndTime().plusHours(1)
+            );
+            calendarService.unblockDate(blockDateRequestDTO);
+        }
 
-        orderRepository.deleteById(orderId); // Asegúrate de que este método exista
+        orderRepository.deleteById(orderId);
     }
-
-
 }

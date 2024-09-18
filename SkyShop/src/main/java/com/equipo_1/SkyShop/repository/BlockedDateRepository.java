@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface BlockedDateRepository extends JpaRepository<BlockedDate, Long> {
-    boolean existsByStartTimeBetweenOrEndTimeBetween(LocalDateTime start, LocalDateTime end, LocalDateTime start2, LocalDateTime end2);
+    List<BlockedDate> findAllByStartTimeBetweenOrEndTimeBetween(LocalDateTime startTime1, LocalDateTime endTime1, LocalDateTime startTime2, LocalDateTime endTime2);
 }

@@ -1,20 +1,19 @@
 package com.equipo_1.SkyShop.dto.request;
 
-import com.equipo_1.SkyShop.dto.response.CartItemResponseDTO;
+import com.equipo_1.SkyShop.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.Map;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartRequestDTO {
-    private Long id;
     private Long userId;
-    private Set<CartItemRequestDTO> cartItems;
+    private Map<Long, Integer> items; // Mapa de itemId a cantidad
 }

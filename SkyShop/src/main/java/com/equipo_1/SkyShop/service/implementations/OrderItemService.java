@@ -27,11 +27,19 @@ public class OrderItemService {
     private ItemRepository itemRepository;
 
     public OrderItemResponseDTO createOrderItem(OrderItemRequestDTO orderItemRequestDTO, Long orderId) {
+        // Validar que la cantidad sea mayor a 0
+        if (orderItemRequestDTO.getQuantity() <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
+
+        // Crear un nuevo OrderItem
         OrderItem orderItem = new OrderItem();
 
         if (orderId != null) {
             Order order = orderRepository.findById(orderId)
                     .orElseThrow(() -> new RuntimeException("Order not found"));
+
+            // Asegurarse de que la orden puede tener múltiples ítems
             orderItem.setOrder(order);
         }
 
@@ -39,13 +47,13 @@ public class OrderItemService {
                 .orElseThrow(() -> new RuntimeException("Item not found"));
         orderItem.setItem(item);
         orderItem.setQuantity(orderItemRequestDTO.getQuantity());
-        orderItem.setPrice(item.getPrice());
+        orderItem.setPrice(item.getPrice()); // Establecer el precio en el OrderItem
 
+        // Guardar el OrderItem
         OrderItem savedOrderItem = orderItemRepository.save(orderItem);
 
         return mapToOrderItemResponseDTO(savedOrderItem);
     }
-
 
     public List<OrderItemResponseDTO> getOrderItemsByOrderId(Long orderId) {
         List<OrderItem> orderItems = orderItemRepository.findAllByOrderId(orderId);
@@ -54,12 +62,12 @@ public class OrderItemService {
                 .collect(Collectors.toList());
     }
 
-    // Cambiar el modificador de acceso a public
     public OrderItemResponseDTO mapToOrderItemResponseDTO(OrderItem orderItem) {
         OrderItemResponseDTO orderItemResponseDTO = new OrderItemResponseDTO();
         orderItemResponseDTO.setItemId(orderItem.getItem().getId());
         orderItemResponseDTO.setItemName(orderItem.getItem().getName());
         orderItemResponseDTO.setQuantity(orderItem.getQuantity());
+        orderItemResponseDTO.setPrice(orderItem.getPrice()); // Establecer el precio en la respuesta
 
         return orderItemResponseDTO;
     }

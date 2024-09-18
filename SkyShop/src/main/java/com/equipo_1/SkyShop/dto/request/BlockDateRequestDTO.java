@@ -13,6 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BlockDateRequestDTO {
 
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 }

@@ -8,7 +8,6 @@ import com.equipo_1.SkyShop.service.implementations.ItemService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +21,7 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    // ListarItems
+    // Listar Items
     @GetMapping
     public ResponseEntity<List<ItemResponseDTO>> getItems() {
         List<Item> items = itemService.listItems();
@@ -39,7 +38,7 @@ public class ItemController {
         return ResponseEntity.ok(itemDTOs);
     }
 
-    // CrearItem
+    // Crear Item
     @PostMapping("/create")
     public ResponseEntity<ItemResponseDTO> createItem(@RequestBody ItemRequestDTO itemRequestDTO) {
         Item newItem = new Item(
@@ -48,7 +47,6 @@ public class ItemController {
                 itemRequestDTO.getPrice(),
                 itemRequestDTO.getDescription(),
                 Categories.valueOf(itemRequestDTO.getCategory()),
-                new HashSet<>(),
                 itemRequestDTO.getImages(),
                 itemRequestDTO.getCharacteristics()
         );
@@ -64,7 +62,7 @@ public class ItemController {
         ));
     }
 
-    // ActualizarItem
+    // Actualizar Item
     @PutMapping("/{id}")
     public ResponseEntity<ItemResponseDTO> updateItem(@PathVariable Long id, @RequestBody ItemRequestDTO itemRequestDTO) {
         Item updatedItem = itemService.updateItem(
@@ -87,14 +85,14 @@ public class ItemController {
         ));
     }
 
-    // EliminarItem
+    // Eliminar Item
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
         itemService.deleteItem(id);
         return ResponseEntity.noContent().build();
     }
 
-    // ObtenerItemPorId
+    // Obtener Item por ID
     @GetMapping("/{id}")
     public ResponseEntity<ItemResponseDTO> getItemById(@PathVariable Long id) {
         Item item = itemService.getItemById(id);

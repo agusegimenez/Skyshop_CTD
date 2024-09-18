@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="order_items")
+@Table(name = "order_items")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,6 +26,5 @@ public class OrderItem {
     private Item item;
 
     private int quantity;
-    @Column(nullable = false)
-    private double price = 0.0;
+    private double price;
 }

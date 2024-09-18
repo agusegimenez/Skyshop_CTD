@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class BlockedDateResponseDTO {
 
     private Long id;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
 }

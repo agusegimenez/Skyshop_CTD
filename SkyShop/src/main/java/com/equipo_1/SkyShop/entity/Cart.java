@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
-@Table(name="carts")
+@Table(name = "carts")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,11 +25,12 @@ public class Cart {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CartItem> cartItems = new HashSet<>();
+    // Map para guardar items y sus cantidades
+    @ElementCollection
+    @CollectionTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"))
+    @MapKeyJoinColumn(name = "item_id")
+    @Column(name = "quantity")
+    private Map<Long, Integer> items = new HashMap<>();
 
     private LocalDateTime createdAt;
-
-    public void setUpdatedAt(LocalDateTime now) {
-    }
 }

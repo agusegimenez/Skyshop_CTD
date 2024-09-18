@@ -29,6 +29,11 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> items = new ArrayList<>();
 
+    @Column(name = "start_time")
+    private LocalDateTime startTime;
+
+    @Column(name = "end_time")
+    private LocalDateTime endTime;
 
     @Column(name = "ordered_at")
     private LocalDateTime orderedAt;

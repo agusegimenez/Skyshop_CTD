@@ -21,7 +21,7 @@ public class CalendarController {
     // ListarFechasBloqueadas
     @GetMapping("/blocked-dates")
     public ResponseEntity<List<BlockedDateResponseDTO>> getBlockedDates() {
-        List<BlockedDateResponseDTO> blockedDates = calendarService.getBlockedDates();
+        List<BlockedDateResponseDTO> blockedDates = calendarService.getBlockedDates(); // Asegúrate de tener este método en el servicio
         return ResponseEntity.ok(blockedDates);
     }
 
@@ -33,9 +33,9 @@ public class CalendarController {
     }
 
     // DesbloquearFecha
-    @DeleteMapping("/unblock-date/{id}")
-    public ResponseEntity<Void> unblockDate(@PathVariable Long id) {
-        calendarService.unblockDate(id);
+    @DeleteMapping("/unblock-date")
+    public ResponseEntity<Void> unblockDate(@RequestBody BlockDateRequestDTO blockDateRequestDTO) {
+        calendarService.unblockDate(blockDateRequestDTO);
         return ResponseEntity.noContent().build();
     }
 }
