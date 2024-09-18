@@ -21,7 +21,7 @@ const Favoritos = () => {
                     </thead>
                     <tbody>
                         {favoritos.map((producto) => (
-                            <tr className={customCss.filaProds} key={producto.id}>
+                            <tr key={producto.id}>
                                 <td className={customCss.cards}>
                                     <div className={customCss.nombre}>
                                     <img src={producto.images} alt={producto.name} className={customCss.productImage} />
@@ -30,7 +30,7 @@ const Favoritos = () => {
                                 </td>
                                 <td className={customCss.contenido}>
                                     {producto.description.split(",").map((item, i) => (
-                                        <span key={i}>{item} <p>x1</p></span>
+                                        <span key={i}>{item} x1</span>
                                     ))}
                                 </td>
                                 <td className={customCss.price}>

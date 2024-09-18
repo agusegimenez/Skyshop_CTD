@@ -97,6 +97,16 @@ const Detail = () => {
     if (newMainImg !== mainImg) setMainImg(newMainImg);
   }
 
+  const handleRedirect = () => {
+    Swal.fire({
+      title: '¡Atención!',
+      text: 'Debes loguearte antes de agregar tu reserva.',
+      icon: 'warning',
+      confirmButtonText: 'Aceptar',
+    });
+    navigate("/login")
+  }
+
   const mostrarCaracteristicas = () => {
     const caracteristicasLowerCase = arrayToLowerCase(producto.characteristics);
     return producto.characteristics.map((caracteristica, i) => {
@@ -231,8 +241,8 @@ const Detail = () => {
                 <a>Agregar a mi pedido</a>
               </button>
             ) : (
-              <button className={customCss.btnAgregarDisabled} disabled>
-                Debes iniciar sesión para agregar al carrito
+              <button className={customCss.btnAgregar} onClick={handleRedirect}>
+                Agregar a mi pedido
               </button>
             )}
           </div>

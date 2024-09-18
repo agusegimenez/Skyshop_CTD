@@ -126,7 +126,11 @@ const Create = () => {
             setDireccion('');
             setPassword('');
             setConfirmPassword('');
-            alert('Usuario registrado con éxito');
+            Swal.fire({
+                title: 'Usuario registrado con exíto',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+              });
         } catch (error) {
             console.error('Error en la petición:', error);
             console.error('Hubo un error al registrar el usuario.')
