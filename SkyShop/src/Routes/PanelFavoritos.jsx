@@ -43,7 +43,6 @@ const PanelFavoritos = () => {
             style={{
               backgroundColor: selectedOption === "Historial" ? 'white' : '#01ac5c',
               color: selectedOption === "Historial" ? '#01ac5c' : 'white',
-              
             }}
             onClick={() => handleButtonClick("Historial")}
           >

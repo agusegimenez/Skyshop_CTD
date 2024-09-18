@@ -3,6 +3,7 @@ import ErrorMessage from '../Components/ErrorMessage';
 import customCss from './Create.module.css';
 import { BotonContext } from '../Context/Context';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Create = () => {
     const navigate = useNavigate();
@@ -126,7 +127,11 @@ const Create = () => {
             setDireccion('');
             setPassword('');
             setConfirmPassword('');
-            alert('Usuario registrado con éxito');
+            Swal.fire({
+                title: 'Usuario registrado con exíto',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+              });
         } catch (error) {
             console.error('Error en la petición:', error);
             console.error('Hubo un error al registrar el usuario.')
