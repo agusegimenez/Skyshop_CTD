@@ -1,13 +1,11 @@
 package com.equipo_1.SkyShop.dto.response;
 
-import com.equipo_1.SkyShop.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -16,6 +14,8 @@ import java.util.Map;
 public class CartResponseDTO {
     private Long id;
     private Long userId;
-    private Map<Long, Integer> items; // Mapa de itemId a cantidad
+    private Long itemId;  // ID del ítem, si existe
+    private Integer quantity; // Cantidad del ítem, si existe
     private LocalDateTime createdAt;
 }
+

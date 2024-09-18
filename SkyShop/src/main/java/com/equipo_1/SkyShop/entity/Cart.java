@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @Entity
 @Table(name = "carts")
@@ -25,12 +23,12 @@ public class Cart {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // Map para guardar items y sus cantidades
-    @ElementCollection
-    @CollectionTable(name = "cart_items", joinColumns = @JoinColumn(name = "cart_id"))
-    @MapKeyJoinColumn(name = "item_id")
+    @ManyToOne
+    @JoinColumn(name = "item_id") // Cambiar a ManyToOne para permitir un solo ítem
+    private Item item;
+
     @Column(name = "quantity")
-    private Map<Long, Integer> items = new HashMap<>();
+    private Integer quantity; // Cantidad del ítem
 
     private LocalDateTime createdAt;
 }
