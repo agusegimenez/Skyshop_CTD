@@ -26,20 +26,22 @@ td {
   padding: 10px;
   vertical-align: middle;
 }
+.cards,
+.price,
+.eliminar {
+  vertical-align: middle; /* Ensure the cells are vertically aligned */
+}
 .cards {
   border-bottom: 2px solid #01ac5c;
 }
 .contenido {
-  display: flex;
-  flex-direction: column;
   border-bottom: 2px solid #01ac5c;
+  height: 100%;
 }
 .contenido span {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  display: block; /* Cambiar a block para ocupar toda la celda */
+  padding: 5px 0;
 }
-
 .productImage {
   width: 80px;
 }
@@ -83,4 +85,19 @@ td {
   display: block;
   margin: 20px auto;
   border-radius: 20px;
+}
+
+@media screen and (max-width: 480px) {
+  .table {
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .deleteButton img {
+    width: 15px;
+  }
+
+  .price {
+    font-size: 12px;
+  }
 }

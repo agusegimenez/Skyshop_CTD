@@ -21,7 +21,7 @@ const Favoritos = () => {
                     </thead>
                     <tbody>
                         {favoritos.map((producto) => (
-                            <tr key={producto.id}>
+                            <tr className={customCss.filaProds} key={producto.id}>
                                 <td className={customCss.cards}>
                                     <div className={customCss.nombre}>
                                     <img src={producto.images} alt={producto.name} className={customCss.productImage} />
