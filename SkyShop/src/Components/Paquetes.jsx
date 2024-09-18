@@ -6,7 +6,7 @@ import { BotonContext } from '../Context/Context';
 import Swal from 'sweetalert2';
 
 const Paquetes = () => {
-  const { prods, updateProd, deleteProd } = useContext(BotonContext);
+  const { prods, updateProd, deleteProd, getProds } = useContext(BotonContext);
   const [visibleMenu, setVisibleMenu] = useState(null);
   const [visibleMenuCaract, setVisibleMenuCaract] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState({});
@@ -56,6 +56,10 @@ const Paquetes = () => {
     });
     setSelectedCategories(initialCategories);
   }, [prods])
+
+  useEffect(() => {
+    getProds();
+  }, [])
   
 
   const updateCategory = (prodId) => {
@@ -92,10 +96,11 @@ const Paquetes = () => {
       <table className={customCss.tableHeader}>
         <thead>
           <tr className={customCss.headerTitles}>
-          <th></th>
+            <th></th>
             <th>PRODUCTO</th>
+            <th></th>
             <th>PRECIO</th>
-            <th>CATEGORÍA</th>
+            <th style={{ textAlign: "center"}}>CATEGORÍA</th>
             <th>ID</th>
             <th>CANTIDAD IMAGENES</th>
             <th></th>

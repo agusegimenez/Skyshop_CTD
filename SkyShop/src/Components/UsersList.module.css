@@ -33,7 +33,7 @@
 .headerTitles {
   display: grid;
   padding: 10px;
-  grid-template-columns: 0.4fr 1fr 1fr 1fr 1fr 0.8fr;
+  grid-template-columns: 0.4fr 1fr 0.4fr 1fr 1fr 1fr 0.8fr;
   background-color: #01ac5c;
   border-radius: 10px;
   color: white;

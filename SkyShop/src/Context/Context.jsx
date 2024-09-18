@@ -6,6 +6,8 @@ export const BotonContext = createContext();
 const ifUserInStorage = JSON.parse(localStorage.getItem("loggedUser"));
 const favsInStorage = JSON.parse(localStorage.getItem("userFavs")) || [];
 const carritoFromStorage = JSON.parse(localStorage.getItem("carrito")) || [];
+const fechaSeleccionadaFromStorage = JSON.parse(localStorage.getItem("fecha")) || new Date();
+const horaSeleccionadaFromStorage = JSON.parse(localStorage.getItem("hora")) || "";
 
 const loggingInitialState = ifUserInStorage === null ? null : ifUserInStorage;
 
@@ -18,10 +20,10 @@ export const BotonProvider = ({ children }) => {
     const [prods, setProds] = useState([]);
     const [favoritos, setFavoritos] = useState(favsInStorage);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
-    const token = "e2d1f125-e659-4821-8e2d-5cbeb5de85d4"; // token que hay que actualizar cada vez que se levanta el back end
+    const token = "9661e259-50ad-47a5-8343-ac6b16d9ed6b"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
-    const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date()); // Nueva fecha seleccionada
-    const [horaSeleccionada, setHoraSeleccionada] = useState("");
+    const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date(fechaSeleccionadaFromStorage)); // Nueva fecha seleccionada
+    const [horaSeleccionada, setHoraSeleccionada] = useState(horaSeleccionadaFromStorage);
 
 
     const getProds = async () => {
@@ -182,8 +184,8 @@ export const BotonProvider = ({ children }) => {
         if(loggedUser !== null){
             setShowButtons(false);
         }
-        getProds();
-        fetchUsers();
+        //getProds();
+        //fetchUsers();
       }, [showButtons])
 
       useEffect(() => {
@@ -217,7 +219,9 @@ export const BotonProvider = ({ children }) => {
         const nuevoCarrito = prevProducts.length > 0
         ? [{ ...nuevoProducto }]
         : [{ ...nuevoProducto }];
-  
+
+      localStorage.setItem("hora", JSON.stringify(horaa));
+      localStorage.setItem("fecha", JSON.stringify(fechaa));
       localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
       return nuevoCarrito;
     });
@@ -241,8 +245,14 @@ export const BotonProvider = ({ children }) => {
   
       console.log("Fecha y hora en formato ISO:", orderedAt);
 
+      // aca tiene que redirigir tambien a una pagina de "exito"?
+      // segun el 1er requerimiento de la historia de usuario 32
+
       setProducts([]);
+      localStorage.removeItem("fecha");
+      localStorage.removeItem("hora");
       localStorage.removeItem("carrito");
+      navigate("/");
   }
 
 
@@ -268,7 +278,7 @@ export const BotonProvider = ({ children }) => {
   }, []); */
 
     return (
-        <BotonContext.Provider value={{ showButtons, setShowButtons, products, setProducts, agregarProductoAlCarrito, finalizarPedido, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers, fetchChangeUserRole, setUsers, token, prods, updateProd, deleteProd, searchProdsByName, toggleFavorito, favoritos, fechaSeleccionada, setFechaSeleccionada, horaSeleccionada, setHoraSeleccionada}}>
+        <BotonContext.Provider value={{ showButtons, setShowButtons, products, setProducts, agregarProductoAlCarrito, finalizarPedido, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers, fetchChangeUserRole, setUsers, token, prods, updateProd, deleteProd, searchProdsByName, toggleFavorito, favoritos, fechaSeleccionada, setFechaSeleccionada, horaSeleccionada, setHoraSeleccionada, getProds}}>
             {children}
         </BotonContext.Provider>
     );

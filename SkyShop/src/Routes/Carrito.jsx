@@ -13,19 +13,26 @@ const Carrito = () => {
   const [showConfirmModal, setShowConfirmModal] = useState(null);
   // const [selectedDateTime, setSelectedDateTime] = useState(null);
   // const [isHorarioVisible, setIsHorarioVisible] = useState(false);
-  const navigate = useNavigate();  
+  const [moreUserDetails, setMoreUserDetails] = useState(false);
+  const [direction, setDirection] = useState("");
+  const navigate = useNavigate();
 
-  // Función para deshabilitar horarios
+  const toggleSeeMoreUserDetails = (e) => {
+    e.preventDefault();
+    setMoreUserDetails(!moreUserDetails);
+  }
+
+  /* Función para deshabilitar horarios
   const isDisabledTime = (time) => {
     if (selectedDate?.getDate() === 11 && time === "14:00 - 15:00") {
       return true;
     }
     return false;
-  };
+  }; */
 
   // Ejemplo de alerta de confirmación
   const confirmarReserva = () => {
-    if (horaSeleccionada && fechaSeleccionada) {
+    if (horaSeleccionada && fechaSeleccionada && direction.trim() !== "") {
       Swal.fire({
         title: '¡Reserva confirmada!',
         text: `Tu pedido ha sido confirmado para el ${fechaSeleccionada.toLocaleDateString()} a las ${horaSeleccionada}.`,
@@ -38,6 +45,18 @@ const Carrito = () => {
         }
       });
       finalizarPedido();
+    }else if(direction.trim() === ""){
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, indique una dirección para el delivery.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        customClass: {
+          title: 'swal2-title-custom',
+          content: 'swal2-text-custom',
+          confirmButton: 'swal2-button-custom'
+        }
+      });
     } else {
       Swal.fire({
         title: 'Error',
@@ -91,6 +110,11 @@ const Carrito = () => {
     setProducts(nuevosProductos);
     localStorage.setItem("carrito", JSON.stringify(nuevosProductos));
   };*/
+
+  const onChangeDirection = (e) => {
+    e.preventDefault();
+    setDirection(e.target.value);
+  }
   
 
   const handleEliminar = (id) => {
@@ -117,18 +141,29 @@ const Carrito = () => {
             <h2>Datos del usuario</h2>
             <div className={customCss.inpUser}>
               <label>Nombre:</label>
-              <input type="text" value={loggedUser.username} disabled placeholder='Ingrese su nombre'/>
+              <input type="text" value={loggedUser.username} disabled/>
             </div>
             <div className={customCss.inpUser}>
               <label>Email:</label>
-              <input type="email" value={loggedUser.email} disabled placeholder='Ingrese su email'/>
+              <input type="email" value={loggedUser.email} disabled/>
             </div>
+            {moreUserDetails && <>
+              <div className={customCss.inpUser}>
+                <label>Rol:</label>
+                <input type="text" value={loggedUser.role} disabled/>
+              </div>
+              <div className={customCss.inpUser}>
+                <label>Fecha de última actualización:</label>
+                <input type="text" value={loggedUser.updatedAt || "N/A"} disabled/>
+              </div>
+            </>}
+            <button className={customCss.finalizarPedido} style={{ margin: "0px"}}onClick={(e) => toggleSeeMoreUserDetails(e)}>{ !moreUserDetails ? "Ver más datos" : "Ver menos datos"}</button>
           </form>
           <form className={customCss.datosUser}>
             <h2>Datos de Envío</h2>
             <div className={customCss.inpUser}>
               <label>Direccion:</label>
-              <input type="text" placeholder='Ingrese su dirección' />
+              <input type="text" placeholder='Ingrese su dirección' onChange={(e) => onChangeDirection(e)} />
             </div>
             <div className={customCss.inpUser}>
               <label>Fecha:</label>

@@ -6,7 +6,11 @@ import { useContext, useEffect } from "react";
 import { BotonContext } from "../Context/Context";
 
 export default function Recomendations({ handleOpenModal }) {
-  const { prods } = useContext(BotonContext);
+  const { prods, getProds } = useContext(BotonContext);
+
+  useEffect(() => {
+    getProds();
+  }, []);
 
   useEffect(() => {
     

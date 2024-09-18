@@ -26,9 +26,6 @@ const Detail = () => {
   const [isFavorito, setIsFavorito] = useState(false); // Inicialmente en false
   const url = "http://localhost:8080/api/items/" + id;
 
-  //console logs de fecha y hora
-  console.log("hora seleccionada: ", horaSeleccionada, " fecha seleccionada: ", fechaSeleccionada.toLocaleDateString());
-
   const handleAgregar = () => {
     if (!horaSeleccionada) {
       Swal.fire({

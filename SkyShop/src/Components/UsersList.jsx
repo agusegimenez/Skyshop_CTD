@@ -1,13 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BotonContext } from '../Context/Context.jsx'; // Importamos el contexto
 import customCss from "./UsersList.module.css";
 import { UserIcon } from './UserIcon.jsx';
 
 export const UsersList = () => {
-    const { users, loading, fetchChangeUserRole, setUsers} = useContext(BotonContext); // Obtenemos los usuarios del contexto
-
+    const { users, loading, fetchChangeUserRole, setUsers, fetchUsers} = useContext(BotonContext); // Obtenemos los usuarios del contexto
     const [selectedUserId, setSelectedUserId] = useState(null);
 
+    useEffect(() => {
+        fetchUsers();
+    }, [])
+
+    useEffect(() => {
+        
+    }, [users]);
+    
     const toggleDropdown = (index) => {
         setSelectedUserId(selectedUserId === index ? null : index);
     };
@@ -38,6 +45,7 @@ console.log(loading);
                     <tr className={customCss.headerTitles}>
                         <th></th>
                         <th className={customCss.thName}>NOMBRE</th>
+                        <th></th>
                         <th>ROL</th>
                         <th>CREADO</th>
                         <th>FECHA MODIFICACIÓN</th>

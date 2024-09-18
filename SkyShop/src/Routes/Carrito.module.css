@@ -213,7 +213,7 @@ body {
 
 /* Estilo general del calendario */
 .react-datepicker {
-  border: 2px solid #161cd7; /* Borde verde */
+  border: 2px solid #4caf50; /* Borde verde */
   border-radius: 10px;
   font-family: Arial, sans-serif;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -278,6 +278,12 @@ body {
   background-color: white;
 }
 
+/* Días deshabilitados (fuera de mes actual) */
+.react-datepicker__day--disabled {
+  color: #c0c0c0;
+  cursor: not-allowed;
+}
+
 /* Selector de semanas (si lo usas) */
 .react-datepicker__week {
   display: flex;
@@ -297,10 +303,8 @@ body {
 }
 
 .react-datepicker__day--disabled {
-  color: #ccc !important; /* Color de texto para los días deshabilitados */
-  background-color: #f0f0f0 !important; /* Fondo para los días deshabilitados */
-  cursor: not-allowed !important; /* Cursor prohibido */
-  pointer-events: none !important; /* Fondo para los días deshabilitados */
+  color: #ccc; /* Color de texto para los días deshabilitados */
+  background-color: #f0f0f0; /* Fondo para los días deshabilitados */
 }
 
 .react-datepicker__day-name {
@@ -455,7 +459,7 @@ body {
   font-size: 25px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1632px) {
   .carritoContainer {
     display: flex;
     flex-direction: column-reverse;
@@ -566,10 +570,60 @@ body {
 
 @media screen and (max-width: 550px) {
   .carritoProductos {
-    width: 400px;
+    width: 350px;
     height: 100%;
   }
   .cantidad {
     display: none;
+  }
+
+  .caracteristicas {
+    width: 300px;
+    display: flex;
+    padding: 15px;
+    padding-top: 3px;
+    flex-wrap: wrap;
+  }
+  
+  .caracteristicas h2 {
+    font-size: 16px;
+  }
+  
+  .boxCaracteristicas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .boxCaracteristicas li {
+    margin: 2px 6px;
+  }
+
+  .btnsCartMobile {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .productoItem .nombreCart {
+    margin-right: 0;
+    font-size: 24px;
+    font-weight: 500;
+    width: 350px;
+  }
+
+  .datosUser h2 {
+    font-size: 20px;
+    margin-right: 0;
+  }
+
+  .inpUser label {
+    font-size: 10px;
+  }
+
+  .datosUser {
+    gap: 10px;
+    margin-bottom: 20px;
   }
 }

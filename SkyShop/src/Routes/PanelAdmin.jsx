@@ -4,8 +4,10 @@ import Paquetes from '../Components/Paquetes';
 import { UsersList } from '../Components/UsersList';
 import { BotonContext } from '../Context/Context';
 
+const initialOptionStorage = JSON.parse(localStorage.getItem("adminOptionPanel")) || "Usuarios";
+
 export const PanelAdmin = () => {
-    const [selectedOption, setSelectedOption] = useState("Usuarios");
+    const [selectedOption, setSelectedOption] = useState(initialOptionStorage);
     const [isMobile, setIsMobile] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const {loggedUser} = useContext(BotonContext);
@@ -57,6 +59,7 @@ export const PanelAdmin = () => {
         if (isMobile) {
             setShowPopup(true); 
         } else {
+            localStorage.setItem("adminOptionPanel", JSON.stringify(option));
             setSelectedOption(option); 
         }
     };

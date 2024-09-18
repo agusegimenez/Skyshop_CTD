@@ -4,9 +4,11 @@ import customCss from './WhatsAppBoton.module.css';
 
 const WhatsAppBoton = () => {
     const whatsappNumber = '5492284553077';
+    const message = "¡Hola SkyShop!"
 
     const handleClick = () => {
-        const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
         window.open(whatsappUrl, '_blank');
       };
     
