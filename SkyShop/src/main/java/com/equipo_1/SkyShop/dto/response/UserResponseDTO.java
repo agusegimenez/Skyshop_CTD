@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,6 +18,7 @@ public class UserResponseDTO {
     private UserRole role;
     private String username;
     private String email;
+    private Set<Long> favorites;
     private String createdAt;
     private String updatedAt;
 }

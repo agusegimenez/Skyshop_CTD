@@ -30,13 +30,14 @@ public class User {
     private LocalDateTime updatedAt;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Order> orders;
-
-
+    @ElementCollection
+    @CollectionTable(name = "user_favorite_items", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "item_id")
+    private Set<Long> favorites;
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
-
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();

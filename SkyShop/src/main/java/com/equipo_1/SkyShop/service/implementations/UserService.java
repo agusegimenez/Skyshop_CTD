@@ -19,12 +19,14 @@ public class UserService implements IUserService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final CartService cartService;  // Añadimos el CartService
+    private final ItemService itemService;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService, CartService cartService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService, CartService cartService, ItemService itemService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
         this.cartService = cartService;  // Inicializamos el CartService
+        this.itemService = itemService;
     }
 
     @Override
@@ -83,6 +85,22 @@ public class UserService implements IUserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public boolean toggleFav(Long userId, Long itemId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (user.getFavorites().contains(itemId)) {
+                user.getFavorites().remove(itemId);
+            } else {
+                user.getFavorites().add(itemId);
+            }
+            userRepository.save(user);
+            return true;
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
     }
 }
 

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,8 +34,9 @@ public class UserController {
                 userRequestDTO.getEmail(),
                 userRequestDTO.getPassword(),
                 LocalDateTime.now(),
-                null,
-                null
+                LocalDateTime.now(),
+                new HashSet<>(),
+                new HashSet<>()
         );
         user = userService.registerUser(user);
         return ResponseEntity.ok(new UserResponseDTO(
@@ -42,6 +44,7 @@ public class UserController {
                 user.getRole(),
                 user.getUsername(),
                 user.getEmail(),
+                user.getFavorites(),
                 user.getCreatedAt().toString(),
                 user.getUpdatedAt() != null ? user.getUpdatedAt().toString() : null
         ));
@@ -55,6 +58,7 @@ public class UserController {
                 user.getRole(),
                 user.getUsername(),
                 user.getEmail(),
+                user.getFavorites(),
                 user.getCreatedAt().toString(),
                 user.getUpdatedAt() != null ? user.getUpdatedAt().toString() : null
         ));
@@ -68,6 +72,7 @@ public class UserController {
                 updatedUser.getRole(),
                 updatedUser.getUsername(),
                 updatedUser.getEmail(),
+                updatedUser.getFavorites(),
                 updatedUser.getCreatedAt().toString(),
                 updatedUser.getUpdatedAt() != null ? updatedUser.getUpdatedAt().toString() : null
         ));
@@ -82,6 +87,7 @@ public class UserController {
                         user.getRole(),
                         user.getUsername(),
                         user.getEmail(),
+                        user.getFavorites(),
                         user.getCreatedAt().toString(),
                         user.getUpdatedAt() != null ? user.getUpdatedAt().toString() : null
                 ))
@@ -93,5 +99,10 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{userId}/toggleFav/{itemId}")
+    public ResponseEntity<Boolean> toggleFav(@PathVariable Long userId, @PathVariable Long itemId) {
+        return ResponseEntity.ok(userService.toggleFav(userId, itemId));
     }
 }
