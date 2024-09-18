@@ -17,12 +17,14 @@ public class UserService implements IUserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final EmailService emailService;  // Añadimos el EmailService
+    private final EmailService emailService;
+    private final CartService cartService;  // Añadimos el CartService
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService, CartService cartService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
+        this.cartService = cartService;  // Inicializamos el CartService
     }
 
     @Override
@@ -34,12 +36,15 @@ public class UserService implements IUserService {
         }
         User savedUser = userRepository.save(user);
 
+        // Crear carrito vacío para el usuario
+        cartService.createCart(savedUser.getId());
+
         // Enviar email al usuario registrado
         String subject = "Bienvenido a SkyShop!";
         String body = "Hola " + savedUser.getUsername() + ",\n\nGracias por registrarte en SkyShop.\nTus credenciales son:\nEmail: " + savedUser.getEmail() + "\n\nEsperamos que pronto puedas hacer tu pedido!";
 
         EmailRequest emailRequest = new EmailRequest(savedUser.getEmail(), subject, body);
-        emailService.sendEmail(emailRequest);  // Enviar email
+        emailService.sendEmail(emailRequest);
 
         return savedUser;
     }
