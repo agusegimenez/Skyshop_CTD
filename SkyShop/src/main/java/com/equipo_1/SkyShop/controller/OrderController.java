@@ -24,7 +24,10 @@ public class OrderController {
     @PostMapping("/create")
     public ResponseEntity<?> createOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
         try {
-            OrderResponseDTO orderResponseDTO = orderService.createOrder(orderRequestDTO);
+            // Extraer el cartId del OrderRequestDTO si es necesario
+            Long cartId = orderRequestDTO.getCartId(); // Supongo que vas a agregar el cartId al DTO
+
+            OrderResponseDTO orderResponseDTO = orderService.createOrder(cartId);
             return new ResponseEntity<>(orderResponseDTO, HttpStatus.CREATED);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -14,7 +15,7 @@ import java.util.List;
 public class OrderResponseDTO {
     private Long id;
     private Long clientId;
-    private List<OrderItemResponseDTO> items; // Lista de items
+    private Map<Long, Integer> items; // Lista de items
     private String orderedAt;
     private String status;
 }

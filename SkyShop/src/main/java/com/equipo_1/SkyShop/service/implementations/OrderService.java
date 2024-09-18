@@ -4,9 +4,13 @@ import com.equipo_1.SkyShop.dto.request.BlockDateRequestDTO;
 import com.equipo_1.SkyShop.dto.request.OrderItemRequestDTO;
 import com.equipo_1.SkyShop.dto.request.OrderRequestDTO;
 import com.equipo_1.SkyShop.dto.response.OrderResponseDTO;
+import com.equipo_1.SkyShop.entity.Cart;
 import com.equipo_1.SkyShop.entity.Order;
+import com.equipo_1.SkyShop.entity.OrderItem;
 import com.equipo_1.SkyShop.entity.User;
 import com.equipo_1.SkyShop.entity.enums.OrderStatus;
+import com.equipo_1.SkyShop.repository.CartRepository;
+import com.equipo_1.SkyShop.repository.OrderItemRepository;
 import com.equipo_1.SkyShop.repository.OrderRepository;
 import com.equipo_1.SkyShop.repository.UserRepository;
 import com.equipo_1.SkyShop.service.implementations.CalendarService;
@@ -33,37 +37,42 @@ public class OrderService {
     @Autowired
     private OrderItemService orderItemService;
 
-    public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO) {
-        User user = userRepository.findById(orderRequestDTO.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    @Autowired
+    private CartService cartService; // Asumiendo que ya tienes un servicio para manejar el carrito
 
-        // Validar que la fecha no esté bloqueada
-        boolean isBlocked = calendarService.isDateBlocked(orderRequestDTO.getStartTime(), orderRequestDTO.getEndTime());
-        if (isBlocked) {
-            throw new IllegalStateException("The selected date and time are not available.");
-        }
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
-        // Crear la orden
+    @Autowired
+    private CartRepository cartRepository;
+
+    public OrderResponseDTO createOrder(Long cartId) {
+        // Buscar el carrito
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
+
+        // Crear una nueva orden
         Order order = new Order();
-        order.setUser(user);
+        order.setUser(cart.getUser());
         order.setOrderedAt(LocalDateTime.now());
-        order.setStartTime(orderRequestDTO.getStartTime());
-        order.setEndTime(orderRequestDTO.getEndTime());
-        order.setStatus(OrderStatus.PENDING);
 
+        // Guardar la orden en la base de datos
         Order savedOrder = orderRepository.save(order);
 
-        // Crear OrderItems
-        for (OrderItemRequestDTO orderItemRequestDTO : orderRequestDTO.getItems()) {
-            orderItemService.createOrderItem(orderItemRequestDTO, savedOrder.getId());
-        }
+        // Crear un nuevo OrderItem basado en el contenido del carrito
+        OrderItem orderItem = new OrderItem();
+        orderItem.setOrder(savedOrder);
+        orderItem.setItem(cart.getItem());
+        orderItem.setQuantity(cart.getQuantity());
+        orderItem.setPrice(cart.getItem().getPrice() * cart.getQuantity());
 
-        // Bloquear el rango de fechas en el calendario
-        BlockDateRequestDTO blockDateRequestDTO = new BlockDateRequestDTO(
-                orderRequestDTO.getStartTime().minusHours(1),
-                orderRequestDTO.getEndTime().plusHours(1)
-        );
-        calendarService.blockDate(blockDateRequestDTO);
+        // Guardar el OrderItem en la base de datos
+        orderItemRepository.save(orderItem);
+
+        // Limpiar el carrito después de generar la orden
+        cart.setItem(null);
+        cart.setQuantity(0);
+        cartRepository.save(cart);
 
         return mapToOrderResponseDTO(savedOrder);
     }

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -14,7 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderRequestDTO {
     private Long userId;
-    private List<OrderItemRequestDTO> items; // Lista de items dentro de la orden
+    private Long cartId; // Añadido para mantener el ID del carrito
+    private Map<Long, Integer> items; // Lista de items dentro de la orden
     private LocalDateTime startTime; // Fecha y hora de inicio de la reserva
     private LocalDateTime endTime;   // Fecha y hora de fin de la reserva
 }
