@@ -1,54 +1,54 @@
 import React, { useContext } from 'react';
-import customCss from './UserProfile.module.css';
+import customCsss from './UserProfile.module.css';
 import { BotonContext } from '../Context/Context';
 
 const UserProfile = () => {
   const {loggedUser} = useContext(BotonContext);
 
   return (
-    <table className={customCss.table}>
+    <table className={customCsss.table}>
       <thead>
         <tr>
-          <th colSpan="2" className={customCss.header}>Datos del Usuario</th>
+          <th colSpan="2" className={customCsss.header}>Datos del Usuario</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className={customCsss.tbodyGral}>
         <tr>
-          <td className={customCss.label}>Nombre:</td>
+          <td className={customCsss.label}>Nombre:</td>
           <td>
-            <div className={customCss.inputContainer}>
+            <div className={customCsss.inputContainer}>
               <input
                 type="text"
                 value={loggedUser.username}
                 placeholder="Introduce tu nombre"
-                className={customCss.input}
+                className={customCsss.input}
               />
-              <img src="/iEdit.png" alt="iconoEditar" className={customCss.icon} />
+              <img src="/iEdit.png" alt="iconoEditar" className={customCsss.icon} />
             </div>
           </td>
         </tr>
         <tr>
-          <td className={customCss.label}>Email:</td>
+          <td className={customCsss.label}>Email:</td>
           <td>
-            <div className={customCss.inputContainer}>
+            <div className={customCsss.inputContainer}>
               <input
                 type="email"
                 value={loggedUser.email}
                 placeholder="Introduce tu email"
-                className={customCss.input}
+                className={customCsss.input}
               />
             </div>
           </td>
         </tr>
         <tr>
-          <td className={customCss.label}>Dirección:</td>
+          <td className={customCsss.label}>Dirección:</td>
           <td>
-            <div className={customCss.inputContainer}>
+            <div className={customCsss.inputContainer}>
               <input
                 type="text"
                 value={loggedUser.direccion}
                 placeholder="Introduce tu dirección"
-                className={customCss.input}
+                className={customCsss.input}
               />
             </div>
           </td>

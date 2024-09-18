@@ -1,23 +1,35 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BotonContext } from '../Context/Context';
 import customCss from "./PanelFavoritos.module.css";
 import Favoritos from '../Components/Favoritos';
 import Historial from '../Components/Historial';
 import UserProfile from '../Components/UserProfile';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+const initialUserOptionStorage = JSON.parse(localStorage.getItem("userOptionPanel")) || "Usuario";
 
 const PanelFavoritos = () => {
   const { loggedUser, favoritos } = useContext(BotonContext);
-  const [selectedOption, setSelectedOption] = useState("Favoritos");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [selectedOption, setSelectedOption] = useState(location.state?.option || initialUserOptionStorage);
 
   if (loggedUser === null) {
     return (
       <div className={customCss.ifNotAdminDiv}>
-        <h3>Usted ni siquiera está logueado como usuario. ¡Fuera!</h3>
+        <h3>Usted ni siquiera está logueado. ¡Fuera!</h3>
       </div>
     );
   }
 
+  useEffect(() => {
+    if (location.state?.selectedOption) {
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
+
   const handleButtonClick = (option) => {
+    localStorage.setItem("userOptionPanel", JSON.stringify(option));
     setSelectedOption(option); // Actualiza el estado con la opción seleccionada
   };
 

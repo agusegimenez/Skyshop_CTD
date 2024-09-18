@@ -39,3 +39,18 @@
   cursor: pointer;
   margin: 5px 40px;
 }
+
+@media screen and (max-width: 555px) {
+  .label {
+    font-size: 15px;
+  }
+
+  .input {
+    width: 59%;
+  }
+
+  .icon {
+    width: 15px;
+    height: 15px;
+  }
+}
