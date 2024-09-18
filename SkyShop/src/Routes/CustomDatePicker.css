@@ -63,3 +63,70 @@
   cursor: not-allowed !important; /* Cursor prohibido */
   /* Fondo para los días deshabilitados */
 }
+
+@media screen and (max-width: 1440px) {
+  .react-datepicker {
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .react-datepicker {
+    font-size: 1.1em;
+  }
+
+  .react-datepicker__header {
+    padding-top: 15px;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 1.3em;
+  }
+
+  .react-datepicker__day-name,
+  .react-datepicker__day,
+  .react-datepicker__time-name {
+    font-size: 1em; /* Aumenta el tamaño de los días */
+    padding: 10px; /* Añade padding a cada día para hacerlo más grande */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .react-datepicker {
+    font-size: 0.9em;
+  }
+
+  .react-datepicker__header {
+    padding-top: 12px;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 1.3em;
+  }
+
+  .react-datepicker__day-name,
+  .react-datepicker__day,
+  .react-datepicker__time-name {
+    font-size: 1em; /* Aumenta el tamaño de los días */
+    padding: 8px; /* Añade padding a cada día para hacerlo más grande */
+  }
+}
+
+@media screen and (max-width: 635px) {
+  .react-datepicker {
+    margin-top: 80px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .react-datepicker {
+    margin-top: 0px;
+  }
+
+  .react-datepicker__day-name,
+  .react-datepicker__day,
+  .react-datepicker__time-name {
+    font-size: 1em; /* Aumenta el tamaño de los días */
+    padding: 5px; /* Añade padding a cada día para hacerlo más grande */
+  }
+}

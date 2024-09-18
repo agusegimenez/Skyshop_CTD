@@ -20,7 +20,7 @@ export const BotonProvider = ({ children }) => {
     const [prods, setProds] = useState([]);
     const [favoritos, setFavoritos] = useState(favsInStorage);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
-    const token = "9661e259-50ad-47a5-8343-ac6b16d9ed6b"; // token que hay que actualizar cada vez que se levanta el back end
+    const token = "29c4fc7d-660d-4892-b1d2-6b66a7e4af45"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
     const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date(fechaSeleccionadaFromStorage)); // Nueva fecha seleccionada
     const [horaSeleccionada, setHoraSeleccionada] = useState(horaSeleccionadaFromStorage);
