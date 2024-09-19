@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 public class OrderResponseDTO {
     private Long id;
     private Long clientId;
-    private Map<Long, Integer> items; // Lista de items
-    private String orderedAt;
+    private List<OrderItemResponseDTO> items;  // Lista de ítems en la orden
+    private LocalDateTime orderedAt;
     private String status;
 }

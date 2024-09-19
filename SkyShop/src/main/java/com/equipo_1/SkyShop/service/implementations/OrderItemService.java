@@ -27,27 +27,26 @@ public class OrderItemService {
     private ItemRepository itemRepository;
 
     public OrderItemResponseDTO createOrderItem(OrderItemRequestDTO orderItemRequestDTO, Long orderId) {
-        // Validar que la cantidad sea mayor a 0
         if (orderItemRequestDTO.getQuantity() <= 0) {
-            throw new IllegalArgumentException("Quantity must be greater than 0");
+            throw new IllegalArgumentException("La cantidad debe ser mayor a 0");
         }
 
-        // Crear un nuevo OrderItem
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Orden no encontrada"));
+
+        if (!order.getItems().isEmpty()) {
+            throw new IllegalArgumentException("La orden ya tiene un ítem asociado.");
+        }
+
+        // Crear el nuevo OrderItem y asignarlo a la orden
         OrderItem orderItem = new OrderItem();
-
-        if (orderId != null) {
-            Order order = orderRepository.findById(orderId)
-                    .orElseThrow(() -> new RuntimeException("Order not found"));
-
-            // Asegurarse de que la orden puede tener múltiples ítems
-            orderItem.setOrder(order);
-        }
-
         Item item = itemRepository.findById(orderItemRequestDTO.getItemId())
-                .orElseThrow(() -> new RuntimeException("Item not found"));
+                .orElseThrow(() -> new RuntimeException("Item no encontrado"));
+
+        orderItem.setOrder(order);
         orderItem.setItem(item);
         orderItem.setQuantity(orderItemRequestDTO.getQuantity());
-        orderItem.setPrice(item.getPrice()); // Establecer el precio en el OrderItem
+        orderItem.setPrice(item.getPrice());  // Establecer el precio en el OrderItem
 
         // Guardar el OrderItem
         OrderItem savedOrderItem = orderItemRepository.save(orderItem);
@@ -67,7 +66,7 @@ public class OrderItemService {
         orderItemResponseDTO.setItemId(orderItem.getItem().getId());
         orderItemResponseDTO.setItemName(orderItem.getItem().getName());
         orderItemResponseDTO.setQuantity(orderItem.getQuantity());
-        orderItemResponseDTO.setPrice(orderItem.getPrice()); // Establecer el precio en la respuesta
+        orderItemResponseDTO.setPrice(orderItem.getPrice());
 
         return orderItemResponseDTO;
     }

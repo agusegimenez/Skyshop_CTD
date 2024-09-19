@@ -1,25 +1,19 @@
 package com.equipo_1.SkyShop.service.implementations;
-
 import com.equipo_1.SkyShop.dto.request.BlockDateRequestDTO;
-import com.equipo_1.SkyShop.dto.request.OrderItemRequestDTO;
 import com.equipo_1.SkyShop.dto.request.OrderRequestDTO;
+import com.equipo_1.SkyShop.dto.response.OrderItemResponseDTO;
 import com.equipo_1.SkyShop.dto.response.OrderResponseDTO;
-import com.equipo_1.SkyShop.entity.Cart;
-import com.equipo_1.SkyShop.entity.Order;
-import com.equipo_1.SkyShop.entity.OrderItem;
-import com.equipo_1.SkyShop.entity.User;
+import com.equipo_1.SkyShop.entity.*;
 import com.equipo_1.SkyShop.entity.enums.OrderStatus;
 import com.equipo_1.SkyShop.repository.CartRepository;
 import com.equipo_1.SkyShop.repository.OrderItemRepository;
 import com.equipo_1.SkyShop.repository.OrderRepository;
 import com.equipo_1.SkyShop.repository.UserRepository;
-import com.equipo_1.SkyShop.service.implementations.CalendarService;
-import com.equipo_1.SkyShop.service.implementations.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,7 +32,7 @@ public class OrderService {
     private OrderItemService orderItemService;
 
     @Autowired
-    private CartService cartService; // Asumiendo que ya tienes un servicio para manejar el carrito
+    private CartService cartService; // Servicio del carrito
 
     @Autowired
     private OrderItemRepository orderItemRepository;
@@ -47,49 +41,76 @@ public class OrderService {
     private CartRepository cartRepository;
 
     public OrderResponseDTO createOrder(Long cartId) {
-        // Buscar el carrito
+        // Encontrar el carrito por su ID
         Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new RuntimeException("Cart not found"));
+                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
 
-        // Crear una nueva orden
+        // Obtener el usuario del carrito
+        User user = cart.getUser();
+
+        // Crear una nueva orden y asignar el usuario
         Order order = new Order();
-        order.setUser(cart.getUser());
+        order.setUser(user);
         order.setOrderedAt(LocalDateTime.now());
 
-        // Guardar la orden en la base de datos
+        // Obtener el ítem del carrito
+        Item item = cart.getItem();
+        if (item == null) {
+            throw new RuntimeException("El carrito está vacío");
+        }
+
+        // Crear el OrderItem
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrder(order);
+        orderItem.setQuantity(cart.getQuantity());
+        orderItem.setPrice(item.getPrice());  // Añadir el precio del ítem
+        order.getItems().add(orderItem);
+
+        // Guardar la orden
         Order savedOrder = orderRepository.save(order);
 
-        // Crear un nuevo OrderItem basado en el contenido del carrito
-        OrderItem orderItem = new OrderItem();
-        orderItem.setOrder(savedOrder);
-        orderItem.setItem(cart.getItem());
-        orderItem.setQuantity(cart.getQuantity());
-        orderItem.setPrice(cart.getItem().getPrice() * cart.getQuantity());
-
-        // Guardar el OrderItem en la base de datos
-        orderItemRepository.save(orderItem);
-
-        // Limpiar el carrito después de generar la orden
+        // Limpiar o eliminar el carrito
         cart.setItem(null);
         cart.setQuantity(0);
         cartRepository.save(cart);
 
-        return mapToOrderResponseDTO(savedOrder);
+        // Retornar la respuesta de la orden creada
+        return new OrderResponseDTO(
+                savedOrder.getId(),
+                user.getId(),
+                savedOrder.getItems().stream().map(orderItemSaved -> new OrderItemResponseDTO(
+                        orderItemSaved.getItem().getId(),
+                        orderItemSaved.getItem().getName(),
+                        orderItemSaved.getQuantity(),
+                        orderItemSaved.getPrice()
+                )).collect(Collectors.toList()),
+                savedOrder.getOrderedAt(),
+                savedOrder.getStatus().name()
+        );
     }
 
     public OrderResponseDTO getOrderById(Long orderId) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
+                .orElseThrow(() -> new RuntimeException("Orden no encontrada"));
         return mapToOrderResponseDTO(order);
     }
 
-    public OrderResponseDTO mapToOrderResponseDTO(Order savedOrder) {
+    public OrderResponseDTO mapToOrderResponseDTO(Order order) {
         OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
-        orderResponseDTO.setId(savedOrder.getId());
-        orderResponseDTO.setClientId(savedOrder.getUser().getId());
-        orderResponseDTO.setItems(orderItemService.getOrderItemsByOrderId(savedOrder.getId()));
-        orderResponseDTO.setOrderedAt(savedOrder.getOrderedAt().toString());
-        orderResponseDTO.setStatus(savedOrder.getStatus().name());
+        orderResponseDTO.setId(order.getId());
+        orderResponseDTO.setClientId(order.getUser().getId());
+
+        orderResponseDTO.setItems(order.getItems().stream()
+                .map(orderItem -> new OrderItemResponseDTO(
+                        orderItem.getItem().getId(),
+                        orderItem.getItem().getName(),
+                        orderItem.getQuantity(),
+                        orderItem.getPrice()
+                ))
+                .collect(Collectors.toList()));
+        orderResponseDTO.setOrderedAt(order.getOrderedAt());
+        orderResponseDTO.setStatus(order.getStatus().name());
 
         return orderResponseDTO;
     }
@@ -103,7 +124,7 @@ public class OrderService {
 
     public OrderResponseDTO updateOrder(Long orderId, OrderRequestDTO orderRequestDTO) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
+                .orElseThrow(() -> new RuntimeException("Orden no encontrada"));
 
         // Actualizar detalles de la orden
         order.setStartTime(orderRequestDTO.getStartTime());
@@ -113,17 +134,7 @@ public class OrderService {
         // Guardar la orden actualizada
         Order updatedOrder = orderRepository.save(order);
 
-        // Actualizar los OrderItems si es necesario
-        // Puedes añadir lógica para actualizar los ítems aquí
-
         return mapToOrderResponseDTO(updatedOrder);
-    }
-
-    public List<OrderResponseDTO> getOrdersByStatus(OrderStatus status) {
-        List<Order> orders = orderRepository.findByStatus(status);
-        return orders.stream()
-                .map(this::mapToOrderResponseDTO)
-                .collect(Collectors.toList());
     }
 
     public List<OrderResponseDTO> getAllOrders() {
@@ -135,7 +146,7 @@ public class OrderService {
 
     public void deleteOrder(Long orderId) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
+                .orElseThrow(() -> new RuntimeException("Orden no encontrada"));
 
         // Solo desbloquear si la orden fue confirmada
         if (order.getStatus() == OrderStatus.CONFIRMED) {

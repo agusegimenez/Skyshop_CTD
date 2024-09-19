@@ -16,7 +16,6 @@ import java.util.Map;
 public class OrderRequestDTO {
     private Long userId;
     private Long cartId; // Añadido para mantener el ID del carrito
-    private Map<Long, Integer> items; // Lista de items dentro de la orden
     private LocalDateTime startTime; // Fecha y hora de inicio de la reserva
     private LocalDateTime endTime;   // Fecha y hora de fin de la reserva
 }

@@ -17,8 +17,8 @@ public class DataInitializer {
     @Bean
     public CommandLineRunner loadData(ItemRepository itemRepository) {
         return args -> {
-
             /*
+
             itemRepository.save(new Item(
                     null,
                     "Paquete Medicamentos",
@@ -131,6 +131,8 @@ public class DataInitializer {
             ));
 */
         };
+
     }
+
 }
 
