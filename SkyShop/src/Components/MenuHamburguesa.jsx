@@ -20,7 +20,7 @@ const MenuHamburguesa = () => {
         <ul>
           <li><a href="#">Ofertas</a></li>
           <li><a href="#">Productos</a></li>
-          {loggedUser && <li><a href="/carrito">Carrito</a></li>}
+          {loggedUser && <li><a href="/carrito">Reservas</a></li>}
         </ul>
       </nav>
     </div>

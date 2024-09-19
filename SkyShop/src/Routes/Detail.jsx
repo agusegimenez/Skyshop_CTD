@@ -87,11 +87,11 @@ const Detail = () => {
   }, [id]);
 
   useEffect(() => {
-    if (producto) {
-      const isInFavoritos = favoritos.some(fav => fav.id === producto.id);
+    if (producto && loggedUser != null) {
+      const isInFavoritos = loggedUser.favorites.some(favId => favId === producto.id);
       setIsFavorito(isInFavoritos);
     }
-  }, [favoritos, producto]);
+  }, [loggedUser, producto]);
 
   const handleMainImg = (newMainImg) => {
     if (newMainImg !== mainImg) setMainImg(newMainImg);

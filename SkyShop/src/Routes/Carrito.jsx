@@ -132,6 +132,14 @@ const Carrito = () => {
     return null; 
   }
 
+  if(products.length == 0){
+    return <>
+      <div style={{height: "80vh", display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center"}}>
+        <h3 className={customCss.carritoTittle}>Aún no hay ninguna Reserva en curso</h3>
+      </div>
+    </>
+  }
+
   return (
     <>
       <h3 className={customCss.carritoTittle}>Reservas</h3>

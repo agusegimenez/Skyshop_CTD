@@ -5,10 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
+import { is } from "date-fns/locale";
 
 export const Card = ({ producto }) => {
   const { images, name, price, id } = producto;
-  const { toggleFavorito, favoritos, loggedUser} = useContext(BotonContext);
+  const { toggleFavorito, loggedUser} = useContext(BotonContext);
   const [isFavorito, setIsFavorito] = useState(false);
   const navigate = useNavigate();
 
@@ -22,9 +23,16 @@ export const Card = ({ producto }) => {
   };
 
   useEffect(() => {
-    const isInFavoritos = favoritos.some(fav => fav.id === id);
-    setIsFavorito(isInFavoritos);
-  }, [favoritos, id]);
+    let isInFavoritos
+    if(loggedUser !== null){
+      isInFavoritos = loggedUser.favorites.some(favId => favId === id);
+    }
+    if(isInFavoritos !== true){
+      setIsFavorito(false);
+    }else{
+      setIsFavorito(true);
+    }
+  }, [loggedUser, id]);
 
   return (
     <article className={customCss.card} key={id} onClick={handleClick}>

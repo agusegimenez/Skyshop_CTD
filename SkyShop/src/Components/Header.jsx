@@ -51,11 +51,11 @@ const Header = () => {
           <ul>
             <li><a href="#">Ofertas</a></li>
             <li><a href="#">Productos</a></li>
-            {loggedUser && <li><a href="/carrito">Carrito</a></li>}
+            {loggedUser && <li><a href="/carrito">Reservas</a></li>}
           </ul>
         </nav>
         {loggedUser !== null && <div className={customCss.loguedIcon} onClick={toggleLog}>
-       <a href="#"><UserIcon username={loggedUser.username}/></a>
+       <a style={{ cursor: "pointer"}}><UserIcon username={loggedUser.username}/></a>
       </div>}
       {loggedUser && menuLog && (
   <>
@@ -66,8 +66,8 @@ const Header = () => {
       </div>
     ) : (
       <div className={customCss.dropdownMenu}>
-        <a href="/panel" className={customCss.logMenu}>Usuario</a>
-        <a href="/carrito" className={customCss.logMenu}>Carrito</a>
+        <a onClick={() => navigate("/panel", { state: { option: 'Usuario' } })} className={customCss.logMenu}>Usuario</a>
+        <a onClick={() => navigate("/carrito")} className={customCss.logMenu}>Reservas</a>
         <a onClick={() => navigate("/panel", { state: { option: 'Favoritos' } })} className={customCss.logMenu}>Favoritos</a>
         <button className={customCss.logBtn} onClick={cerrarSesion}>Cerrar Sesión</button>
       </div>

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 export const BotonContext = createContext();
 
 const ifUserInStorage = JSON.parse(localStorage.getItem("loggedUser"));
-const favsInStorage = JSON.parse(localStorage.getItem("userFavs")) || [];
+// const favsInStorage = JSON.parse(localStorage.getItem("userFavs")) || [];
 const carritoFromStorage = JSON.parse(localStorage.getItem("carrito")) || [];
 const fechaSeleccionadaFromStorage = JSON.parse(localStorage.getItem("fecha")) || new Date();
 const horaSeleccionadaFromStorage = JSON.parse(localStorage.getItem("hora")) || "";
@@ -18,9 +18,9 @@ export const BotonProvider = ({ children }) => {
     const [loggedUser, setLoggedUser] = useState(loggingInitialState); //estado de usuario logueado
     const [users, setUsers] = useState([]);
     const [prods, setProds] = useState([]);
-    const [favoritos, setFavoritos] = useState(favsInStorage);
+    // const [favoritos, setFavoritos] = useState(favsInStorage);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
-    const token = "c19c7400-8211-423a-ba55-717c89ed4433"; // token que hay que actualizar cada vez que se levanta el back end
+    const token = "989731c3-bed5-4cba-8af7-82f06be03e81"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
     const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date(fechaSeleccionadaFromStorage)); // Nueva fecha seleccionada
     const [horaSeleccionada, setHoraSeleccionada] = useState(horaSeleccionadaFromStorage);
@@ -139,6 +139,36 @@ export const BotonProvider = ({ children }) => {
       }
     }
 
+    const fetchToggleUserFav = async (userId, itemId) => {
+
+      const settings = {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        credentials: 'include',
+      }
+
+      try{
+        const response = await fetch(`${url}/users/${userId}/toggleFav/${itemId}`, settings);
+
+        if(!response.ok){
+          throw new Error('Error al hacer peticion de update/patch toggle del fav del user');
+          return;
+        }
+        const updatedUser = {
+          ...loggedUser,
+          favorites: [...prev, itemId],
+        }
+        setLoggedUser(updatedUser);
+        localStorage.setItem("loggedUser", JSON.stringify(updatedUser));
+
+      }catch(err){
+        console.error('Error en la petición patch de update/patch toggle del fav del user:', err);
+      }
+    }
+
     const fetchUsers = async () => {
         try {
             const response = await fetch('http://localhost:8080/api/users', {
@@ -187,19 +217,6 @@ export const BotonProvider = ({ children }) => {
         //getProds();
         //fetchUsers();
       }, [showButtons])
-
-      useEffect(() => {
-        if (loggedUser === null) {
-          // si no hay usuario logueado, vacía el localStorage de favoritos
-          // implementar dinamicamente con el back end: cuando se loguea un usuario setear sus favoritos
-          localStorage.removeItem("userFavs");
-          setFavoritos([]);
-        }
-        if(loggedUser !== null){
-          // aca se deberia hacer una llamada al back que traiga
-          // los favoritos segun el Usuario para setearlos en localStorage
-        }
-      }, [loggedUser]);
 
     const cerrarSesion = () => {
         setLoggedUser(null);
@@ -257,18 +274,35 @@ export const BotonProvider = ({ children }) => {
 
 
   // Función para alternar el estado de favorito
-  const toggleFavorito = (producto) => {
-    let updatedFavoritos;
-    if (favoritos.some(fav => fav.id === producto.id)) {
-      updatedFavoritos = favoritos.filter(fav => fav.id !== producto.id);
-    } else {
-      updatedFavoritos = [...favoritos, producto];
+  const toggleFavorito = async (producto) => {
+    try {
+      await fetchToggleUserFav(loggedUser.id, producto.id);
+      let updatedFavoritos;
+
+      if (loggedUser.favorites.some(favId => favId === producto.id)) {
+        updatedFavoritos = loggedUser.favorites.filter(favId => favId !== producto.id);
+      } else {
+        updatedFavoritos = [...loggedUser.favorites, producto.id];
+      }
+
+      const updatedUser = {
+        ...loggedUser,
+        favorites: updatedFavoritos
+      };
+      setLoggedUser(updatedUser);
+      localStorage.setItem('loggedUser', JSON.stringify(updatedUser));
+
+    } catch (error) {
+      console.error('Error al alternar favorito:', error);
     }
-    // Actualizar el estado de favoritos
-    setFavoritos(updatedFavoritos);
-    // Actualizar el localStorage
-    localStorage.setItem('userFavs', JSON.stringify(updatedFavoritos));
   };
+
+  useEffect(() => {
+    if (loggedUser === null) {
+      localStorage.removeItem("userFavs");
+    }
+    // Puedes hacer una llamada al backend para obtener los favoritos del usuario al iniciar sesión
+  }, [loggedUser]);
   
 
   // Esto lo reemplace con la inicializacion del estado con el valor del localStorage en la linea 7
@@ -278,7 +312,7 @@ export const BotonProvider = ({ children }) => {
   }, []); */
 
     return (
-        <BotonContext.Provider value={{ showButtons, setShowButtons, products, setProducts, agregarProductoAlCarrito, finalizarPedido, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers, fetchChangeUserRole, setUsers, token, prods, updateProd, deleteProd, searchProdsByName, toggleFavorito, favoritos, fechaSeleccionada, setFechaSeleccionada, horaSeleccionada, setHoraSeleccionada, getProds}}>
+        <BotonContext.Provider value={{ showButtons, setShowButtons, products, setProducts, agregarProductoAlCarrito, finalizarPedido, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers, fetchChangeUserRole, setUsers, token, prods, updateProd, deleteProd, searchProdsByName, toggleFavorito, fechaSeleccionada, setFechaSeleccionada, horaSeleccionada, setHoraSeleccionada, getProds}}>
             {children}
         </BotonContext.Provider>
     );

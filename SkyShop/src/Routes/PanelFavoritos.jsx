@@ -14,6 +14,25 @@ const PanelFavoritos = () => {
   const location = useLocation();
   const [selectedOption, setSelectedOption] = useState(location.state?.option || initialUserOptionStorage);
 
+  // Mover hooks antes de cualquier retorno condicional
+  useEffect(() => {
+    if (location.state?.selectedOption) {
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
+
+  useEffect(() => {
+    const option = location.state?.option || initialUserOptionStorage;
+    setSelectedOption(option);
+  }, [location]);
+
+  const handleButtonClick = (option) => {
+    localStorage.setItem("userOptionPanel", JSON.stringify(option));
+    setSelectedOption(option);
+    navigate(location.pathname, { replace: true, state: {option} });
+  };
+
+  // Return condicional para mostrar mensaje si no está logueado
   if (loggedUser === null) {
     return (
       <div className={customCss.ifNotAdminDiv}>
@@ -22,17 +41,7 @@ const PanelFavoritos = () => {
     );
   }
 
-  useEffect(() => {
-    if (location.state?.selectedOption) {
-      navigate(location.pathname, { replace: true, state: {} });
-    }
-  }, [location, navigate]);
-
-  const handleButtonClick = (option) => {
-    localStorage.setItem("userOptionPanel", JSON.stringify(option));
-    setSelectedOption(option); // Actualiza el estado con la opción seleccionada
-  };
-
+  // Render normal del componente si está logueado
   return (
     <div className={customCss.divPadre}>
       <div className={customCss.panelUser}>
@@ -81,5 +90,6 @@ const PanelFavoritos = () => {
     </div>
   );
 };
+
 
 export default PanelFavoritos;

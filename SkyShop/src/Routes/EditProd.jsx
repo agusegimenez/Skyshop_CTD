@@ -68,15 +68,8 @@ const EditProd = () => {
     }
 
     const eliminarImagenCloud = (index) => {
-        const nuevasUrls = imagesCloudUrls.filter((_, i) => i !== index);
-        setImagesCloudUrls(nuevasUrls);
-    
-        // Una vez eliminada, recalcula el total de imágenes
-        const totalImages = imgFiles.length + nuevasUrls.length;
-    
-        if (totalImages >= 4) {
-            alert("Puedes subir hasta 4 imágenes en total.");
-        }
+      const nuevasUrls = imagesCloudUrls.filter((_, i) => i !== index);
+      setImagesCloudUrls(nuevasUrls);
     };
 
     const isAdmin = () => {
@@ -145,21 +138,17 @@ const handleButtonClick = (option) => {
 
   const handleImagenSubida = (e) => {
     const files = Array.from(e.target.files);
-
-    // Calcular el total de imágenes después de eliminar
     const totalImages = files.length + imgFiles.length + imagesCloudUrls.length;
-
-    // Si supera las 4 imágenes, muestra la alerta
-    if (totalImages > 4) {
-        alert("Puedes subir hasta 4 imágenes en total.");
-        return;
+ 
+    if(totalImages > 4){
+      alert("Puedes subir hasta 4 imágenes en total.");
+      return;
     }
 
-    // Añadir las nuevas imágenes a los estados correspondientes
     setImgFiles(prevFiles => [...prevFiles, ...files]);
     const nuevasImagenes = files.map(file => URL.createObjectURL(file));
     setImages(prevImages => [...prevImages, ...nuevasImagenes]);
-  };
+ };
 
   const eliminarImagen = (index) => {
     const nuevasImagenes = images.filter((_, i) => i !== index);
@@ -209,51 +198,52 @@ useEffect(() => {
   }
     
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      if(productName.trim() === "") {
-          setError(true);
-      }else {
-          setError(false);
-          let urls = [];
-          // se ejecuta subida de img a Cloudinary si no hay errores y si hay imagenes seleccionadas
-          if(imgFiles.length > 0){
-            urls = await uploadImageToCloudinary(imgFiles);
-            if (urls) {
-              setImagesCloudUrls(urls);
-            } else {
-              console.error("Error uploading image");
-              return;
-            }
-          }
-
-          let handledCategory = "";
-
-          if(selectedCategorie == "Salud/Belleza"){
-            handledCategory = "SALUD_Y_BELLEZA";
-          }else if(selectedCategorie == "Mascotas"){
-            handledCategory = "MASCOTAS";
-          }else if(selectedCategorie == "Oficina"){
-            handledCategory = "OFICINA";
-          }else if(selectedCategorie == "Alimentos"){
-            handledCategory = "ALIMENTOS";
-          };
-
-          const prod = {
-            id: id,
-            name: productName,
-            price: productPrice,
-            description: productDescription,
-            category: handledCategory,
-            images: imagesCloudUrls,
-            characteristics: selectedCharacteristics
-          };
-
-
-          // cambiar esto con POST a API
-          await updateProd(prod);
-          //limpiar los inputs si se guardo bien el producto
-          //resetForm();
+    e.preventDefault();
+    if(productName.trim() === "") {
+        setError(true);
+        return;
+    }
+    const totalImages = imgFiles.length + imagesCloudUrls.length;
+    
+    if(totalImages > 4){
+      alert("Puedes subir hasta 4 imágenes en total.");
+      return;
+    }
+    setError(false);
+    let urls = [];
+    // se ejecuta subida de img a Cloudinary si no hay errores y si hay imagenes seleccionadas
+    if(imgFiles.length > 0){
+      urls = await uploadImageToCloudinary(imgFiles);
+      if (urls) {
+        setImagesCloudUrls(prevUrls => [...prevUrls, ...urls]);
+      } else {
+        console.error("Error uploading image");
+        return;
       }
+    }
+    let handledCategory = "";
+    if(selectedCategorie == "Salud/Belleza"){
+      handledCategory = "SALUD_Y_BELLEZA";
+    }else if(selectedCategorie == "Mascotas"){
+      handledCategory = "MASCOTAS";
+    }else if(selectedCategorie == "Oficina"){
+      handledCategory = "OFICINA";
+    }else if(selectedCategorie == "Alimentos"){
+      handledCategory = "ALIMENTOS";
+    };
+    const prod = {
+      id: id,
+      name: productName,
+      price: productPrice,
+      description: productDescription,
+      category: handledCategory,
+      images: [...imagesCloudUrls, ...urls],
+      characteristics: selectedCharacteristics
+    };
+    // cambiar esto con POST a API
+    await updateProd(prod);
+    //limpiar los inputs si se guardo bien el producto
+    //resetForm();      
   }
 
   if(isAdmin()){
