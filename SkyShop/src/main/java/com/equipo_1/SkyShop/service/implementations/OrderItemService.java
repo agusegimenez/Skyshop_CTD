@@ -27,9 +27,9 @@ public class OrderItemService {
     private ItemRepository itemRepository;
 
     public OrderItemResponseDTO createOrderItem(OrderItemRequestDTO orderItemRequestDTO, Long orderId) {
-        if (orderItemRequestDTO.getQuantity() <= 0) {
-            throw new IllegalArgumentException("La cantidad debe ser mayor a 0");
-        }
+//        if (orderItemRequestDTO.getQuantity() <= 0) {
+//            throw new IllegalArgumentException("La cantidad debe ser mayor a 0");
+//        }
 
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Orden no encontrada"));
@@ -45,8 +45,6 @@ public class OrderItemService {
 
         orderItem.setOrder(order);
         orderItem.setItem(item);
-        orderItem.setQuantity(orderItemRequestDTO.getQuantity());
-        orderItem.setPrice(item.getPrice());  // Establecer el precio en el OrderItem
 
         // Guardar el OrderItem
         OrderItem savedOrderItem = orderItemRepository.save(orderItem);
@@ -65,8 +63,6 @@ public class OrderItemService {
         OrderItemResponseDTO orderItemResponseDTO = new OrderItemResponseDTO();
         orderItemResponseDTO.setItemId(orderItem.getItem().getId());
         orderItemResponseDTO.setItemName(orderItem.getItem().getName());
-        orderItemResponseDTO.setQuantity(orderItem.getQuantity());
-        orderItemResponseDTO.setPrice(orderItem.getPrice());
 
         return orderItemResponseDTO;
     }

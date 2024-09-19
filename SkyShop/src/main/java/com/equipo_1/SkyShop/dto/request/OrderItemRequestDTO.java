@@ -11,6 +11,4 @@ import lombok.Setter;
 @AllArgsConstructor
 public class OrderItemRequestDTO {
     private Long itemId;
-    private int quantity;
-    private double price; // Mantener el precio para ser especificado al crear la orden
 }

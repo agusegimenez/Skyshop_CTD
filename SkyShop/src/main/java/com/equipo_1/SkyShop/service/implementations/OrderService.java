@@ -40,7 +40,7 @@ public class OrderService {
     @Autowired
     private CartRepository cartRepository;
 
-    public OrderResponseDTO createOrder(Long cartId) {
+    public OrderResponseDTO createOrder(Long cartId, LocalDateTime deliveryTime) {
         // Encontrar el carrito por su ID
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
@@ -52,6 +52,12 @@ public class OrderService {
         Order order = new Order();
         order.setUser(user);
         order.setOrderedAt(LocalDateTime.now());
+        order.setStatus(OrderStatus.PENDING);
+        if (deliveryTime.isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("La fecha de entrega no puede ser en el pasado");
+        } else{
+            order.setDeliveryTime(deliveryTime);
+        }
 
         // Obtener el ítem del carrito
         Item item = cart.getItem();
@@ -63,9 +69,8 @@ public class OrderService {
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
         orderItem.setOrder(order);
-        orderItem.setQuantity(cart.getQuantity());
-        orderItem.setPrice(item.getPrice());  // Añadir el precio del ítem
         order.getItems().add(orderItem);
+
 
         // Guardar la orden
         Order savedOrder = orderRepository.save(order);
@@ -81,12 +86,11 @@ public class OrderService {
                 user.getId(),
                 savedOrder.getItems().stream().map(orderItemSaved -> new OrderItemResponseDTO(
                         orderItemSaved.getItem().getId(),
-                        orderItemSaved.getItem().getName(),
-                        orderItemSaved.getQuantity(),
-                        orderItemSaved.getPrice()
+                        orderItemSaved.getItem().getName()
                 )).collect(Collectors.toList()),
                 savedOrder.getOrderedAt(),
-                savedOrder.getStatus().name()
+                savedOrder.getDeliveryTime(),
+                savedOrder.getStatus()
         );
     }
 
@@ -104,13 +108,11 @@ public class OrderService {
         orderResponseDTO.setItems(order.getItems().stream()
                 .map(orderItem -> new OrderItemResponseDTO(
                         orderItem.getItem().getId(),
-                        orderItem.getItem().getName(),
-                        orderItem.getQuantity(),
-                        orderItem.getPrice()
+                        orderItem.getItem().getName()
                 ))
                 .collect(Collectors.toList()));
         orderResponseDTO.setOrderedAt(order.getOrderedAt());
-        orderResponseDTO.setStatus(order.getStatus().name());
+        orderResponseDTO.setStatus(order.getStatus());
 
         return orderResponseDTO;
     }
@@ -127,8 +129,7 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Orden no encontrada"));
 
         // Actualizar detalles de la orden
-        order.setStartTime(orderRequestDTO.getStartTime());
-        order.setEndTime(orderRequestDTO.getEndTime());
+        order.setStartTime(orderRequestDTO.getDeliveryTime());
         order.setStatus(OrderStatus.PENDING); // Actualizar estado si es necesario
 
         // Guardar la orden actualizada
@@ -143,6 +144,17 @@ public class OrderService {
                 .map(this::mapToOrderResponseDTO)
                 .collect(Collectors.toList());
     }
+
+    public List<OrderResponseDTO> getOrdersByStatus(OrderStatus status) {
+        // Buscar las órdenes por estado
+        List<Order> orders = orderRepository.findByStatus(status);
+
+        // Mapear las órdenes a OrderResponseDTO
+        return orders.stream()
+                .map(this::mapToOrderResponseDTO)
+                .collect(Collectors.toList());
+    }
+
 
     public void deleteOrder(Long orderId) {
         Order order = orderRepository.findById(orderId)

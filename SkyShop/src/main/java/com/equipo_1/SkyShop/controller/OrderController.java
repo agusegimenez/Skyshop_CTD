@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -26,8 +27,9 @@ public class OrderController {
         try {
             // Extraer el cartId del OrderRequestDTO si es necesario
             Long cartId = orderRequestDTO.getCartId(); // Supongo que vas a agregar el cartId al DTO
+            LocalDateTime deliveryTime = orderRequestDTO.getDeliveryTime();
 
-            OrderResponseDTO orderResponseDTO = orderService.createOrder(cartId);
+            OrderResponseDTO orderResponseDTO = orderService.createOrder(cartId, deliveryTime);
             return new ResponseEntity<>(orderResponseDTO, HttpStatus.CREATED);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

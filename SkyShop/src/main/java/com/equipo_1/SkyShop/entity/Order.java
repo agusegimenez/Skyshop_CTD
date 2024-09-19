@@ -35,6 +35,9 @@ public class Order {
     @Column(name = "end_time")
     private LocalDateTime endTime;
 
+    @Column(name = "delivery_time")
+    private LocalDateTime deliveryTime;
+
     @Column(name = "ordered_at")
     private LocalDateTime orderedAt;
 

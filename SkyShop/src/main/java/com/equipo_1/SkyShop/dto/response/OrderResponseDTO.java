@@ -1,5 +1,6 @@
 package com.equipo_1.SkyShop.dto.response;
 
+import com.equipo_1.SkyShop.entity.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,6 @@ public class OrderResponseDTO {
     private Long clientId;
     private List<OrderItemResponseDTO> items;  // Lista de ítems en la orden
     private LocalDateTime orderedAt;
-    private String status;
+    private LocalDateTime deliveryTime;
+    private OrderStatus status;
 }

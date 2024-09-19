@@ -17,7 +17,7 @@ public class DataInitializer {
     @Bean
     public CommandLineRunner loadData(ItemRepository itemRepository) {
         return args -> {
-            /*
+
 
             itemRepository.save(new Item(
                     null,
@@ -129,7 +129,6 @@ public class DataInitializer {
                     new ArrayList<>(Arrays.asList("https://raw.githubusercontent.com/MateoPane/SupermercadoParcial/main/imgs/doritos.png")),
                     new ArrayList<>()
             ));
-*/
         };
 
     }
