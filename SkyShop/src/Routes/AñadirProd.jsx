@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import customCss from "./AñadirProd.module.css"
 import axios from 'axios';
 import { BotonContext } from '../Context/Context';
+import Swal from 'sweetalert2';
 
 const AñadirProd = () => {
     const [productName, setProductName] = useState("");
@@ -19,7 +20,7 @@ const AñadirProd = () => {
     const url = "http://localhost:8080/api/items/create"
 
     const isNameRepeated = (product) => {
-      return prods.some(product => product.name === productName);
+      return prods.some(product => product.name.toLowerCase().trim() === productName.toLocaleLowerCase().trim());
     };
 
     const postProd = async (prod) => {
@@ -53,7 +54,16 @@ const AñadirProd = () => {
           console.log("Producto agregado: ", data);
           getProds();
         }
+        Swal.fire({
+          title: 'Producto guardado con éxito',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+             });
       }catch(err){
+        Swal.fire({
+          title: 'error al guardar producto',
+          icon: 'error',
+             });
         console.error('Error en la petición POST de producto:', err);
       }
     }
@@ -125,7 +135,12 @@ const handleButtonClick = (option) => {
     const handleImagenSubida = (e) => {
       const files = Array.from(e.target.files);
       if (files.length + imgFiles.length > 4) {
-        alert("Puedes subir hasta 4 imágenes.");
+        Swal.fire({
+          title: 'Error',
+          text: 'Solamente podes añadir 4 imágenes',
+          icon: 'error',
+          confirmButtonText: 'OK'
+             });
         return;
       }
       setImgFiles(prevFiles => [...prevFiles, ...files]);
@@ -321,7 +336,7 @@ const handleButtonClick = (option) => {
       />
 
         {/* Botón de guardar */}
-        <button type="submit" className={customCss.buttonSubmit} onClick={postProd}>Guardar producto</button>
+        <button type="submit" className={customCss.buttonSubmit}>Guardar producto</button>
     </form>
     {showPopup && (
       <div className={customCss.popupOverlay}>

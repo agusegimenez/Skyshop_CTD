@@ -1,0 +1,19 @@
+.politicasContainer {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+  
+.politicasList {
+    list-style-type: none;
+    padding-left: 0;
+}
+  
+.politicasList li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+  
+.politicasList li strong {
+    color: #00843d;
+}

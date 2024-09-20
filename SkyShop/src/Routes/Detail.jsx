@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
+import Politicas from '../Components/Politicas';
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -214,7 +215,7 @@ const Detail = () => {
           <div className={customCss.divNombreYBoton}>
             <h3 className={customCss.nombreSt}>{name}</h3>
             <div>
-              {loggedUser !== null &&
+              {loggedUser?.role  == "USER" &&
                 <button onClick={handleFavoritoClick} className={`${customCss.favButton} ${isFavorito ? customCss.filled : ''}`}>
                 <FontAwesomeIcon 
                   icon={isFavorito ? solidHeart : regularHeart}
@@ -318,6 +319,8 @@ const Detail = () => {
           </div>
         </div>
       </div>
+
+      <Politicas/>
     </section>
   );
 };

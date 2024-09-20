@@ -4,6 +4,7 @@ import axios from 'axios';
 import { BotonContext } from '../Context/Context';
 import { useParams } from 'react-router-dom';
 import { productos } from '../utils/products';
+import Swal from 'sweetalert2';
 
 const EditProd = () => {
     const { id } = useParams(); // id de producto
@@ -141,7 +142,12 @@ const handleButtonClick = (option) => {
     const totalImages = files.length + imgFiles.length + imagesCloudUrls.length;
  
     if(totalImages > 4){
-      alert("Puedes subir hasta 4 imágenes en total.");
+      Swal.fire({
+        title: 'Error',
+        text: "Solo se pueden subir hasta 4 imágenes",
+        icon: 'error',
+        confirmButtonText: 'OK'
+             });
       return;
     }
 
@@ -161,7 +167,12 @@ useEffect(() => {
     // Calcular el total de imágenes cada vez que cambien las imágenes o archivos
     const totalImages = imgFiles.length + imagesCloudUrls.length;
     if (totalImages > 4) {
-        alert("Puedes subir hasta 4 imágenes en total.");
+      Swal.fire({
+        title: 'Error',
+        text: "Solo se pueden subir hasta 4 imágenes",
+        icon: 'error',
+        confirmButtonText: 'OK'
+             });
     }
 }, [imgFiles, imagesCloudUrls]);
 
@@ -206,7 +217,12 @@ useEffect(() => {
     const totalImages = imgFiles.length + imagesCloudUrls.length;
     
     if(totalImages > 4){
-      alert("Puedes subir hasta 4 imágenes en total.");
+      Swal.fire({
+        title: 'Error',
+        text: "Solo podes agregar hasta 4 imagenes",
+        icon: 'error',
+        confirmButtonText: 'OK'
+             });
       return;
     }
     setError(false);
@@ -284,6 +300,7 @@ useEffect(() => {
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
             className={`${customCss.nombre} ${error ? customCss.errorInput : ''}`}
+            disabled
         />
         {error && (
             <p className={customCss.errorMensaje}>

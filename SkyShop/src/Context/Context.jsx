@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export const BotonContext = createContext();
 
@@ -98,6 +99,12 @@ export const BotonProvider = ({ children }) => {
           const data = await response.json();
           console.log("PUT Productos: ", data);
           getProds();
+          Swal.fire({
+            title: 'OK',
+            text: "El producto se ha actualizado con éxito",
+            icon: 'success',
+            confirmButtonText: 'OK'
+                 });
           return data;
         }
       }catch(error){

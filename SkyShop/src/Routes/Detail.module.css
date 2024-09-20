@@ -336,6 +336,12 @@
   animation: bounce 0.3s ease;
 }
 
+@media screen and (max-width: 1700px){
+  .divGral {
+    width: 95%;
+  }
+}
+
 @media screen and (max-width: 1440px) {
   .detailSect {
     height: auto; /* Cambiar la altura para que se ajuste dinámicamente */
