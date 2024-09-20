@@ -1,43 +1,71 @@
 import customCss from "./Recomendations.module.css";
-import { productos } from "../utils/products";
 import { Card } from "./Card";
-import Suscribe from "./Suscribe";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BotonContext } from "../Context/Context";
 
 export default function Recomendations({ handleOpenModal }) {
   const { prods, getProds } = useContext(BotonContext);
+  const [randomProds, setRandomProds] = useState([]);
+  const [visibleProds, setVisibleProds] = useState(10); // Inicialmente mostramos 10 productos
 
   useEffect(() => {
     getProds();
   }, []);
 
   useEffect(() => {
-    
+    if (prods.length > 0) {
+      // Si hay productos, selecciona 10 aleatorios
+      setRandomProds(traerProductos10Random(prods));
+    }
   }, [prods]);
 
-  const traerProductos10Random = () => {
-    const productosCards = [];
+  const traerProductos10Random = (productos) => {
     const usadosIndices = new Set();
-
-    const maxProductos = Math.min(prods.length, 10); // Limita el máximo a 10 o menos si hay menos productos.
+    const productosAleatorios = [];
+    const maxProductos = Math.min(productos.length, 10); // Limitar a 10 o menos si hay menos productos
 
     while (usadosIndices.size < maxProductos) {
-      const randomIndex = Math.floor(Math.random() * prods.length);
+      const randomIndex = Math.floor(Math.random() * productos.length);
 
       if (!usadosIndices.has(randomIndex)) {
         usadosIndices.add(randomIndex);
-        productosCards.push(
-          <Card 
-            key={randomIndex} 
-            producto={prods[randomIndex]} 
-            onClick={() => handleOpenModal(prods[randomIndex])}
-          />
-        );
+        productosAleatorios.push(productos[randomIndex]);
       }
     }
 
+    return productosAleatorios;
+  };
+
+  const traerProductosVisibles = () => {
+    const productosCards = [];
+
+    // Primero mostramos los productos aleatorios
+    randomProds.forEach((producto, index) => {
+      productosCards.push(
+        <Card 
+          key={`random-${index}`} 
+          producto={producto} 
+          onClick={() => handleOpenModal(producto)}
+        />
+      );
+    });
+
+    // Luego, si se hace clic en "Ver más", mostramos los productos restantes en orden
+    for (let i = 10; i < Math.min(prods.length, visibleProds); i++) {
+      productosCards.push(
+        <Card 
+          key={`prod-${i}`} 
+          producto={prods[i]} 
+          onClick={() => handleOpenModal(prods[i])}
+        />
+      );
+    }
+
     return productosCards;
+  };
+
+  const handleVerMas = () => {
+    setVisibleProds(prev => prev + 10); // Aumenta la cantidad visible en 10
   };
 
   return (
@@ -46,9 +74,16 @@ export default function Recomendations({ handleOpenModal }) {
         <h3 className={customCss.recomendationsTitle}>Recomendaciones</h3>
       </div>
       <div className={customCss.divCards}>
-        {traerProductos10Random()}
+        {traerProductosVisibles()}
       </div>
-      {prods.length >= 11 && <button className={customCss.recomendacionesBtn}>Ver más</button>}
+      {visibleProds < prods.length && (
+        <button 
+          className={customCss.recomendacionesBtn} 
+          onClick={handleVerMas}
+        >
+          Ver más
+        </button>
+      )}
     </section>
   );
 }
