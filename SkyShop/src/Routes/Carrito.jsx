@@ -7,6 +7,7 @@ import { es } from 'date-fns/locale';
 import "/node_modules/react-datepicker/dist/react-datepicker.css"; 
 import "./CustomDatePicker.css"
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const Carrito = () => {
   const { products, setProducts, finalizarPedido, loggedUser, fechaSeleccionada, horaSeleccionada} = useContext(BotonContext);
@@ -31,21 +32,77 @@ const Carrito = () => {
   }; */
 
   // Ejemplo de alerta de confirmación
-  const confirmarReserva = () => {
+  const confirmarReserva = async () => {
     if (horaSeleccionada && fechaSeleccionada && direction.trim() !== "") {
-      Swal.fire({
-        title: '¡Reserva confirmada!',
-        text: `Tu pedido ha sido confirmado para el ${fechaSeleccionada.toLocaleDateString()} a las ${horaSeleccionada}.`,
-        icon: 'success',
-        confirmButtonText: 'OK',
-        customClass: {
-          title: 'swal2-title-custom',
-          content: 'swal2-text-custom',
-          confirmButton: 'swal2-button-custom'
+      try {
+        // Paso 1: Agregar productos al carrito
+        const responseCartId = await axios.get(`http://localhost:8080/api/carts/user/${loggedUser.id}`);
+        const cartId = responseCartId.data.cartId;
+        
+        if (!cartId) {
+          throw new Error('No se pudo obtener el ID del carrito');
         }
-      });
-      finalizarPedido();
-    }else if(direction.trim() === ""){
+
+        const productQuantities = products.reduce((acc, producto) => {
+          acc[producto.id] = producto.cantidad;
+          return acc;
+        }, {});
+  
+
+        const cartData = {
+          userId: loggedUser.id,
+          items: productQuantities
+        };
+  
+        console.log('Enviando productos al carrito:', cartData);
+  
+        const responseCart = await axios.post(`http://localhost:8080/api/carts/${cartId}/items`, cartData);
+  
+        console.log('Respuesta del carrito:', responseCart.data);
+  
+        // Paso 2: Crear el pedido
+        const deliveryTime = `${fechaSeleccionada.toISOString().split('T')[0]}T${horaSeleccionada}:00`; 
+        const orderData = {
+          userId: loggedUser.id,
+          cartId,
+          deliveryTime,
+          items: productQuantities,
+        };
+  
+        console.log('Creando pedido con los datos:', orderData);
+  
+        const responseOrder = await axios.post('http://localhost:8080/api/orders/create', orderData);
+  
+        console.log('Respuesta de creación de pedido:', responseOrder.data);
+  
+        Swal.fire({
+          title: '¡Reserva confirmada!',
+          text: `Tu pedido ha sido confirmado para el ${fechaSeleccionada.toLocaleDateString()} a las ${horaSeleccionada}.`,
+          icon: 'success',
+          confirmButtonText: 'OK',
+          customClass: {
+            title: 'swal2-title-custom',
+            content: 'swal2-text-custom',
+            confirmButton: 'swal2-button-custom'
+          }
+        });
+  
+        finalizarPedido();
+      } catch (error) {
+        console.error('Error en la petición:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Hubo un problema al confirmar tu reserva. Por favor, intenta de nuevo.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          customClass: {
+            title: 'swal2-title-custom',
+            content: 'swal2-text-custom',
+            confirmButton: 'swal2-button-custom'
+          }
+        });
+      }
+    } else if (direction.trim() === "") {
       Swal.fire({
         title: 'Error',
         text: 'Por favor, indique una dirección para el delivery.',
@@ -71,7 +128,6 @@ const Carrito = () => {
       });
     }
   };
-
 
   // Alerta para cancelar pedido
   const cancelarPedido = () => {

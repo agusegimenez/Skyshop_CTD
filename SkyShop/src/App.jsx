@@ -13,11 +13,10 @@ import AñadirProd from './Routes/AñadirProd';
 import Carrito from './Routes/Carrito';
 import EditProd from './Routes/EditProd';
 import PanelFavoritos from './Routes/PanelFavoritos';
-import WhatsAppBoton from './Components/WhatsAppBoton';
+
 
 
 function App() {
-
   return (
     <div className='padre'>
       <Header />
