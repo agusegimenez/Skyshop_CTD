@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
+import axios from 'axios';
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -26,11 +27,11 @@ const Detail = () => {
   const [isFavorito, setIsFavorito] = useState(false); // Inicialmente en false
   const url = "http://localhost:8080/api/items/" + id;
 
-  const handleAgregar = () => {
-    if (!horaSeleccionada) {
+  const handleAgregar = async () => {
+    if (!horaSeleccionada || !fechaSeleccionada) {
       Swal.fire({
         title: '¡Atención!',
-        text: 'Debes seleccionar una hora antes de agregar tu reserva.',
+        text: 'Debes seleccionar una fecha y hora antes de agregar tu reserva.',
         icon: 'warning',
         confirmButtonText: 'Aceptar',
       });
@@ -38,18 +39,53 @@ const Detail = () => {
     }
     agregarProductoAlCarrito(producto, fechaSeleccionada, horaSeleccionada);
   
-    Swal.fire({
-      title: '¡Éxito!',
-      text: 'Completa tu reserva correctamente!',
-      icon: 'success',
-      timer: 3000,
-      timerProgressBar: true,
-      showConfirmButton: false,
-    });
+    try {
+      // Obtener el cartId del usuario logueado
+      const responseCartId = await axios.get(`http://localhost:8080/api/carts/user/${loggedUser.id}`);
+      const cartId = responseCartId.data.cartId;
   
-    setTimeout(() => {
-      navigate('/carrito');
-    }, 3000);
+      if (!cartId) {
+        throw new Error('No se pudo obtener el ID del carrito');
+      }
+  
+      // Preparar los datos del producto a agregar
+      const productData = {
+        [producto.id]: 1,  // Aquí puedes cambiar el 1 por la cantidad deseada
+      };
+  
+      // Hacer el push de los productos al carrito del usuario
+      const responseCart = await axios.post(`http://localhost:8080/api/carts/${cartId}/items`, productData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,  // Si es necesario el token de autenticación
+        }
+      });
+  
+      if (responseCart.status === 200 || responseCart.status === 201) {
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'El producto ha sido agregado a tu carrito correctamente.',
+          icon: 'success',
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+  
+        // Navegar a la página del carrito después de 3 segundos
+        setTimeout(() => {
+          navigate('/carrito');
+        }, 3000);
+      } else {
+        throw new Error('Error al agregar productos al carrito');
+      }
+    } catch (error) {
+      console.error('Error al agregar productos al carrito:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Hubo un problema al agregar el producto a tu carrito. Por favor, intenta de nuevo.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      });
+    }
   };
 
   const toggleHorario = () => {
