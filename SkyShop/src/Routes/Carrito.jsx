@@ -222,8 +222,15 @@ const Carrito = () => {
 
   if(products.length == 0){
     return <>
-      <div style={{height: "80vh", display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center"}}>
+      <div style={{height: "80vh", display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center", flexDirection: "column"}}>
         <h3 className={customCss.carritoTittle}>Aún no hay ninguna Reserva en curso</h3>
+        <p>Para consultar sus reservas ya efectuadas, visite su <a
+          onClick={() => navigate("/panel", { state: { option: 'Historial' } })}
+          style={{
+            textDecoration: "underline",
+            cursor: "pointer",
+          }}
+          >Historial de reservas</a></p>
       </div>
     </>
   }

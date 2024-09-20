@@ -18,6 +18,7 @@ export const BotonProvider = ({ children }) => {
     const [loggedUser, setLoggedUser] = useState(loggingInitialState); //estado de usuario logueado
     const [users, setUsers] = useState([]);
     const [prods, setProds] = useState([]);
+    const [allOrders, setAllOrders] = useState([]);
     // const [favoritos, setFavoritos] = useState(favsInStorage);
     const url = "http://localhost:8080/api"; // endpoint general de api back end
     const token = "376072b9-cbea-4c13-bb22-f0075ce30d4d"; // token que hay que actualizar cada vez que se levanta el back end
@@ -27,6 +28,7 @@ export const BotonProvider = ({ children }) => {
 
 
     const getProds = async () => {
+
       const settings = {
         method: "GET",
         headers: {
@@ -45,6 +47,31 @@ export const BotonProvider = ({ children }) => {
           const data = await response.json();
           console.log("GET Productos: ", data);
           setProds(data);
+        }
+      }catch(error){
+        console.error('Error en la petición GET de productos: ', err);
+      }
+    }
+
+    const getAllOrders = async () => {
+      const settings = {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        credentials: 'include',
+      }
+
+      try{
+        const response = await fetch(`${url}/orders`, settings);
+
+        if(!response.ok){
+          throw new Error('Error al hacer peticion GET de productos');
+        }else{
+          const data = await response.json();
+          console.log("GET All Orders: ", data);
+          setAllOrders(data);
         }
       }catch(error){
         console.error('Error en la petición GET de productos: ', err);
@@ -312,7 +339,7 @@ export const BotonProvider = ({ children }) => {
   }, []); */
 
     return (
-        <BotonContext.Provider value={{ showButtons, setShowButtons, products, setProducts, agregarProductoAlCarrito, finalizarPedido, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers, fetchChangeUserRole, setUsers, token, prods, updateProd, deleteProd, searchProdsByName, toggleFavorito, fechaSeleccionada, setFechaSeleccionada, horaSeleccionada, setHoraSeleccionada, getProds}}>
+        <BotonContext.Provider value={{allOrders, showButtons, setShowButtons, products, setProducts, agregarProductoAlCarrito, finalizarPedido, loading, loggedUser, setLoggedUser, cerrarSesion, users, fetchUsers, fetchChangeUserRole, setUsers, token, prods, updateProd, deleteProd, searchProdsByName, toggleFavorito, fechaSeleccionada, setFechaSeleccionada, horaSeleccionada, setHoraSeleccionada, getProds, getAllOrders}}>
             {children}
         </BotonContext.Provider>
     );

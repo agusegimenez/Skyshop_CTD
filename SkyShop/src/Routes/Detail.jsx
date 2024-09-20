@@ -18,7 +18,7 @@ const Detail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = useParams(); // id de producto
-  const { loggedUser, token, finalizarPedido, favoritos, toggleFavorito, agregarProductoAlCarrito, fechaSeleccionada, setFechaSeleccionada, horaSeleccionada, setHoraSeleccionada} = useContext(BotonContext);
+  const { loggedUser, token, allOrders, getAllOrders, toggleFavorito, agregarProductoAlCarrito, fechaSeleccionada, setFechaSeleccionada, horaSeleccionada, setHoraSeleccionada} = useContext(BotonContext);
   const [producto, setProducto] = useState(null);
   const [mainImg, setMainImg] = useState(""); // estado que guarda la imagen que se muestra grande
   // const [selectedTime, setSelectedTime] = useState("");
@@ -91,6 +91,36 @@ const Detail = () => {
     }
 };
 
+  const isPastTime = (time) => {
+    const [startHour] = time.split(" - ");
+    const selectedDate = fechaSeleccionada || new Date();
+    
+    const [hours, minutes] = startHour.split(":");
+    const selectedTime = new Date(selectedDate);
+    selectedTime.setHours(hours);
+    selectedTime.setMinutes(minutes);
+
+    return selectedTime < new Date();
+  };
+
+  const getDisabledTimes = (selectedDate) => {
+    if (!allOrders || allOrders.length === 0) return [];
+  
+    const ordersForSelectedDate = allOrders.filter(order => {
+      const orderDate = new Date(order.deliveryTime);
+      return orderDate.toDateString() === selectedDate.toDateString();
+    });
+  
+    return ordersForSelectedDate.map(order => {
+      const orderDate = new Date(order.deliveryTime);
+      return `${orderDate.getHours().toString().padStart(2, '0')}:00 - ${(
+        orderDate.getHours() + 1
+      )
+        .toString()
+        .padStart(2, '0')}:00`;
+    });
+  };
+
 
   const toggleHorario = () => {
     setIsHorarioVisible(!isHorarioVisible);
@@ -124,6 +154,7 @@ const Detail = () => {
 
   useEffect(() => {
     getDetailProd();
+    getAllOrders();
   }, [id]);
 
   useEffect(() => {
@@ -161,10 +192,8 @@ const Detail = () => {
   };
 
   const isDisabledTime = (time) => {
-    if (fechaSeleccionada?.getDate() === 11 && time === "14:00 - 15:00") {
-      return true;
-    }
-    return false;
+    const disabledTimes = getDisabledTimes(fechaSeleccionada);
+    return disabledTimes.includes(time) || isPastTime(time);
   };
 
   if (!producto) {
@@ -264,10 +293,11 @@ const Detail = () => {
                 <ul className={customCss.horarioLista}>
                   {["07:00 - 08:00", "08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00", "19:00 - 20:00", "20:00 - 21:00", "21:00 - 22:00"].map((time) => (
                     <li
-                    key={time}
-                    className={`${isDisabledTime(time) ? 'disabled' : ''} ${customCss.horarioItem}`}
-                    onClick={() => !isDisabledTime(time) && setHoraSeleccionada(time)}
-                  >
+                      key={time}
+                      className={`${isDisabledTime(time) ? customCss.disabledHorario : ''} ${customCss.horarioItem}`}
+                      style={{ color: isDisabledTime(time) ? 'red' : 'black' }}
+                      onClick={() => !isDisabledTime(time) && setHoraSeleccionada(time)}
+                    >
                       {time}
                     </li>
                   ))}

@@ -286,6 +286,13 @@
   font-size: 20px;
   color: #228b22;
 }
+
+.disabledHorario {
+  pointer-events: none;
+  opacity: 0.6;
+  color: red;
+}
+
 .disabled {
   background-color: gray;
   pointer-events: none;
