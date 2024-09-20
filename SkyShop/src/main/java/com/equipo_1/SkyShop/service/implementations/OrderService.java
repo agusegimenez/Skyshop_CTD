@@ -113,6 +113,7 @@ public class OrderService {
                 .collect(Collectors.toList()));
         orderResponseDTO.setOrderedAt(order.getOrderedAt());
         orderResponseDTO.setStatus(order.getStatus());
+        orderResponseDTO.setDeliveryTime(order.getDeliveryTime());
 
         return orderResponseDTO;
     }
