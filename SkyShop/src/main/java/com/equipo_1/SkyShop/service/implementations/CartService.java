@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class CartService {
@@ -71,6 +72,10 @@ public class CartService {
         cart.setItem(null);
         cart.setQuantity(0);
         return cartRepository.save(cart);
+    }
+
+    public Optional<Cart> findCartByUserId(Long userId) {
+        return cartRepository.findByUserId(userId);
     }
 }
 

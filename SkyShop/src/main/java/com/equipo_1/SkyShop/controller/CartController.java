@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/carts")
@@ -67,6 +68,25 @@ public class CartController {
     public ResponseEntity<Void> clearCart(@PathVariable Long cartId) {
         cartService.clearCart(cartId);
         return ResponseEntity.noContent().build();
+    }
+    
+    // Obtener carrito por userId
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<CartResponseDTO> getCartByUserId(@PathVariable Long userId) {
+        Optional<Cart> cartOpt = cartService.findCartByUserId(userId);
+
+        if (cartOpt.isPresent()) {
+            Cart cart = cartOpt.get();
+            return ResponseEntity.ok(new CartResponseDTO(
+                    cart.getId(),
+                    cart.getUser().getId(),
+                    cart.getItem() != null ? cart.getItem().getId() : null, // ID del ítem si existe
+                    cart.getQuantity(),  // Cantidad del ítem si existe
+                    cart.getCreatedAt()
+            ));
+        } else {
+            return ResponseEntity.notFound().build(); // Devolver 404 si no existe el carrito para ese userId
+        }
     }
 }
 
