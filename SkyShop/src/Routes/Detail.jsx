@@ -29,64 +29,68 @@ const Detail = () => {
 
   const handleAgregar = async () => {
     if (!horaSeleccionada || !fechaSeleccionada) {
-      Swal.fire({
-        title: '¡Atención!',
-        text: 'Debes seleccionar una fecha y hora antes de agregar tu reserva.',
-        icon: 'warning',
-        confirmButtonText: 'Aceptar',
-      });
-      return;
-    }
-    agregarProductoAlCarrito(producto, fechaSeleccionada, horaSeleccionada);
-  
-    try {
-      // Obtener el cartId del usuario logueado
-      const responseCartId = await axios.get(`http://localhost:8080/api/carts/user/${loggedUser.id}`);
-      const cartId = responseCartId.data.cartId;
-  
-      if (!cartId) {
-        throw new Error('No se pudo obtener el ID del carrito');
-      }
-  
-      // Preparar los datos del producto a agregar
-      const productData = {
-        [producto.id]: 1,  // Aquí puedes cambiar el 1 por la cantidad deseada
-      };
-  
-      // Hacer el push de los productos al carrito del usuario
-      const responseCart = await axios.post(`http://localhost:8080/api/carts/${cartId}/items`, productData, {
-        headers: {
-          'Authorization': `Bearer ${token}`,  // Si es necesario el token de autenticación
-        }
-      });
-  
-      if (responseCart.status === 200 || responseCart.status === 201) {
         Swal.fire({
-          title: '¡Éxito!',
-          text: 'El producto ha sido agregado a tu carrito correctamente.',
-          icon: 'success',
-          timer: 3000,
-          timerProgressBar: true,
-          showConfirmButton: false,
+            title: '¡Atención!',
+            text: 'Debes seleccionar una fecha y hora antes de agregar tu reserva.',
+            icon: 'warning',
+            confirmButtonText: 'Aceptar',
         });
-  
-        // Navegar a la página del carrito después de 3 segundos
-        setTimeout(() => {
-          navigate('/carrito');
-        }, 3000);
-      } else {
-        throw new Error('Error al agregar productos al carrito');
-      }
-    } catch (error) {
-      console.error('Error al agregar productos al carrito:', error);
-      Swal.fire({
-        title: 'Error',
-        text: 'Hubo un problema al agregar el producto a tu carrito. Por favor, intenta de nuevo.',
-        icon: 'error',
-        confirmButtonText: 'OK',
-      });
+        return;
     }
-  };
+
+    agregarProductoAlCarrito(producto, fechaSeleccionada, horaSeleccionada);
+
+    try {
+        const cartResponse = await axios.get(`http://localhost:8080/api/carts/user/${loggedUser.id}`);
+        const cartId = cartResponse.data.id; // Asegúrate de que sea cartResponse.data
+
+        if (!cartId) {
+            throw new Error('No se pudo obtener el ID del carrito');
+        }
+
+        const productData = {
+            [producto.id]: 1,  // Usa el ID correcto
+        };
+
+        const settings = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify(productData),
+        };
+
+        const responseCart = await fetch(`http://localhost:8080/api/carts/${cartId}/items`, settings);
+
+        if (responseCart.ok) {
+            const data = await responseCart.json();
+            console.log("responsecart detail: ", data);
+            Swal.fire({
+                title: '¡Éxito!',
+                text: 'El producto ha sido agregado a tu carrito correctamente.',
+                icon: 'success',
+                timer: 3000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+            });
+            setTimeout(() => {
+                navigate('/carrito');
+            }, 3000);
+        } else {
+            throw new Error('Error al agregar productos al carrito');
+        }
+    } catch (error) {
+        console.error('Error al agregar productos al carrito:', error);
+        Swal.fire({
+            title: 'Error',
+            text: 'Hubo un problema al agregar el producto a tu carrito. Por favor, intenta de nuevo.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+        });
+    }
+};
+
 
   const toggleHorario = () => {
     setIsHorarioVisible(!isHorarioVisible);

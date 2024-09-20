@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 const Carrito = () => {
-  const { products, setProducts, finalizarPedido, loggedUser, fechaSeleccionada, horaSeleccionada} = useContext(BotonContext);
+  const { products, setProducts, finalizarPedido, loggedUser, fechaSeleccionada, horaSeleccionada, token} = useContext(BotonContext);
   const [showConfirmModal, setShowConfirmModal] = useState(null);
   // const [selectedDateTime, setSelectedDateTime] = useState(null);
   // const [isHorarioVisible, setIsHorarioVisible] = useState(false);
@@ -37,7 +37,8 @@ const Carrito = () => {
       try {
         // Paso 1: Agregar productos al carrito
         const responseCartId = await axios.get(`http://localhost:8080/api/carts/user/${loggedUser.id}`);
-        const cartId = responseCartId.data.cartId;
+        const cartId = responseCartId.data.id;
+        console.log("responseCart: ", responseCartId);
         
         if (!cartId) {
           throw new Error('No se pudo obtener el ID del carrito');
@@ -47,32 +48,64 @@ const Carrito = () => {
           acc[producto.id] = producto.cantidad;
           return acc;
         }, {});
-  
 
         const cartData = {
-          userId: loggedUser.id,
-          items: productQuantities
+          [responseCartId.data.itemId]: productQuantities
         };
+
+        const settings = {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(cartData),
+      }; 
   
         console.log('Enviando productos al carrito:', cartData);
   
-        const responseCart = await axios.post(`http://localhost:8080/api/carts/${cartId}/items`, cartData);
+        const responseCart = await fetch(`http://localhost:8080/api/carts/${cartId}/items`, settings);
   
         console.log('Respuesta del carrito:', responseCart.data);
   
         // Paso 2: Crear el pedido
-        const deliveryTime = `${fechaSeleccionada.toISOString().split('T')[0]}T${horaSeleccionada}:00`; 
+        // Suponiendo que fechaSeleccionada es un objeto Date y horaSeleccionada es una cadena en el formato "HH:mm - HH:mm"
+        const fecha = new Date(fechaSeleccionada); // Convierte a Date si no lo está
+        const [horaInicio] = horaSeleccionada.split(' - '); // Obtén solo la hora de inicio
+
+        // Formatear la fecha
+        const year = fecha.getFullYear();
+        const month = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses son 0-indexados
+        const day = String(fecha.getDate()).padStart(2, '0'); 
+
+        // Formatear la hora
+        const [hours, minutes] = horaInicio.split(':');
+
+        // Crear deliveryTime en el formato adecuado
+        const deliveryTime = `${year}-${month}-${day}T${hours}:${minutes}:00`;
+
+        console.log("deliveryTime: ", deliveryTime);
+
         const orderData = {
-          userId: loggedUser.id,
-          cartId: cartId,
-          deliveryTime: deliveryTime
+            userId: loggedUser.id,
+            cartId: cartId,
+            deliveryTime: deliveryTime
         };
   
         console.log('Creando pedido con los datos:', orderData);
+
+        const settingsOrder = {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(orderData),
+      }; 
   
-        const responseOrder = await axios.post('http://localhost:8080/api/orders/create', orderData);
+        const responseOrder = await fetch('http://localhost:8080/api/orders/create', settingsOrder);
   
-        console.log('Respuesta de creación de pedido:', responseOrder.data);
+        console.log('Respuesta de creación de pedido:', responseOrder.json());
   
         Swal.fire({
           title: '¡Reserva confirmada!',
