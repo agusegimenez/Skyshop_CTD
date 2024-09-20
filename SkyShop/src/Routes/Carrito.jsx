@@ -64,9 +64,8 @@ const Carrito = () => {
         const deliveryTime = `${fechaSeleccionada.toISOString().split('T')[0]}T${horaSeleccionada}:00`; 
         const orderData = {
           userId: loggedUser.id,
-          cartId,
-          deliveryTime,
-          items: productQuantities,
+          cartId: cartId,
+          deliveryTime: deliveryTime
         };
   
         console.log('Creando pedido con los datos:', orderData);

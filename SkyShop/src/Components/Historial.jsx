@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { BotonContext } from '../Context/Context';
+import customCss from "./Historial.module.css"
 
 const Historial = () => {
   const [ordenes, setOrdenes] = useState([]);
@@ -7,10 +8,14 @@ const Historial = () => {
   const [error, setError] = useState(null);
   const {loggedUser} = useContext(BotonContext);
 
+  const url = `http://localhost:8080/api/orders/user/${loggedUser.id}`;
+
+  
+
   useEffect(() => {
     const fetchOrdenes = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/orders');
+        const response = await fetch(`http://localhost:8080/api/orders/user/${loggedUser.id}`);
         if (!response.ok) {
           throw new Error('Error al obtener las órdenes');
         }
@@ -36,6 +41,7 @@ const Historial = () => {
 
   return (
     <div>
+      <h1>Historial</h1>
             {
                 loggedUser === null && (
                     <div>
@@ -45,41 +51,35 @@ const Historial = () => {
             }
             {ordenes.length === 0 ? (
                 <p>No tienes reservas realizadas.</p>
-            ) : (
-              <table className={customCss.table}>
-                  <h1>Historíal</h1>
+              ) : (
+                <table className={customCss.table}>
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Contenido</th>
-                            <th>Precio</th>
+                            <th>Fecha Orden</th>
                             <th></th> {/* Columna para el botón de eliminar */}
                         </tr>
                     </thead>
                     <tbody>
-                        {ordenes.map((producto) => (
-                            <tr key={producto.cartId}>
-                                <td className={customCss.cards}>
-                                    <div className={customCss.nombre}>
-                                    <img src={producto.images} alt={producto.name} className={customCss.productImage} />
-                                    <p>{producto.name}</p>
-                                    </div>
-                                </td>
-                                <td className={customCss.contenido}>
-                                    {producto.description.split(",").map((item, i) => (
-                                        <span key={i}>{item} x1</span>
-                                    ))}
-                                </td>
-                                <td className={customCss.order}>
-                                    <p>producto.deliveryTime</p>
-                                </td>
-                                <td className={customCss.eliminar}>
-                                    <button onClick={() => handleRemoveFavorito(producto)} className={customCss.deleteButton}>
-                                        <img src="/iDelete.png" alt="Eliminar" />
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
+                    {ordenes.map((producto) => (
+                      <tr key={producto.id}>
+                        <td className={customCss.cards}>
+                          <div className={customCss.nombre}>
+                          {/* Si quieres mostrar el nombre del primer item (asumiendo que siempre hay uno) */}
+                      {producto.items.length > 0 && (
+                        <p>{producto.items[0].itemName}</p>
+                      )}
+                      {/* Alternativamente, puedes recorrer todos los items si hay más de uno */}
+                      {producto.items.map((item) => (
+                        <p key={item.itemId}>{item.itemName}</p>
+                      ))}
+                      </div>
+                      </td>
+                      <td className={customCss.order}>
+                        <p>{producto.deliveryTime}</p>
+                      </td>
+                    </tr>
+                  ))}
                     </tbody>
                 </table>
             )}
