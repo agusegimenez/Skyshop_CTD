@@ -14,14 +14,14 @@ const UserProfile = () => {
       </thead>
       <tbody className={customCsss.tbodyGral}>
         <tr>
-          <td className={customCsss.label}>Nombre:</td>
+          <td className={customCsss.label}>Username:</td>
           <td>
             <div className={customCsss.inputContainer}>
               <input
                 type="text"
                 value={loggedUser.username}
-                placeholder="Introduce tu nombre"
                 className={customCsss.input}
+                disabled
               />
               <img src="/iEdit.png" alt="iconoEditar" className={customCsss.icon} />
             </div>
@@ -34,21 +34,21 @@ const UserProfile = () => {
               <input
                 type="email"
                 value={loggedUser.email}
-                placeholder="Introduce tu email"
                 className={customCsss.input}
+                disabled
               />
             </div>
           </td>
         </tr>
         <tr>
-          <td className={customCsss.label}>Dirección:</td>
+          <td className={customCsss.label}>Rol:</td>
           <td>
             <div className={customCsss.inputContainer}>
               <input
                 type="text"
-                value={loggedUser.direccion}
-                placeholder="Introduce tu dirección"
+                value={loggedUser.role}
                 className={customCsss.input}
+                disabled
               />
             </div>
           </td>

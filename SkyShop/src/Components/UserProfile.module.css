@@ -38,6 +38,7 @@
   height: 35px;
   cursor: pointer;
   margin: 5px 40px;
+  display: none;
 }
 
 @media screen and (max-width: 555px) {
@@ -46,7 +47,7 @@
   }
 
   .input {
-    width: 59%;
+    width: 65%;
   }
 
   .icon {
