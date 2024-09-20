@@ -1,31 +1,41 @@
-// Body.jsx
 import Categories from "./Categories";
 import Recomendations from "./Recomendations";
 import customCss from "./Body.module.css";
 import Searcher from "./Searcher";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import SearchResults from "./SearchResults";
-import { productos } from "../utils/products";
 import WhatsAppBoton from "./WhatsAppBoton";
+import { BotonContext } from "../Context/Context";
 
 export default function Body({ handleOpenModal }) {
 
   const [searchResultProds, setSearchResultProds] = useState(null);
-  const [filteredProducts, setFilteredProducts] = useState(null);
+  const [categoriesSelected, setCategoriesSelected] = useState([]);
+  const {prods} = useContext(BotonContext);
 
-  const filterProductsByCategory = (categoryName) => {
-    const filtered = productos.filter((product) => product.categoria === categoryName); // Usamos "categoria"
-    setFilteredProducts(filtered);
+  useEffect(() => {
+    filterProductsByCategory();
+  }, [categoriesSelected]);
+
+
+  const filterProductsByCategory = () => {
+    if (categoriesSelected.length === 0) {
+      setSearchResultProds(null);
+      return;
+    }
+    const filtered = prods.filter((product) =>
+      categoriesSelected.includes(product.category)
+    );
+    setSearchResultProds(filtered);
   };
 
   return (
     <div className={customCss.bodyDiv}>
-      <Searcher setSearchResultProds={setSearchResultProds}/>
-      <Categories filterProductsByCategory={filterProductsByCategory}/>
-      {searchResultProds !== null && <SearchResults products={searchResultProds} />}
-      {filteredProducts !== null && <SearchResults products={filteredProducts} />}
+      <Searcher setSearchResultProds={setSearchResultProds} />
+      <Categories categoriesSelected={categoriesSelected} setCategoriesSelected={setCategoriesSelected} />
+      {searchResultProds !== null && <SearchResults products={searchResultProds} handleOpenModal={handleOpenModal} />}
       <Recomendations handleOpenModal={handleOpenModal} />
-      <WhatsAppBoton/>
+      <WhatsAppBoton />
     </div>
   );
 }

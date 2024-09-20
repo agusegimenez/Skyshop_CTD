@@ -9,6 +9,11 @@
   flex-wrap: wrap;
 }
 
+.selectedCats{
+  display: flex;
+  gap: 10px;
+}
+
 @media screen and (max-width: 1024px) {
   .categoriesSection {
     height: 300px;
