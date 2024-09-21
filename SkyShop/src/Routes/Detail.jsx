@@ -215,7 +215,7 @@ const Detail = () => {
           <div className={customCss.divNombreYBoton}>
             <h3 className={customCss.nombreSt}>{name}</h3>
             <div>
-              {loggedUser?.role  == "USER" &&
+              {loggedUser !== null &&
                 <button onClick={handleFavoritoClick} className={`${customCss.favButton} ${isFavorito ? customCss.filled : ''}`}>
                 <FontAwesomeIcon 
                   icon={isFavorito ? solidHeart : regularHeart}

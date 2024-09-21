@@ -43,7 +43,7 @@ export const Card = ({ producto }) => {
         <h3>{name}</h3>
         <p id="precio">${price}</p>
       </div>
-      {loggedUser?.role  == "USER" &&
+      {loggedUser !== null &&
         <div className={customCss.btnCorazon}>
         <button onClick={handleFavoritoClick} className={`${customCss.favButton} ${isFavorito ? customCss.filled : ''}`}>
           <FontAwesomeIcon 
