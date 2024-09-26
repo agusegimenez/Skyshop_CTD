@@ -40,6 +40,9 @@ public class OrderService {
     @Autowired
     private CartRepository cartRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     public OrderResponseDTO createOrder(Long cartId, LocalDateTime deliveryTime) {
         // Encontrar el carrito por su ID
         Cart cart = cartRepository.findById(cartId)
@@ -79,6 +82,12 @@ public class OrderService {
         cart.setItem(null);
         cart.setQuantity(0);
         cartRepository.save(cart);
+
+        String subject = "Confirmación de Reserva Exitosa en SkyShop!";
+        String body = "Hola " + savedOrder.getUser().getUsername() + ",\nTu reserva ha sido realizada con éxito.\nDetalles de la Orden:\nItem: " + item.getName() + "\nPrecio: $" + item.getPrice() + "\nFecha y Hora del envio: " + order.getDeliveryTime() + "\n\nGracias por comprar en SkyShop! Esperamos volver a verte pronto.";
+
+        EmailRequest emailRequest = new EmailRequest(user.getEmail(), subject, body);
+        emailService.sendEmail(emailRequest);
 
         // Retornar la respuesta de la orden creada
         return new OrderResponseDTO(

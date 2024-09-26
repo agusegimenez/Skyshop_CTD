@@ -27,16 +27,6 @@ public class DataInitializer {
     public CommandLineRunner loadData(ItemRepository itemRepository) {
         return args -> {
 
-
-            if (userService.findByEmail("sysadmin@example.com").isEmpty()) {
-                userService.registerUser(User.builder()
-                        .role(UserRole.ADMIN)
-                        .username("sa")
-                        .email("sysadmin@example.com")
-                        .password("Admin")
-                        .createdAt(LocalDateTime.now())
-                        .build());
-            }
             if(itemService.listItems().isEmpty()) {
                 itemRepository.save(new Item(
                         null,

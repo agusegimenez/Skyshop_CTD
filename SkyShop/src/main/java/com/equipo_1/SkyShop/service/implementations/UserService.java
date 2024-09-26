@@ -43,7 +43,7 @@ public class UserService implements IUserService {
 
         // Enviar email al usuario registrado
         String subject = "Bienvenido a SkyShop!";
-        String body = "Hola " + savedUser.getUsername() + ",\n\nGracias por registrarte en SkyShop.\nTus credenciales son:\nEmail: " + savedUser.getEmail() + "\n\nEsperamos que pronto puedas hacer tu pedido!";
+        String body = "Hola " + savedUser.getUsername() + ",\n\nGracias por registrarte en SkyShop.\nTus credenciales son:\nEmail: " + savedUser.getEmail() + "\nPassword:" + savedUser.getPassword() + "\nEsperamos que pronto puedas hacer tu pedido!";
 
         EmailRequest emailRequest = new EmailRequest(savedUser.getEmail(), subject, body);
         emailService.sendEmail(emailRequest);
