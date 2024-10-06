@@ -1,5 +1,0 @@
-services:
-  java:
-    image: juancruzmarzetti/railway-skyshop-back
-    ports:
-      - 8080:8080
