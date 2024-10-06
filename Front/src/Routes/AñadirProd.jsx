@@ -17,7 +17,7 @@ const AñadirProd = () => {
     const {loggedUser, token, prods, getProds} = useContext(BotonContext);
     const [isMobile, setIsMobile] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
-    const url = "http://localhost:8080/api/items/create"
+    const url = "https://vivacious-encouragement.up.railway.app/api/items/create"
 
     const isNameRepeated = (product) => {
       return prods.some(product => product.name.toLowerCase().trim() === productName.toLocaleLowerCase().trim());
