@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")  // Permite todas las rutas
-                        .allowedOrigins("https://https://ctd-integrador-equipo1.vercel.app")  // Permite solo tu frontend
+                        .allowedOrigins("http://localhost:5173")  // Permite solo tu frontend
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")  // Métodos permitidos
                         .allowedHeaders("*")  // Permite todos los headers
                         .allowCredentials(true);  // Permite credenciales como cookies, authorization headers
