@@ -99,7 +99,7 @@ const Create = () => {
         // Si no hay errores, se hace la petición al backend
         try {
             const username = nombre + " " + apellido;
-            const response = await fetch('http://localhost:8080/api/users/register', {
+            const response = await fetch('https://vivacious-encouragement.up.railway.app/api/users/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -21,7 +21,7 @@ export const BotonProvider = ({ children }) => {
     const [prods, setProds] = useState([]);
     const [allOrders, setAllOrders] = useState([]);
     // const [favoritos, setFavoritos] = useState(favsInStorage);
-    const url = "http://localhost:8080/api"; // endpoint general de api back end
+    const url = "https://vivacious-encouragement.up.railway.app/api"; // endpoint general de api back end
     const token = "8443f471-f78c-4895-98e6-8fd2edafebb1"; // token que hay que actualizar cada vez que se levanta el back end
     const navigate = useNavigate();
     const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date(fechaSeleccionadaFromStorage)); // Nueva fecha seleccionada
@@ -205,7 +205,7 @@ export const BotonProvider = ({ children }) => {
 
     const fetchUsers = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/users', {
+            const response = await fetch('https://vivacious-encouragement.up.railway.app/api/users', {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',

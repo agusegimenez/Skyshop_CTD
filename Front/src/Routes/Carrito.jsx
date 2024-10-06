@@ -36,7 +36,7 @@ const Carrito = () => {
     if (horaSeleccionada && fechaSeleccionada && direction.trim() !== "") {
       try {
         // Paso 1: Agregar productos al carrito
-        const responseCartId = await axios.get(`http://localhost:8080/api/carts/user/${loggedUser.id}`);
+        const responseCartId = await axios.get(`https://vivacious-encouragement.up.railway.app/api/carts/user/${loggedUser.id}`);
         const cartId = responseCartId.data.id;
         console.log("responseCart: ", responseCartId);
         
@@ -64,7 +64,7 @@ const Carrito = () => {
   
         console.log('Enviando productos al carrito:', cartData);
   
-        const responseCart = await fetch(`http://localhost:8080/api/carts/${cartId}/items`, settings);
+        const responseCart = await fetch(`https://vivacious-encouragement.up.railway.app/api/carts/${cartId}/items`, settings);
   
         console.log('Respuesta del carrito:', responseCart.data);
   
@@ -103,7 +103,7 @@ const Carrito = () => {
           body: JSON.stringify(orderData),
       }; 
   
-        const responseOrder = await fetch('http://localhost:8080/api/orders/create', settingsOrder);
+        const responseOrder = await fetch('https://vivacious-encouragement.up.railway.app/api/orders/create', settingsOrder);
   
         console.log('Respuesta de creación de pedido:', responseOrder.json());
   
