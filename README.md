@@ -5,14 +5,15 @@ The proposal was a reservation manager and the choice of theme was free. With th
 
 ## Deployment in Vercel (React, Vite) + Railway (Java, Spring) 📦
 
-_If you need a simpler process, here is the fork of the project: [Skyshop_CTD](https://github.com/juancruzmarzetti/CTD_Integrador_Equipo1)
-And here you will find the app completely deployed: **[Skyshop](https://ctd-integrador-equipo1.vercel.app/)**_
+_If you need a simpler process, here is the fork of the project: [Skyshop_CTD](https://github.com/juancruzmarzetti/CTD_Integrador_Equipo1)_
+
+_And here you will find the app completely deployed: **[Skyshop](https://ctd-integrador-equipo1.vercel.app/)**_
 
 ### Pre-requirements 📋
 
-_We should have installed MySQL and MySQL Workbench:
-[MySQL](https://dev.mysql.com/downloads/mysql/)
-[MySQL Workbench](https://dev.mysql.com/downloads/workbench/)_
+_We should have installed MySQL and MySQL Workbench:_
+**[MySQL](https://dev.mysql.com/downloads/mysql/)**
+**[MySQL Workbench](https://dev.mysql.com/downloads/workbench/)**
 
 ### Installation 🔧 and Deploy in local 📦
 
@@ -25,7 +26,9 @@ npm install
 ```
 
 _Now we should open the Back in our IDE and run the project_
+
 _We will see a token on the terminal, copy it and go to the Front to copy it in the Context.jsx > token (const)_
+
 
 _Now that we did that, we will open the terminal and run the next script to get the localhost and test Skyshop!_
 
