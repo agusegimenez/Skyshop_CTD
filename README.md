@@ -62,5 +62,3 @@ _Back_
 * **Agustin Gimenez** - *Back & DB* - [agusegimenez](https://github.com/agusegimenez)
 * **Santiago Oven** - *Back & DB* - [Santioven](https://github.com/Santioven)
 * **Francisco Varela** - *Back* - [panchovarela](https://github.com/panchovarela)
-
-También puedes mirar la lista de todos los [contribuyentes](https://github.com/agusegimenez/Skyshop_CTD/graphs/contributors) quíenes han participado en este proyecto. 
