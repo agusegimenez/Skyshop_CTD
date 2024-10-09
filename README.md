@@ -1,4 +1,4 @@
-# Skyshop
+# Skyshop 🚀
 
 _This application was the final project of the Certified Tech Developer certification by Digital House.
 The proposal was a reservation manager and the choice of theme was free. With the team we decided to work on an e-commerce of reservations and shipments of product combos through drones. Great, isn't it?_
@@ -9,13 +9,17 @@ _If you need a simpler process, here is the fork of the project: [Skyshop_CTD](h
 
 _And here you will find the app completely deployed: **[Skyshop](https://ctd-integrador-equipo1.vercel.app/)**_
 
+## To deploy in local 🚀
+
 ### Pre-requirements 📋
 
 _We should have installed MySQL and MySQL Workbench:_
+
 **[MySQL](https://dev.mysql.com/downloads/mysql/)**
+
 **[MySQL Workbench](https://dev.mysql.com/downloads/workbench/)**
 
-### Installation 🔧 and Deploy in local 📦
+### Installation 🔧 and Deployment in local 📦
 
 _Once the repository is cloned, we must open the front end in Visual Studio Code or the IDE of choice_
 
