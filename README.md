@@ -1,6 +1,6 @@
 # Skyshop 🚀
 
-_This application was the final project of the Certified Tech Developer certification by Digital House.
+_This application was the final project for the Certified Tech Developer certification, given by Digital House.
 The proposal was a reservation manager and the choice of theme was free. With the team we decided to work on an e-commerce of reservations and shipments of product combos through drones. Great, isn't it?_
 
 ## Deployment in Vercel (React, Vite) + Railway (Java, Spring) 📦
@@ -31,10 +31,10 @@ npm install
 
 _Now we should open the Back in our IDE and run the project_
 
-_We will see a token on the terminal, copy it and go to the Front to copy it in the Context.jsx > token (const)_
+_We will see a token on the terminal, copy it and go to the Front to paste it on the Context.jsx > token (const)_
 
 
-_Now that we did that, we will open the terminal and run the next script to get the localhost and test Skyshop!_
+_Now that we have done that, we will open the terminal and run the next script to get the localhost and test Skyshop!_
 
 ```
 npm run dev
