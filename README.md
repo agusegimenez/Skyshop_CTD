@@ -5,8 +5,8 @@ The proposal was a reservation manager and the choice of theme was free. With th
 
 ## Deployment in Vercel (React, Vite) + Railway (Java, Spring) 📦
 
-_If you need a simpler process, here is the fork of the project: [Skyshop_CTD](https://github.com/juancruzmarzetti/CTD_Integrador_Equipo1)_
-_And here you will find the app completely deployed: **[Skyshop](https://ctd-integrador-equipo1.vercel.app/)**_
+_If you need a simpler process, here is the fork of the project: [Skyshop_CTD](https://github.com/juancruzmarzetti/CTD_Integrador_Equipo1)
+And here you will find the app completely deployed: **[Skyshop](https://ctd-integrador-equipo1.vercel.app/)**_
 
 ### Pre-requirements 📋
 
