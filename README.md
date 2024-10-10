@@ -49,6 +49,7 @@ _Front_
 * [Axios](https://axios-http.com/es/docs/intro) - HTTP Client
 * [date-fns](https://date-fns.org/docs/Getting-Started) - Toolset for manipulating JavaScript dates
 * [SweetAlert2](https://sweetalert2.github.io/) - Alerts and dialogs library
+* [Cloudinary](https://cloudinary.com/) - Image upload & storage tool
 
 _Back_
 
